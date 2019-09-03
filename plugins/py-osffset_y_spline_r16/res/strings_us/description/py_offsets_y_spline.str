@@ -1,0 +1,6 @@
+STRINGTABLE py_offsets_y_spline
+{
+	py_offsets_y_spline				"Python Offset Y Spline";
+
+	PY_OFFSETYSPLINE_OFFSET			"Offset";
+}

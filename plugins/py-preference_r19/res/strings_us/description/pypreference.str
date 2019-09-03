@@ -1,0 +1,7 @@
+STRINGTABLE pypreference
+{
+	pypreference "Py-Preference";
+
+	PYPREFERENCE_CHECK					"Check";
+	PYPREFERENCE_NUMBER					"Number";
+}

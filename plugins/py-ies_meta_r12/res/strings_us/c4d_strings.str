@@ -1,0 +1,14 @@
+STRINGTABLE
+{
+	IDS_MANUFAC						"Luminaire manufacturer";
+	IDS_LUMCAT						"Luminaire catalog number";
+	IDS_LUMINAIRE					"Luminaire description";
+	IDS_LAMPCAT						"Lamp catalog number";
+	IDS_LAMP							"Lamp description";
+	
+	IDS_FOUND_IES					"Found # different IES lights, in total #.";
+	IDS_FOUND_LIGHTS			"Found # IES lights of:";
+	
+	IDS_IES_META_CREATED	"Created on";
+	IDS_IES_HEADER				"IES Meta Exporter";
+}

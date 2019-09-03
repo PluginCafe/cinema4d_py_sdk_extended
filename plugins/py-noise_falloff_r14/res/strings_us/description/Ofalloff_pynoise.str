@@ -1,0 +1,75 @@
+STRINGTABLE Ofalloff_pynoise
+{
+	Ofalloff_pyrandom "Falloff Noise";
+    
+    PYNOISEFALLOFF_SETTINGS    "Py - NoiseFalloff Settings";
+    
+    PYNOISEFALLOFF_SEED "Seed";
+    
+    PYNOISEFALLOFF_TYPE "Noise";
+    
+        NOISE_BOX_NOISE             "Box Noise";
+        NOISE_BLIST_TURB            "Blistered Turbulence";
+        NOISE_BUYA                  "Buya";
+        NOISE_CELL_NOISE            "Cell Noise";
+        NOISE_CRANAL                "Cranal";
+        NOISE_DENTS                 "Dents";
+        NOISE_DISPL_TURB            "Displaced Turbulence";
+        NOISE_FBM                   "FBM";
+        NOISE_HAMA                  "Hama";
+        NOISE_LUKA                  "Luka";
+        NOISE_MOD_NOISE             "Mod Noise";
+        NOISE_NAKI                  "Naki";
+        NOISE_NOISE                 "Noise";
+        NOISE_NUTOUS                "Nutous";
+        NOISE_OBER                  "Ober";
+        NOISE_PEZO                  "Pezo";
+        NOISE_POXO                  "Poxo";
+        NOISE_RANDOM                "Random";
+        NOISE_SEMA                  "Sema";
+        NOISE_STUPL                 "Stupl";
+        NOISE_TURBULENCE            "Turbulence";
+        NOISE_VL_NOISE              "VL Noise";
+        NOISE_WAVY_TURB             "Wavy Turbulence";
+        NOISE_FIRE                  "Fire";
+        NOISE_ELECTRIC              "Electric";
+        NOISE_GASEOUS               "Gaseous";
+        NOISE_CELL_VORONOI          "Cell Voronoi";
+        NOISE_DISPL_VORONOI         "Displaced Voronoi";
+        NOISE_SPARSE_CONV           "Sparse Convolution";
+        NOISE_VORONOI_1             "Voronoi 1";
+        NOISE_VORONOI_2             "Voronoi 2";
+        NOISE_VORONOI_3             "Voronoi 3";
+        NOISE_ZADA                  "Zada";
+        NOISE_NONE                  "None";
+    
+    PYNOISEFALLOFF_SAMPLING "Sampling";
+    
+        SAMPLING_2D "2D";
+        SAMPLING_3D "3D";
+    
+    PYNOISEFALLOFF_SAMPRAD "Sample Radius";
+    PYNOISEFALLOFF_DETATT  "Detail Attenuation";
+    PYNOISEFALLOFF_REPEAT  "Repeat";
+        
+        REPEAT_0    "0";
+        REPEAT_1    "1";
+        REPEAT_3    "3";
+        REPEAT_7    "7";
+        REPEAT_15   "15";
+        REPEAT_31   "31";
+        REPEAT_63   "63";
+        REPEAT_127  "127";
+        REPEAT_255  "255";
+        REPEAT_511  "511";
+        REPEAT_1023 "1023";
+        
+    PYNOISEFALLOFF_OCTAVES  "Octaves";
+    PYNOISEFALLOFF_ABSOLUTE "Absolute";
+    
+    PYNOISEFALLOFF_FBMSETTINGS "FBM Settings";
+    
+    PYNOISEFALLOFF_MAXOCTAVE  "Max Octave";
+    PYNOISEFALLOFF_LACUNARITY "Lacunarity";
+    PYNOISEFALLOFF_H          "H";
+}

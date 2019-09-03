@@ -1,0 +1,8 @@
+// C4D-StringResource
+// Identifier	Text
+
+STRINGTABLE
+{
+    IDS_PYTHON_BRUSH_PULL		"Python Pull";
+    IDS_PYTHON_BRUSH_PULL_HELP	"Pull or push the surface";
+}

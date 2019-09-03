@@ -1,0 +1,4 @@
+STRINGTABLE gravitation
+{
+    gravitation    "Gravitation Generator";
+}

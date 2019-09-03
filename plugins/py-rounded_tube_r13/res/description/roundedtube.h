@@ -1,0 +1,15 @@
+#ifndef _roundedtube_H_
+#define _roundedtube_H_
+
+enum
+{
+	PY_TUBEOBJECT_RAD				= 1000,
+	PY_TUBEOBJECT_IRADX			= 1001,
+	PY_TUBEOBJECT_IRADY			= 1002,
+	PY_TUBEOBJECT_SUB				= 1003,
+	PY_TUBEOBJECT_ROUNDSUB	= 1004,
+	PY_TUBEOBJECT_ROUNDRAD	= 1005,
+	PY_TUBEOBJECT_SEG				= 1006
+};
+
+#endif

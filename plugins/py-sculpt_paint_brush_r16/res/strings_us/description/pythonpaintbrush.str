@@ -1,0 +1,4 @@
+STRINGTABLE PythonPaintBrush
+{
+    PythonPaintBrush		"Python Paint Brush";
+}

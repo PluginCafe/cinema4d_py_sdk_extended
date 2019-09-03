@@ -1,0 +1,8 @@
+// C4D-StringResource
+// Identifier	Text
+
+STRINGTABLE
+{
+    IDS_PYTHON_BRUSH_GRAB		"Python Grab";
+    IDS_PYTHON_BRUSH_GRAB_HELP	"Grab and move the surface";
+}

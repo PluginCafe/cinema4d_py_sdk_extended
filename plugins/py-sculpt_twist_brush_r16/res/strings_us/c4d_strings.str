@@ -1,0 +1,8 @@
+// C4D-StringResource
+// Identifier	Text
+
+STRINGTABLE
+{
+    IDS_PYTHON_BRUSH_TWIST		"Python Twist";
+    IDS_PYTHON_BRUSH_TWIST_HELP	"Rotate the surface around the normal";
+}

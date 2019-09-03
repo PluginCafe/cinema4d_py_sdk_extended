@@ -1,0 +1,7 @@
+STRINGTABLE Opyspherifymodifier
+{
+	Opyspherifymodifier "Py-SpherifyModifier";
+
+	PYSPHERIFYMODIFIER_RADIUS		"Radius";
+	PYSPHERIFYMODIFIER_STRENGTH	"Strength";
+}

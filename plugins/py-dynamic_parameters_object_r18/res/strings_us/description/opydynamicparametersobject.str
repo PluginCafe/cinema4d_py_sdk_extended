@@ -1,0 +1,7 @@
+STRINGTABLE opydynamicparametersobject
+{
+	opydynamicparametersobject														"Py - Dynamic Parameters Object";
+
+	OPYDYNAMICPARAMETERSOBJECT_TRANSLATED_PHONG_ANGLE			"Referenced Phong Angle";
+	OPYDYNAMICPARAMETERSOBJECT_PARAMETERSNUMBER						"Dynamic Parameters Number";
+}

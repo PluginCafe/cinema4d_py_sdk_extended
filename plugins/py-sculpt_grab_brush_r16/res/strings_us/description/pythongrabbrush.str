@@ -1,0 +1,7 @@
+STRINGTABLE PythonGrabBrush
+{
+    PythonGrabBrush		"Python Grab Brush";
+    MDATA_PYTHONGRABBRUSH_DIRMODE				"Direction";
+    MDATA_PYTHONGRABBRUSH_DIRMODE_MOUSEDIR		"Mouse";
+    MDATA_PYTHONGRABBRUSH_DIRMODE_NORMAL		"Normal";
+}

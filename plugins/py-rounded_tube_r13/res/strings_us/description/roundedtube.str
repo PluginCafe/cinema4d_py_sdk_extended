@@ -1,0 +1,12 @@
+STRINGTABLE roundedtube
+{
+	roundedtube								"Rounded Tube Object";
+
+	PY_TUBEOBJECT_RAD					"Main Radius";
+	PY_TUBEOBJECT_IRADX				"X Radius";
+	PY_TUBEOBJECT_IRADY				"Y Radius";
+	PY_TUBEOBJECT_SUB					"Segments";
+	PY_TUBEOBJECT_ROUNDSUB		"Fillet Segments";
+	PY_TUBEOBJECT_ROUNDRAD		"Fillet Radius";
+	PY_TUBEOBJECT_SEG					"Rotation Segments";
+}

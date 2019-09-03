@@ -1,0 +1,6 @@
+STRINGTABLE Opydoublecircle
+{
+	Opydoublecircle "Double Circle";
+
+	PYCIRCLEOBJECT_RAD	"Radius";
+}
