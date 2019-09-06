@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20
+    - R18, R19, R20, R21
 """
 import c4d
 
@@ -21,7 +21,11 @@ def main():
     if op is None:
         raise ValueError("op is none, please select one object.")
 
-    # Retrieves active UVSet, The UV windows need to be opened at least one time.
+    # Enables UV Polygon Mode if not already in any UV mode (needed for GetActiveUVSet to works)
+    if doc.GetMode() not in [c4d.Muvpoints, c4d.Muvpolygons]:
+        doc.SetMode(c4d.Muvpolygons)
+
+    # Retrieves active UVSet, The UV windows need to be opened at least one time
     handle = c4d.modules.bodypaint.GetActiveUVSet(doc, c4d.GETACTIVEUVSET_ALL)
     if handle is None:
         raise RuntimeError("There is no Active UVSet, lease open at least one time the Texture View.")
@@ -52,7 +56,7 @@ def main():
     # Retrieves UVW list
     uvw = handle.GetUVW()
     if uvw is None:
-        raise RuntimeError("Failed to retrieve the uvw from the the texture view.")
+        raise RuntimeError("Failed to retrieves the uvw from the the texture view.")
 
     # Calls UVCOMMAND_TRANSFORM to change UVW list
     ret = c4d.modules.bodypaint.CallUVCommand(handle.GetPoints(),
