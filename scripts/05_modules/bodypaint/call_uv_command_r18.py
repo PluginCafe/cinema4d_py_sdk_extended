@@ -56,7 +56,7 @@ def main():
     # Retrieves UVW list
     uvw = handle.GetUVW()
     if uvw is None:
-        raise RuntimeError("Failed to retrieves the uvw from the the texture view.")
+        raise RuntimeError("Failed to retrieve the uvw from the the texture view.")
 
     # Calls UVCOMMAND_TRANSFORM to change UVW list
     ret = c4d.modules.bodypaint.CallUVCommand(handle.GetPoints(),
