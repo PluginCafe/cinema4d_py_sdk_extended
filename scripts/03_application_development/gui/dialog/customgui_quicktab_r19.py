@@ -1,11 +1,9 @@
 """
 Copyright: MAXON Computer GmbH
 Author: Maxime Adam
-
 Description:
     - Creates a Modal Dialog displaying a different SubDialog according to the selected entry of the QuickTab.
     - Demonstrates how to add, flushes, remove tab interactively.
-
 Class/method highlighted:
     - c4d.gui.QuickTabCustomGui
     - QuickTabCustomGui.ClearStrings()
@@ -17,7 +15,6 @@ Class/method highlighted:
     - GeDialog.HideElement()
     - GeDialog.RemoveElement()
     - c4d.gui.SubDialog
-
 Compatible:
     - Win / Mac
     - R19, R20, R21
@@ -61,7 +58,6 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
     def _DrawQuickTabGroup(self):
         """
         Creates and draws all the SubDialog for each tab, take care it does not hide these according to a selection state.
-
         :return: True if success otherwise False.
         """
 
@@ -82,38 +78,38 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
 
         return True
 
-    def GetActiveTab(self):
+    def GetActiveTabs(self):
         """
-        Retrieves the current selected tab from the self._quickTab.
-
-        :return: The tab Id (from the dict) and the name of the selected tab
-        :rtype: (int, str) or (False, False) if fail.
+        Retrieves two list of currently selected tabs from the self._quickTab.
+        :return: The first list, contains tabs Id (from self._quickTab the dict) and the second list contains all names of the selected tabs.
+        :rtype: list(int), list(name)
         """
         # Checks if the quicktab is defined
         if self._quickTab is None:
             return False, False
 
+        returnIds = []
+        returnNames = []
+
         for tabId, (tabName, tabGui) in enumerate(self._tabList.iteritems()):
             if self._quickTab.IsSelected(tabId):
-                return tabId, tabName
+                returnIds.append(tabId)
+                returnNames.append(tabName)
 
-        return False, False
+        return returnIds, returnNames
 
     def DisplayCorrectGroup(self):
         """
         Hides all unused groups and display the correct one.
-
         :return: True if success otherwise False.
         """
         # Retrieves the selected tab
-        activeId, activeName = self.GetActiveTab()
-        if activeId is False:
-            return False
+        activeIds, activeNames = self.GetActiveTabs()
 
         # Iterates each CustomGui and defines if they are hidden or not
         for tabId in xrange(len(self._tabList)):
-            toHide = activeId == tabId
-            self.HideElement(ID_QUICKTAB_BASE_GROUP + tabId, not toHide)
+            toDisplay = tabId in activeIds
+            self.HideElement(ID_QUICKTAB_BASE_GROUP + tabId, not toDisplay)
 
         # Notifies the content of the MainGroup has changed
         self.LayoutChanged(ID_MAINGROUP)
@@ -122,7 +118,6 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
     def AppendTab(self, tabName, content, active=True):
         """
         Appends a tab to the current quicktab with the associated content to be displayed.
-
         :param tabName: The name the tab should have.
         :type tabName: str
         :param content: The SubDialog to be drawn/linked when the tab is selected.
@@ -142,16 +137,17 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         self._tabList.update({tabName: content})
 
         # Retrieves the current selected tab
-        previousActiveId, previousActiveName = self.GetActiveTab()
+        previousActiveId, previousActiveName = self.GetActiveTabs()
 
         # Draws the quicktab SubDialog (in order to have the new one drawn)
         self._DrawQuickTabGroup()
 
-        # Defines which tab should be active
-        if active:
-            self._quickTab.Select(len(self._tabList) - 1, True)
-        else:
-            self._quickTab.Select(previousActiveId, True)
+        # Defines the just added tab according state
+        self._quickTab.Select(len(self._tabList) - 1, active)
+
+        # Defines previous active tab
+        for tabId in previousActiveId:
+            self._quickTab.Select(tabId, True)
 
         # Display only the selected tab and hides all others
         self.DisplayCorrectGroup()
@@ -161,7 +157,6 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
     def FlushAllTabs(self):
         """
         Removes all tabs and their content from the GUI.
-
         :return: True if success otherwise False.
         """
         # Checks if the quicktab is defined
@@ -186,7 +181,6 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
     def RemoveTab(self, tabNameToRemove):
         """
         Removes a tab by its name
-
         :param tabNameToRemove: The tab to remove.
         :type tabNameToRemove: str
         :return: True if success otherwise False.
@@ -223,7 +217,7 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         bc = c4d.BaseContainer()
         bc.SetBool(c4d.QUICKTAB_BAR, False)
         bc.SetBool(c4d.QUICKTAB_SHOWSINGLE, True)
-        bc.SetBool(c4d.QUICKTAB_NOMULTISELECT, True)
+        bc.SetBool(c4d.QUICKTAB_NOMULTISELECT, False)
         self._quickTab = self.AddCustomGui(ID_QUICKTAB_BAR, c4d.CUSTOMGUI_QUICKTAB, '',
                                            c4d.BFH_SCALEFIT | c4d.BFV_SCALEFIT, 0, 0, bc)
 
@@ -247,7 +241,7 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         """
         # Creates the first Tab
         cg1 = CustomGroup(["This is the first Tab", "Just dummy text here"])
-        self.AppendTab("First Tab", cg1, False)
+        self.AppendTab("First Tab", cg1, True)
 
         # Creates the second Tab
         cg2 = CustomGroup(["This is the second Tab", "Just another dummy text here"])
@@ -258,7 +252,6 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         """
          This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
          It is also called when a string menu item is selected.
-
         :param id: The ID of the gadget that triggered the event.
         :param msg: The original message container
         :return: False if there was an error, otherwise True.
@@ -276,7 +269,7 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
 
         # Displays the ID and name of the selected tab
         if id == BUTTON_PRINT_SELECTED:
-            print self.GetActiveTab()
+            print self.GetActiveTabs()
 
         # Removes all tabs
         if id == BUTTON_FLUSH_ALL:
@@ -285,7 +278,7 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         # Adds a new Tab to the quicktab
         if id == BUTTON_ADD:
             cg3 = CustomGroup(["This is the third Tab"])
-            self.AppendTab("Third Tab", cg3, False)
+            self.AppendTab("Third Tab", cg3, True)
 
         # Removes the first tab of the quicktab
         if id == BUTTON_REMOVE:
