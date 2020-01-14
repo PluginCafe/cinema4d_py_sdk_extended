@@ -100,6 +100,10 @@ def main():
     if not isinstance(op, c4d.PolygonObject):
         raise TypeError("op is not a c4d.PolygonObject.")
 
+    # Checks if the selected polygon object has some polygons
+    if op.GetPolygonCount() == 0:
+        raise ValueError("The the selected object, don't have any polygon to host normal data.")
+        
     # Creates a normal tag
     tag = CreateNormalTag(op)
 
