@@ -132,12 +132,12 @@ class LiquidTool(c4d.plugins.ToolData):
         if pTag is None:
             raise MemoryError("Failed to create a Phong Tag.")
 
-        # Adds an undo step
-        doc.AddUndo(c4d.UNDO_NEW, metaball)
-
         # Inserts the object in the active document and set it as active one.
         doc.InsertObject(metaball)
         doc.SetActiveObject(metaball)
+        
+        # Adds an undo step
+        doc.AddUndo(c4d.UNDOTYPE_NEW, metaball)
 
         # Updates the Viewport (so the metaball is drawn)
         c4d.DrawViews(c4d.DA_ONLY_ACTIVE_VIEW | c4d.DA_NO_THREAD | c4d.DA_NO_ANIMATION)
