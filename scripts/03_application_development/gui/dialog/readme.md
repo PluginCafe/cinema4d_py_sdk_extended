@@ -48,3 +48,9 @@ Version: R13, R14, R15, R16, R17, R18, R19, R20, R21 - Win/Mac
 
     Creates and attaches a GeUserArea to a Dialog.
     Interacts from the GeDialog to the GeUserArea and vice-versa.
+
+### geuserarea_drag
+Version: R13, R14, R15, R16, R17, R18, R19, R20 - Win/Mac
+
+    Creates and attaches a GeUserArea to a Dialog.
+    Creates a series of aligned squares, that can be dragged and swapped together.

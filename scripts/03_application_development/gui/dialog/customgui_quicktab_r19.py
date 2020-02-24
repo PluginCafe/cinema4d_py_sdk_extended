@@ -5,7 +5,7 @@ Author: Maxime Adam
 Description:
     - Creates a Modal Dialog displaying a different SubDialog according to the selected entry of the QuickTab.
     - Demonstrates how to add, flushes, remove tab interactively.
-    
+
 Class/method highlighted:
     - c4d.gui.QuickTabCustomGui
     - QuickTabCustomGui.ClearStrings()
@@ -17,7 +17,7 @@ Class/method highlighted:
     - GeDialog.HideElement()
     - GeDialog.RemoveElement()
     - c4d.gui.SubDialog
-    
+
 Compatible:
     - Win / Mac
     - R19, R20, R21

@@ -73,7 +73,7 @@ def main():
     if not ret:
         raise RuntimeError("CallUVCommand failed.")
 
-    # Sets the transformedUVW from Texture View 
+    # Sets the transformedUVW from Texture View
     if not handle.SetUVWFromTextureView(uvw, True, True, True):
         raise  RuntimeError("UVW from Texture View failed to be set.")
 
