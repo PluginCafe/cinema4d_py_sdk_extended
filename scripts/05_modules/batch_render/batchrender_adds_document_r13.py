@@ -25,8 +25,8 @@ def main():
         return True
 
     # Retrieves a list of all Cinema 4D files of this directory
-	# os.listdir base its encoding on the passed encoding of the directory
-	# so it's important to pass an unicode string.
+    # os.listdir base its encoding on the passed encoding of the directory
+    # so it's important to pass an unicode string.
     c4dFiles = list()
     for file in os.listdir(directory.decode("utf-8")):
         if file.endswith(".c4d"):
