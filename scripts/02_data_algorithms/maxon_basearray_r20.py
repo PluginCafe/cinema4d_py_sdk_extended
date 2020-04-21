@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import maxon
 
@@ -24,10 +24,10 @@ def main():
     intArray.Resize(10)
 
     # Iterates over the BaseArray and assign values
-    for i in xrange(len(intArray)):
+    for i in range(len(intArray)):
         intArray[i] = i
 
-        print intArray[i]
+        print(intArray[i])
 
 
 if __name__ == "__main__":

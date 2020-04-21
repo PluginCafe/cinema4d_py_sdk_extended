@@ -20,7 +20,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R19, R20, R21
+    - R19, R20, R21, S22
 """
 import c4d
 
@@ -72,7 +72,7 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         self.LayoutFlushGroup(ID_MAINGROUP)
 
         # Iterates over the number of tab to create and attach the correct SubDialog
-        for tabId, (tabName, tabGui) in enumerate(self._tabList.iteritems()):
+        for tabId, (tabName, tabGui) in enumerate(self._tabList.items()):
             self.AddSubDialog(ID_QUICKTAB_BASE_GROUP + tabId, c4d.BFH_SCALEFIT | c4d.BFV_SCALEFIT, 0, 0)
             self.AttachSubDialog(tabGui, ID_QUICKTAB_BASE_GROUP + tabId)
 
@@ -94,7 +94,7 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         returnIds = []
         returnNames = []
 
-        for tabId, (tabName, tabGui) in enumerate(self._tabList.iteritems()):
+        for tabId, (tabName, tabGui) in enumerate(self._tabList.items()):
             if self._quickTab.IsSelected(tabId):
                 returnIds.append(tabId)
                 returnNames.append(tabName)
@@ -110,7 +110,7 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         activeIds, activeNames = self.GetActiveTabs()
 
         # Iterates each CustomGui and defines if they are hidden or not
-        for tabId in xrange(len(self._tabList)):
+        for tabId in range(len(self._tabList)):
             toDisplay = tabId in activeIds
             self.HideElement(ID_QUICKTAB_BASE_GROUP + tabId, not toDisplay)
 
@@ -170,7 +170,7 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         self._quickTab.ClearStrings()
 
         # Removes all the customGui
-        for tabId in xrange(len(self._tabList)):
+        for tabId in range(len(self._tabList)):
             self.RemoveElement(ID_QUICKTAB_BASE_GROUP + tabId)
 
         # Reinitializes the stored tablist to an empty dict
@@ -206,7 +206,7 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         self.FlushAllTabs()
 
         # Re-adds all the one from our copy
-        for tabName, tabGui in newDict.iteritems():
+        for tabName, tabGui in newDict.items():
             self.AppendTab(tabName, tabGui)
 
         return True
@@ -267,12 +267,12 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
 
         # Displays all the Tab name
         if id == BUTTON_PRINT_TEXT:
-            print [key for key in self._tabList]
+            print([key for key in self._tabList])
             return True
 
         # Displays the ID and name of the selected tab
         if id == BUTTON_PRINT_SELECTED:
-            print self.GetActiveTabs()
+            print(self.GetActiveTabs())
 
         # Removes all tabs
         if id == BUTTON_FLUSH_ALL:

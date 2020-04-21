@@ -108,23 +108,23 @@ class RoundedTubeHelper(object):
         # Defines the length according subdivision
         uvadr = [0.0] * (srcPtCount + 1)
         length = 0.0
-        for i in xrange(srcPtCount):
+        for i in range(srcPtCount):
             uvadr[i] = length
             length += (srcPtList[(i + 1) % srcPtCount] - srcPtList[i]).GetLength()
 
         if length > 0.0:
             length = 1.0 / length
 
-        for i in xrange(srcPtCount):
+        for i in range(srcPtCount):
             uvadr[i] *= length
 
         uvadr[srcPtCount] = 1.0
         polyCount = 0
-        for i in xrange(srcSub):
+        for i in range(srcSub):
             sn, cs = c4d.utils.SinCos(math.pi * 2 * float(i) / float(srcSub))
             v1 = float(i) / float(srcSub)
             v2 = float(i+1) / float(srcSub)
-            for j in xrange(srcPtCount):
+            for j in range(srcPtCount):
                 a = srcPtCount * i + j
                 op.SetPoint(a, c4d.Vector(srcPtList[j].x * cs, srcPtList[j].y, srcPtList[j].x * sn))
                 if i < srcSub:
@@ -251,7 +251,7 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
         ptList = [c4d.Vector()] * ptCount
 
         # Defines position for side points
-        for i in xrange(sub):
+        for i in range(sub):
             ptList[i] = c4d.Vector(rad - iradx, (1.0 - float(i) / sub * 2.0) * (irady - rrad), 0.0)
             ptList[i + sub + rsub] = c4d.Vector(rad + (float(i) / sub * 2.0 - 1.0) * (iradx - rrad), -irady, 0.0)
             ptList[i + 2 * (sub + rsub)] = c4d.Vector(rad + iradx, (float(i) / float(sub) * 2.0 - 1.0) * (irady - rrad), 0.0)
@@ -259,7 +259,7 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
 
         # Defines position for the top / bottom fillet cap points
         pi05 = 1.570796326
-        for i in xrange(rsub):
+        for i in range(rsub):
             sn, cs = c4d.utils.SinCos(float(i) / rsub * pi05)
             ptList[i + sub] = c4d.Vector(rad - (iradx - rrad + cs * rrad), -(irady - rrad + sn * rrad), 0.0)
             ptList[i + sub + (sub + rsub)] = c4d.Vector(rad + (iradx - rrad + sn * rrad), -(irady - rrad + cs * rrad), 0.0)
@@ -388,7 +388,7 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
         hitId = op.GetHighlightHandle(bd)
 
         # Iterates over our handle count and draw them
-        for i in xrange(self.HANDLECOUNT):
+        for i in range(self.HANDLECOUNT):
             # Defines the color of the handle according of the hovered state of the object.
             handleColorFlag = c4d.VIEWCOLOR_HANDLES if c4d.GetC4DVersion() >= 21000 else c4d.VIEWCOLOR_ACTIVEPOINT
             hoverColor = c4d.VIEWCOLOR_SELECTION_PREVIEW if hitId == i else handleColorFlag

@@ -13,7 +13,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 import maxon
@@ -47,7 +47,7 @@ def main():
         raise RuntimeError("Failed to retrieve the grid accessor.")
 
     # Initializes the grid for write access, changed with R21
-    initMethod = access.Init if c4d.GetC4DVersion < 21000 else access.InitWithWriteAccess
+    initMethod = access.Init if c4d.GetC4DVersion() < 21000 else access.InitWithWriteAccess
     initMethod(volume)
 
     # Sets values in the shape of a helix
@@ -76,5 +76,5 @@ def main():
     c4d.EventAdd()
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

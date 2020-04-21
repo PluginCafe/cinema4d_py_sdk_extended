@@ -17,7 +17,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -120,7 +120,7 @@ class ExampleDialog(c4d.gui.GeDialog):
 
         # Messages is sent from the GeUserArea in line 65
         if msg.GetId() == MSG_ID_COLOR_CHANGED:
-            print "The GeUserArea, has been redraw and color changed."
+            print("The GeUserArea, has been redraw and color changed.")
             return True
 
         return super(ExampleDialog, self).Message(msg, result)

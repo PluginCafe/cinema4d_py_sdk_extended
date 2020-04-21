@@ -92,7 +92,7 @@ class MemoryViewerUserArea(c4d.gui.GeUserArea):
         x_step = int((x2 - x1) / self.division + 1)
         y_step = int((y2 - y1) / self.division + 1)
 
-        for i in xrange(int(self.division)):
+        for i in range(int(self.division)):
             self.DrawLine(x_step * i, y2 - y1, x_step * i, y2 - y2)
             self.DrawLine(x1, y2 - (y_step * i), x2, y2 - (y_step * i))
 
@@ -110,7 +110,7 @@ class MemoryViewerUserArea(c4d.gui.GeUserArea):
             l_x1 = int(i * x_step)
             l_y1 = int(c4d.utils.RangeMap(v, self.value_min, self.value_max, y1 + offset, y2 - offset, False))
             l_x2 = int((i + 1) * x_step)
-            l_y2 = int( c4d.utils.RangeMap(self.values[i + 1], self.value_min + 10, self.value_max, y1 + offset, y2 - offset,False))
+            l_y2 = int(c4d.utils.RangeMap(self.values[i + 1], self.value_min + 10, self.value_max, y1 + offset, y2 - offset,False))
 
             # Draws the line
             self.DrawLine(l_x1, y2 - l_y1, l_x2, y2 - l_y2)

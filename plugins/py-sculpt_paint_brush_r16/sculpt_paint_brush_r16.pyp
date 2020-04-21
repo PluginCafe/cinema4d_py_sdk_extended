@@ -115,7 +115,7 @@ class PaintBrushToolHelper(object):
         flag = c4d.PIXELCNT_NONE if c4d.GetC4DVersion() > 20000 else c4d.PIXELCNT_0
         bmp.GetPixelCnt(startPixel, y, numPixels, sq, c4d.COLORMODE_RGB, flag)
 
-        for x in xrange(startPixel, endPixel):
+        for x in range(startPixel, endPixel):
             # Retrieves the location on the object for this part of the triangle that we are rasterizing
             pos = span.color1 + (colorDiff * factor)
 
@@ -188,7 +188,7 @@ class PaintBrushToolHelper(object):
         factorStep2 = 1.0 / e2ydiff
 
         # Loops through the lines between the edges and draw spans
-        for y in xrange(int(e2.y1), int(e2.y2)):
+        for y in range(int(e2.y1), int(e2.y2)):
             # Creates and draw span
             span = Span(e1.color1 + (e1pointdiff * factor1), e1.x1 + int(e1xdiff * factor1), e2.color1 + (e2pointdiff * factor2), e2.x1 + int(e2xdiff * factor2))
             PaintBrushToolHelper.DrawSpan(dab, bmp, span, y)
@@ -234,7 +234,7 @@ class PaintBrushToolHelper(object):
         longEdge = 0
 
         # Finds edge with the greatest length in the y axis
-        for i in xrange(0, 3):
+        for i in range(0, 3):
             length = edges[i].y2 - edges[i].y1
             if length > maxLength:
                 maxLength = length
@@ -316,7 +316,7 @@ class PaintBrushTool(c4d.plugins.SculptBrushToolData, PaintBrushToolHelper):
         maxY = 0
 
         # Loops over very polygon for this dab and rasterize the stencil to it.
-        for a in xrange(0, polyCount):
+        for a in range(0, polyCount):
             # Retrieves the index of the point on the PolygonObject.
             polyData = dab.GetPolyData(a)
             polyIndex = polyData["polyIndex"]

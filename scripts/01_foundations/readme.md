@@ -22,11 +22,11 @@ Version: R17, R18, R19, R20 - Win/Mac
     Retrieves the path of the preference folder according to an installation path without the need to launch Cinema 4D.
 
 ### script_custom_icon
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21 - Win/Mac
+Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
 
     Example to customize the icon used for a script.
 
 ### script_custom_name_description
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21 - Win/Mac
+Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
 
     Example to customize the name and the description for a script in the script manager.

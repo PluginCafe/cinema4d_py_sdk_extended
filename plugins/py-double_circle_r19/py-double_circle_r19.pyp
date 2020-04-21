@@ -51,6 +51,8 @@ class DoubleCircleHelper(object):
         Generates a circle spline of a given radius
         :param radius: The radius of the circle to be created.
         :type radius: float
+        :param plane: The axis plane to be used. PRIM_PLANE_XY, PRIM_PLANE_ZY or PRIM_PLANE_XZ
+        :type plane: int
         :return: The generates Circle or None if fail.
         :rtype: Union[c4d.SplineObject, None]
         """
@@ -78,7 +80,7 @@ class DoubleCircleHelper(object):
         splineObject.SetSegment(id=1, cnt=4, closed=True)
 
         # Loops over each point of a circle
-        for i in xrange(sub):
+        for i in range(sub):
             sn, cs = c4d.utils.SinCos(2.0 * math.pi * i / float(sub))
             # Defines the point position of the outside and inner circle
             posOut = c4d.Vector(cs * radius, sn * radius, 0.0)
@@ -340,7 +342,7 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
 
         # Draw the handle to the correct position
         bd.DrawHandle(info.position, c4d.DRAWHANDLE_BIG, 0)
-        bd.SetPen(c4d.GetViewColor( c4d.VIEWCOLOR_ACTIVEPOINT))
+        bd.SetPen(c4d.GetViewColor(c4d.VIEWCOLOR_ACTIVEPOINT))
         bd.DrawLine(info.position, c4d.Vector(0), 0)
 
         return c4d.DRAWRESULT_OK
@@ -362,7 +364,7 @@ def DoubleCircleHelp(opType, baseType, group, property):
     :return:
     """
     # Prints the information passed to the plugin help callback
-    print "Py-DoubleCircle - Help:", opType, baseType, group, property
+    print("Py-DoubleCircle - Help:", opType, baseType, group, property)
 
     # If the users ask for help in the Radius Parameter
     if property == "PYCIRCLEOBJECT_RAD":

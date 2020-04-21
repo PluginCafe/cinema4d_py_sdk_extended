@@ -123,6 +123,12 @@ Version: R12, R13, R14, R15, R16, R17, R18, R19, R20, R21 - Win/Mac
 
     Creates a liquid Painter Tool.
     Consists of Metaball and Sphere.
+    
+### py-tooldata_ui
+Version: R15, R16, R17, R18, R19, R20, R21 - Win/Mac
+
+    Creates a ToolData with a linkBox on it where it's possible to drag and drop an object.
+    When this linked object is clicked, its cloned and added to the document in a random position.
 
 ## SculptBrushToolData
 A data class for creating brush plugins (not only limited to sculpting).

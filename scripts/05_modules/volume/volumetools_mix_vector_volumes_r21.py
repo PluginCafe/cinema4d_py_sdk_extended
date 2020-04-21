@@ -18,7 +18,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R21
+    - R21, S22
 """
 import c4d
 import maxon
@@ -50,9 +50,9 @@ def CreateVectorVolume(vectorValue):
     # Sets values
     size = 10
     step = 10.0
-    for x in xrange(size):
-        for y in xrange(size):
-            for z in xrange(size):
+    for x in range(size):
+        for y in range(size):
+            for z in range(size):
                 pos = maxon.IntVector32(x * step, y * step, z * step)
                 access.SetValue(pos, vectorValue)
 
@@ -83,6 +83,7 @@ def CreateVectorObject(volumeRef, name):
 
     # Inserts the volume Object within the scene
     doc.InsertObject(volumeObj, None, None)
+
 
 def main():
     # Creates a VectorVolume

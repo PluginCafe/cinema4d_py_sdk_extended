@@ -18,7 +18,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R14, R15, R16, R17, R18, R19, R20, R21
+    - R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -73,8 +73,8 @@ def main():
     doc.EndUndo()
 
     # Updates fixedBox Geometry taking in account previously created keyframes
-    animateflag = c4d.ANIMATEFLAGS_NONE if c4d.GetC4DVersion() > 20000 else c4d.ANIMATEFLAGS_0
-    doc.AnimateObject(fixedBox, doc.GetTime(), animateflag)
+    animateFlag = c4d.ANIMATEFLAGS_NONE if c4d.GetC4DVersion() > 20000 else c4d.ANIMATEFLAGS_0
+    doc.AnimateObject(fixedBox, doc.GetTime(), animateFlag)
 
     # Pushes an update event to Cinema 4D
     c4d.EventAdd()

@@ -10,13 +10,13 @@ Classic API:
 ## Examples
 
 ### vertex_color_tag_point_mode
-Version: R18, R19, R20, R21 - Win/Mac
+Version: R18, R19, R20, R21, S22 - Win/Mac
 
     Gets and Sets Vertex Colors in Point mode:
     Changes all black Vertex Colors to red.
 
 ### vertex_color_tag_polygon_mode
-Version: R18, R19, R20, R21 - Win/Mac
+Version: R18, R19, R20, R21, S22 - Win/Mac
 
     Gets and Sets Vertex Colors in Polygon mode:
     Changes all vertex colors to red.

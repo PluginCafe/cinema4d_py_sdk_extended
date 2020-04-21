@@ -26,7 +26,6 @@ PLUGIN_ID = 1053134
 
 class CustomIconObjectData(c4d.plugins.ObjectData):
 
-
     def Init(self, node):
         """
         Called when Cinema 4D Initialize the ObjectData (used to define, default values)

@@ -12,7 +12,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 import maxon
@@ -43,6 +43,7 @@ def main():
 
     # Pushes an update event to Cinema 4D
     c4d.EventAdd()
+
 
 if __name__ == '__main__':
     main()

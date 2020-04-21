@@ -15,7 +15,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -27,10 +27,10 @@ def main():
         raise RuntimeError("Failed to retrieve the batch render instance.")
 
     # Loops over the elements
-    for i in xrange(br.GetElementCount()):
+    for i in range(br.GetElementCount()):
         # If the element is not finished, prints the path
         if br.GetElementStatus(i) != c4d.RM_FINISHED:
-            print br.GetElement(i)
+            print(br.GetElement(i))
 
 
 if __name__ == "__main__":

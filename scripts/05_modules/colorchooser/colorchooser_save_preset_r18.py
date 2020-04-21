@@ -14,7 +14,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -37,7 +37,7 @@ def main():
     if not swatchData.SavePresetByURL(url, "User", "This is my preset"):
         raise RuntimeError("Failed to save the color swatch preset.")
 
-    print "Color swatch preset saved successfully"
+    print("Color swatch preset saved successfully")
 
     # Pushes an update event to Cinema 4D
     c4d.EventAdd()

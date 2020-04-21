@@ -12,7 +12,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 import maxon
@@ -34,7 +34,7 @@ def main():
     if group is None:
         raise MemoryError("Failed to create a group.")
 
-    for i in xrange(20):
+    for i in range(20):
 
         # Creates rainbow colors and stores them in the previously created group
         hsv = c4d.Vector(float(i) * 0.05, 1.0, 1.0)

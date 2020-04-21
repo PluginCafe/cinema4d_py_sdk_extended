@@ -14,7 +14,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -31,10 +31,10 @@ def main():
         print("Graph Name: " + graphName)
 
         # Loops through inputs
-        input, inputUid, firstId, numElements, inputType, inputName = c4d.modules.substance.GetSubstanceInput(substance, graph)
-        while input is not None:
+        substanceInput, inputUid, firstId, numElements, inputType, inputName = c4d.modules.substance.GetSubstanceInput(substance, graph)
+        while substanceInput is not None:
             print("Input: " + inputName)
-            input, inputUid, firstId, numElements, inputType, inputName = c4d.modules.substance.GetSubstanceInput(substance, graph, input)
+            substanceInput, inputUid, firstId, numElements, inputType, inputName = c4d.modules.substance.GetSubstanceInput(substance, graph, substanceInput)
 
         # Loops through outputs
         output, outputUid, outputType, outputName, outputBmp = c4d.modules.substance.GetSubstanceOutput(substance, graph, True)

@@ -95,11 +95,10 @@ class MaskImageCmdHelper(object):
             return
 
         # Draw each pixels
-        for x in xrange(int(math.floor(span.x1)), int(math.ceil(span.x2))):
+        for x in range(int(math.floor(span.x1)), int(math.ceil(span.x2))):
             col = span.color1 + (colordiff * factor)
             bmp.SetPixel(x, y, int(col.x * 255), int(col.y * 255), int(col.z * 255))
             factor += factorStep
-
 
     @staticmethod
     def DrawSpansBetweenEdges(bmp, e1, e2):
@@ -131,7 +130,7 @@ class MaskImageCmdHelper(object):
         factorStep2 = 1.0 / e2ydiff
 
         # Loops through the lines between the edges and draw spans
-        for y in xrange(int(e2.y1), int(e2.y2)):
+        for y in range(int(e2.y1), int(e2.y2)):
             # Creates and draw span
             span = Span(e1.color1 + (e1pointdiff * factor1), e1.x1 + int(e1xdiff * factor1), e2.color1 + (e2pointdiff * factor2), e2.x1 + int(e2xdiff * factor2))
             MaskImageCmdHelper.DrawSpan(bmp, span, y)
@@ -177,7 +176,7 @@ class MaskImageCmdHelper(object):
         longEdge = 0
 
         # Finds edge with the greatest length in the y axis
-        for i in xrange(0, 3):
+        for i in range(0, 3):
             length = edges[i].y2 - edges[i].y1
             if length > maxLength:
                 maxLength = length
@@ -212,7 +211,7 @@ class MaskImageCmdHelper(object):
         imageWidth = bmp.GetBw()
         imageHeight = bmp.GetBh()
         polyCount = polyObject.GetPolygonCount()
-        for polyIndex in xrange(polyCount):
+        for polyIndex in range(polyCount):
             status = float(polyIndex) / float(polyCount) * 100.0
             c4d.StatusSetBar(status)
 

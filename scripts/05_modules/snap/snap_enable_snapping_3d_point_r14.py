@@ -14,7 +14,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R14, R15, R16, R17, R18, R19, R20, R21
+    - R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -25,7 +25,7 @@ def main():
     if not res:
         # Enables snap if not activated
         c4d.modules.snap.EnableSnap(True, doc)
-        print "Snap Enabled:", c4d.modules.snap.IsSnapEnabled(doc)
+        print("Snap Enabled:", c4d.modules.snap.IsSnapEnabled(doc))
 
     # Retrieves the BaseContainer storing all the settings
     settings = c4d.modules.snap.GetSnapSettings(doc)

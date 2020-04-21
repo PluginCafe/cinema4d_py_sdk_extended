@@ -10,7 +10,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -27,7 +27,7 @@ def main():
     aString = "Something Else"
 
     # Retrieves the value stored in the BaseContainer
-    print bc.GetString(0, "Default Value"), aString
+    print(bc.GetString(0, "Default Value"), aString)
 
 
 if __name__ == "__main__":

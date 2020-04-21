@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 
@@ -29,5 +29,5 @@ def main():
     c4d.EventAdd()
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

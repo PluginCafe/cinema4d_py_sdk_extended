@@ -11,19 +11,19 @@ Classic API:
 ## Examples
 
 ### substance_create_shader
-Version: R18, R19, R20, R21 - Win/Mac
+Version: R18, R19, R20, R21, S22 - Win/Mac
 
     Creates a new substance shader linked to the given substance asset.
     The asset is scanned for a bump output channel that is used in that shader.
 
 ### substance_loops_graph_input_output
-Version: R18, R19, R20, R21 - Win/Mac
+Version: R18, R19, R20, R21, S22 - Win/Mac
 
     Loops through the graphs of the given substance asset.
     Loops through the inputs and outputs of each graph.
 
 ### substances_create_material
-Version: R18, R19, R20, R21 - Win/Mac
+Version: R18, R19, R20, R21, S22 - Win/Mac
 
     Creates a material from the given substance asset.
 

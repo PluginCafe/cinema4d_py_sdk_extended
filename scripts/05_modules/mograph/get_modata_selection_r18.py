@@ -9,7 +9,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -36,11 +36,11 @@ def main():
 
     # Retrieves selected clones indices
     indices = []
-    for index in xrange(count):
+    for index in range(count):
         if selection.IsSelected(index):
             indices.append(index)
 
-    print "Clones selection indices:", indices
+    print("Clones selection indices:", indices)
 
 
 if __name__ == '__main__':

@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -28,22 +28,32 @@ def main():
     # Retrieves active UVSet, The UV windows need to be opened at least one time
     handle = c4d.modules.bodypaint.GetActiveUVSet(doc, c4d.GETACTIVEUVSET_ALL)
     if handle is None:
-        raise RuntimeError("There is no Active UVSet, lease open at least one time the Texture View.")
+        # If fail it may be because the Texture view is not open
+        # Open A texture View
+        c4d.CallCommand(170103)
+        # In S22 you need to update the UV Mesh
+        if c4d.API_VERSION >= 22000:
+            c4d.modules.bodypaint.UpdateMeshUV(False)
+
+        # Retrieves active UVSet, The UV windows need to be opened at least one time
+        handle = c4d.modules.bodypaint.GetActiveUVSet(doc, c4d.GETACTIVEUVSET_ALL)
+        if handle is None:
+            raise RuntimeError("There is no Active UVSet")
 
     # Prints UVSet information
-    print "UV Handle Data:"
-    print "Handle:", handle
-    print "Handle Mode:", handle.GetMode()
-    print "Handle Points:", handle.GetPoints()
-    print "Handle Polygons:", handle.GetPolys()
-    print "Handle Polygon Selection:", handle.GetPolySel()
-    print "Handle Hidden Polygons:", handle.GetPolyHid()
-    print "Handle Point Selection:", handle.GetUVPointSel()
-    print "Handle Point Count:", handle.GetPointCount()
-    print "Handle Polygon Count:", handle.GetPolyCount()
-    print "Handle Object:", handle.GetBaseObject()
-    print "Handle Editable:", handle.IsEditable()
-    print "Handle UVW:", handle.GetUVW()
+    print("UV Handle Data:")
+    print("Handle: {0}".format(handle))
+    print("Handle Mode: {0}".format(handle.GetMode()))
+    print("Handle Points: {0}".format(handle.GetPoints()))
+    print("Handle Polygons: {0}".format(handle.GetPolys()))
+    print("Handle Polygon Selection: {0}".format(handle.GetPolySel()))
+    print("Handle Hidden Polygons: {0}".format(handle.GetPolyHid()))
+    print("Handle Point Selection: {0}".format(handle.GetUVPointSel()))
+    print("Handle Point Count: {0}".format(handle.GetPointCount()))
+    print("Handle Polygon Count: {0}".format(handle.GetPolyCount()))
+    print("Handle Object: {0}".format(handle.GetBaseObject()))
+    print("Handle Editable: {0}".format(handle.IsEditable()))
+    print("Handle UVW: {0}".format(handle.GetUVW()))
 
     # Builds UVCOMMAND_TRANSFORM container for the command settings
     settings = c4d.BaseContainer()
@@ -75,9 +85,9 @@ def main():
 
     # Sets the transformedUVW from Texture View
     if not handle.SetUVWFromTextureView(uvw, True, True, True):
-        raise  RuntimeError("UVW from Texture View failed to be set.")
+        raise RuntimeError("UVW from Texture View failed to be set.")
 
-    print "UVW from Texture View successfully set"
+    print("UVW from Texture View successfully set")
 
     # Releases active UVSet
     c4d.modules.bodypaint.FreeActiveUVSet(handle)

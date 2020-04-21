@@ -15,7 +15,7 @@ Note:
 
 Compatible:
     - Win / Mac
-    - R21
+    - R21, S22
 """
 import c4d
 

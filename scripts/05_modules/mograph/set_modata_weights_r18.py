@@ -9,7 +9,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 

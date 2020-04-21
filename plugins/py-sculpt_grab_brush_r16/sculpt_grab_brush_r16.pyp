@@ -109,7 +109,7 @@ class SculptBrushGrabTool(c4d.plugins.SculptBrushToolData):
         mirror = dab.IsMirroredDab()
 
         # Loops over every point on the dab and move them by the moveAmnt.
-        for pointIdDab in xrange(0, pointCount):
+        for pointIdDab in range(pointCount):
             # Retrieves the index of the point on the PolygonObject.
             pointData = dab.GetPointData(pointIdDab)
             pointIndex = pointData["pointIndex"]

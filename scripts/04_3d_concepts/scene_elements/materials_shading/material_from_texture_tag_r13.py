@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -34,7 +34,7 @@ def main():
         return
 
     # Print the name of the material to the console.
-    print mat.GetName()
+    print(mat.GetName())
 
 
 if __name__ == '__main__':

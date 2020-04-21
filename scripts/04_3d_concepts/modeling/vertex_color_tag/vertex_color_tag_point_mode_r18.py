@@ -17,7 +17,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -48,7 +48,7 @@ def main():
     # By default the Vertex Color Tag is in Point mode
     # So GetDataCount() returns the number of points
     count = tag.GetDataCount()
-    for idx in xrange(count):
+    for idx in range(count):
         # If point color is black then changes it to red
         point = c4d.VertexColorTag.GetPoint(addrR, None, None, idx)
         if point == black:

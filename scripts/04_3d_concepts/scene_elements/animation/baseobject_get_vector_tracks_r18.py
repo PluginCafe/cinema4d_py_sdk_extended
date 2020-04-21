@@ -10,7 +10,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -28,10 +28,10 @@ def main():
     if not ret:
         raise RuntimeError("Failed to retrieve the vector tracks.")
 
-    print "c4d.ID_BASEOBJECT_REL_POSITION tracks:"
-    print "Track X:", trackX
-    print "Track Y:", trackY
-    print "Track Z:", trackZ
+    print("c4d.ID_BASEOBJECT_REL_POSITION tracks:")
+    print("Track X: {0}".format(trackX))
+    print("Track Y: {0}".format(trackY))
+    print("Track Z: {0}".format(trackZ))
 
 
 if __name__ == '__main__':

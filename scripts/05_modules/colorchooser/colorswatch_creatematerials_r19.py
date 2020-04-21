@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R19, R20, R21
+    - R19, R20, R21, S22
 """
 import c4d
 
@@ -38,7 +38,7 @@ def main():
 
     groupName = group.GetName()
     colorCount = group.GetColorCount()
-    for colorIndex in xrange(colorCount):
+    for colorIndex in range(colorCount):
         # Gets the current color
         color = group.GetColor(colorIndex)[0]
 
@@ -55,6 +55,7 @@ def main():
 
     # Pushes an update event to Cinema 4D
     c4d.EventAdd()
+
 
 if __name__ == '__main__':
     main()

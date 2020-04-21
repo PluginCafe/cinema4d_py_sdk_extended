@@ -164,6 +164,7 @@ class MyDialog(c4d.gui.GeDialog):
         """
         Called after CreateLayout being called to define the values in the UI
         :return: 	True if successful, or False to signalize an error.
+        :rtype: bool
         """
         # Retrieves saved values from the world container of this plugin
         self.CVRssData = c4d.plugins.GetWorldPluginData(PLUGIN_ID)
@@ -186,6 +187,7 @@ class MyDialog(c4d.gui.GeDialog):
         """
         This method is called automatically by Cinema 4D according to the timer set with GeDialog.SetTimer method.
         :param msg: The timer message
+        :type msg: c4d.BaseContainer
         """
         # Scroll RSS function
         self.UpdateToNextRss()
@@ -221,7 +223,7 @@ class MyDialog(c4d.gui.GeDialog):
         """
 
         # Retrieves the RSS Url and parse its XML
-        print "Updating... " + self.rss_url
+        print("Updating... " + self.rss_url)
         dom = xml.dom.minidom.parse(urllib.urlopen(self.rss_url))
 
         # Resets the rss_items list - otherwise the new ones get tacked on the old

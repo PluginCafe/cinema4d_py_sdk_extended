@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import maxon
 
@@ -27,7 +27,7 @@ def main():
     for idx, value in enumerate(pyTuple):
         mTuple.Set(idx, value)
 
-    print mTuple
+    print(mTuple)
 
 
 if __name__ == "__main__":

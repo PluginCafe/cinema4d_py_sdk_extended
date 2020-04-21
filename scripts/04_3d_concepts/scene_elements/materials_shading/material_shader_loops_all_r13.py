@@ -14,7 +14,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -22,15 +22,18 @@ import c4d
 def iterateShaders(sha):
     """
     This function iterates over a BaseList2D, BaseShader inherit from BaseList2D.
+
     :param sha: Shader to iterate.
+    :type sha: Union[c4d.BaseList2D, c4d.BaseShader]
     """
     while sha:
         matName = sha.GetMain().GetName()
         shaName = sha.GetName()
-        print "Mat: {0}, shader:{1}".format(matName, shaName)
+        print("Mat: {0}, shader:{1}".format(matName, shaName))
 
         iterateShaders(sha.GetDown())
         sha = sha.GetNext()
+
 
 def main():
     # Gets the first material

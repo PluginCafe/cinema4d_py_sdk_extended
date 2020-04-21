@@ -14,16 +14,18 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R17, R18, R19, R20, R21
+    - R17, R18, R19, R20, R21, S22
 """
 import c4d
 
 
 def iterateShaders(sha):
     """
-    This function iterates over a BaseList2D, BaseShader inherit from BaseList2D.
-    If it's a LayerShader, iterates over all layers and print their name.
+    | This function iterates over a BaseList2D, BaseShader inherit from BaseList2D.
+    | If it's a LayerShader, iterates over all layers and print their name.
+
     :param sha: Shader to iterate.
+    :type sha: Union[c4d.BaseList2D, c4d.BaseShader, c4d.LayerShader]
     """
     while sha:
         # Checks if the shader is a Layer Shader
@@ -36,13 +38,14 @@ def iterateShaders(sha):
             while layer:
                 # Gets the name of the current layer
                 layerName = layer.GetName(sha.GetDocument())
-                print "layer:{}".format(layerName)
+                print("layer:{}".format(layerName))
 
                 # Gets the next layer
                 layer = layer.GetNext()
 
         iterateShaders(sha.GetDown())
         sha = sha.GetNext()
+
 
 def main():
     # Gets the first material

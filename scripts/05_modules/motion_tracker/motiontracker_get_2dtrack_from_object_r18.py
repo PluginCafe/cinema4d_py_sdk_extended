@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -32,7 +32,7 @@ def main():
 
     # Loops through all tracks
     trackCount = data.GetTrackCount()
-    for trackIdx in xrange(trackCount):
+    for trackIdx in range(trackCount):
         track = data.GetTrackByIndex(trackIdx)
         if track is None:
             continue
@@ -42,15 +42,18 @@ def main():
         statusStr = ""
         if status == c4d.INVALID_TRACK:
             statusStr = "invalid"
+
         elif status == c4d.UNTRACKED:
             statusStr = "untracked"
+
         elif status == c4d.TRACKED_VALID:
             statusStr = "valid"
+
         elif status == c4d.TRACKED_STALE:
             statusStr = "stale"
 
         # Prints track information
-        print "Track #{0}: {1} is {2}".format(trackIdx, track.GetName(), statusStr)
+        print("Track #{0}: {1} is {2}".format(trackIdx, track.GetName(), statusStr))
 
 
 if __name__ == '__main__':

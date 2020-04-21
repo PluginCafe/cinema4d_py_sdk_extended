@@ -15,7 +15,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R14, R15, R16, R17, R18, R19, R20, R21
+    - R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -25,15 +25,15 @@ def main():
     settings = c4d.modules.snap.GetSnapSettings(doc)
     settings[c4d.QUANTIZE_ENABLED] = True
     c4d.modules.snap.SetSnapSettings(doc, settings)
-    print "Quantize Enabled:", c4d.modules.snap.IsQuantizeEnabled(doc)
+    print("Quantize Enabled:", c4d.modules.snap.IsQuantizeEnabled(doc))
 
     # Sets quantize scale step
     c4d.modules.snap.SetQuantizeStep(doc, None, c4d.QUANTIZE_SCALE, 0.5)
-    print "Quantize Scaling Step:", c4d.modules.snap.GetQuantizeStep(doc, None, c4d.QUANTIZE_SCALE)
+    print("Quantize Scaling Step:", c4d.modules.snap.GetQuantizeStep(doc, None, c4d.QUANTIZE_SCALE))
 
     # Sets quantize move step
     c4d.modules.snap.SetQuantizeStep(doc, None, c4d.QUANTIZE_MOVE, 25)
-    print "Quantize Movement Step:", c4d.modules.snap.GetQuantizeStep(doc, None, c4d.QUANTIZE_MOVE)
+    print("Quantize Movement Step:", c4d.modules.snap.GetQuantizeStep(doc, None, c4d.QUANTIZE_MOVE))
 
     # Pushes an update event to Cinema 4D
     c4d.EventAdd()

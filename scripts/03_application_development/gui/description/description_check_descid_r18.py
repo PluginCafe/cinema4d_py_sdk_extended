@@ -10,7 +10,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -26,18 +26,18 @@ def main():
         raise RuntimeError("Failed to retrieve the description.")
 
     # Builds the object's X position parameter DescID
-    descid = c4d.DescID(c4d.DescLevel(c4d.ID_BASEOBJECT_POSITION, 0, 0), c4d.DescLevel(c4d.VECTOR_X, 0, 0))
+    descId = c4d.DescID(c4d.DescLevel(c4d.ID_BASEOBJECT_POSITION, 0, 0), c4d.DescLevel(c4d.VECTOR_X, 0, 0))
 
     # Prints previously built DescID
-    print descid
+    print(descId)
 
     # Calls CheckDescID() to retrieve the complete DescID for the object's X position parameter
-    ret = desc.CheckDescID(descid, [op])
+    ret = desc.CheckDescID(descId, [op])
     if ret is None:
         raise RuntimeError("Could not check description ID.")
 
     # Prints the complete DescID
-    print ret
+    print(ret)
 
 
 if __name__ == '__main__':

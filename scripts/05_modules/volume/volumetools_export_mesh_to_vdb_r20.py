@@ -16,7 +16,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 import maxon
@@ -42,17 +42,17 @@ def polygonToVolume(obj):
     polygons = maxon.BaseArray(maxon.frameworks.volume.VolumeConversionPolygon)
     polygons.Resize(obj.GetPolygonCount())
     for i, poly in enumerate(obj.GetAllPolygons()):
-        newpoly = maxon.frameworks.volume.VolumeConversionPolygon()
-        newpoly.a = poly.a
-        newpoly.b = poly.b
-        newpoly.c = poly.c
+        newPoly = maxon.frameworks.volume.VolumeConversionPolygon()
+        newPoly.a = poly.a
+        newPoly.b = poly.b
+        newPoly.c = poly.c
 
         if poly.IsTriangle():
-            newpoly.SetTriangle()
+            newPoly.SetTriangle()
         else:
-            newpoly.d = poly.d
+            newPoly.d = poly.d
 
-        polygons[i] = newpoly
+        polygons[i] = newPoly
 
     polygonObjectMatrix = maxon.Matrix()
     polygonObjectMatrix.off = obj.GetMg().off
@@ -100,9 +100,9 @@ def main():
         scale = 1.0
         metaData = maxon.DataDictionary()
         maxon.frameworks.volume.VolumeToolsInterface.SaveVDBFile(path, scale, volumesArray, metaData)
-        print "File saved to ", path
+        print("File saved to ", path)
     except Exception as e:
-        print "SaveVDBFile error {}, {}".format(e.message, e.args)
+        print("SaveVDBFile error {}, {}".format(e.message, e.args))
 
 
 if __name__ == '__main__':

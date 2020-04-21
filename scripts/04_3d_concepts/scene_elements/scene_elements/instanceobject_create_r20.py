@@ -14,9 +14,10 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
+
 
 def main():
     # Creates cube
@@ -63,7 +64,7 @@ def main():
     hueStep = 1.0 / count
 
     # Generates matrices and colors for 100 instances
-    for i in xrange(count):
+    for i in range(count):
         # Calculates the current instance matrix
         matrix = c4d.utils.MatrixMove(c4d.Vector(position, 0.0, 0.0))
         matrices.append(matrix)
@@ -85,5 +86,5 @@ def main():
     c4d.EventAdd()
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

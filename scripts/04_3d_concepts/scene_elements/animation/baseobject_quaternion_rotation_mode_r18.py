@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -25,7 +25,7 @@ def main():
     if not op.IsQuaternionRotationMode():
         # Enable quaternion interpolation
         # This will update the object's rotation animation tracks
-        op.SetQuaternionRotationMode(True, False);
+        op.SetQuaternionRotationMode(True, False)
         c4d. EventAdd()
 
 

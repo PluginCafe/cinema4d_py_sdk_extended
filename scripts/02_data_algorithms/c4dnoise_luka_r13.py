@@ -14,7 +14,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -43,8 +43,8 @@ def main():
         raise RuntimeError("Failed to initialize the noise.")
 
     # Iterates through the bitmap and set the noise value per pixel
-    for x in xrange(width):
-        for y in xrange(height):
+    for x in range(width):
+        for y in range(height):
 
             # Calculates the X and Y position
             posSampled = c4d.Vector(x/float(width), y/float(height), 0)

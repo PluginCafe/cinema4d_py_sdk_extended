@@ -16,7 +16,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -30,7 +30,7 @@ def main():
     end = 20
 
     # Loops through the frames
-    for frame in xrange(start, end + 1):
+    for frame in range(start, end + 1):
 
         # Sets the Status Bar
         c4d.StatusSetBar(100.0 * float(frame - start) / float(end - start))
@@ -45,7 +45,7 @@ def main():
         c4d.DrawViews(c4d.DRAWFLAGS_ONLY_ACTIVE_VIEW | c4d.DRAWFLAGS_NO_THREAD | c4d.DRAWFLAGS_NO_REDUCTION | c4d.DRAWFLAGS_STATICBREAK)
 
         # Do the stuff for each frame here you may be interested in BaseDocument.Polygonize()
-        print "Frame ", str(frame)
+        print("Frame {0}".format(frame))
 
     # Sets the time back to the original time.
     doc.SetTime(ctime)

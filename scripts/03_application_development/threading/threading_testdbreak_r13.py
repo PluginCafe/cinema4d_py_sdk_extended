@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 import time
@@ -31,16 +31,17 @@ class MyThread(c4d.threading.C4DThread):
     def Main(self):
 
         # Iterates over 100
-        for i in xrange(100):
+        for i in range(100):
             self.count = i
 
             # Checks if the thread is asked to quit and call TestDBreak for custom breaking condition
             if self.TestBreak():
-                print "Leaving at 10"
+                print("Leaving at 10")
                 break
 
-            print "Current:", i
+            print("Current:", i)
             time.sleep(1/25.)
+
 
 def main():
     # Initializes the thread

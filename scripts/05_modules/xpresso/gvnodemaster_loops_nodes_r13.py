@@ -16,7 +16,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -33,13 +33,14 @@ def iterateNodes(node):
         # If there is no parent, this means it's the gvNodeMaster.GetRoot() node, typically the master node
         parent = node.GetUp().GetName() if node.GetUp() is not None else "Master XGroup"
 
-        print "Name: {0}, Is Constant Node: {1}, Parent: {2}".format(nodeName, isConstantNode, parent)
+        print("Name: {0}, Is Constant Node: {1}, Parent: {2}".format(nodeName, isConstantNode, parent))
 
         # If it's a group retrieves all inner GvNode.
         if node.IsGroupNode():
             iterateNodes(node.GetDown())
 
         node = node.GetNext()
+
 
 def main():
     # Checks if selected object is valid
@@ -65,5 +66,5 @@ def main():
     iterateNodes(gvRoot)
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

@@ -54,7 +54,7 @@ class NoiseFalloffHelper(object):
         pos = c4d.Vector() * data.nodemat
         pos = [pos.x, pos.y, pos.z]
 
-        for i in xrange(3):
+        for i in range(3):
             res = pos[i] + offset[i] + size[i] > point[i] > pos[i] + offset[i] - size[i]
             if not res:
                 break
@@ -79,6 +79,8 @@ class NoiseFalloffHelper(object):
         bd.SetPen(c4d.GetViewColor(c4d.VIEWCOLOR_ACTIVEPOINT))
 
         # According the handle id, defines start/end of the line handle
+        p1, p2, p3, p4 = c4d.Vector(), c4d.Vector(), c4d.Vector(), c4d.Vector()
+
         if i == 0:
             p1 = c4d.Vector(0, -size.y, -size.z)
             p2 = c4d.Vector(0, -size.y, size.z)

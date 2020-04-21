@@ -12,7 +12,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R19, R20, R21
+    - R19, R20, R21, S22
 """
 import c4d
 
@@ -30,7 +30,7 @@ def main():
     levelCount = op.GetLevelCount()
 
     # Iterates over all levels of LOD
-    for level in xrange(levelCount):
+    for level in range(levelCount):
         descID = op.GetDisplayBFCDescID(level)
 
         # Enables backface culling

@@ -18,7 +18,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R21
+    - R21, S22
 """
 import c4d
 import maxon
@@ -49,9 +49,9 @@ def CreateVectorVolume(vectorValue):
 
     # Sets values
     size = 20
-    for x in xrange(size):
-        for y in xrange(size):
-            for z in xrange(size):
+    for x in range(size):
+        for y in range(size):
+            for z in range(size):
                 pos = maxon.IntVector32(x, y, z)
                 access.SetValue(pos, vectorValue)
 

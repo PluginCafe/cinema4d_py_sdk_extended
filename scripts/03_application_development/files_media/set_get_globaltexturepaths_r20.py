@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 import os
@@ -32,7 +32,7 @@ def main():
         if os.path.normpath(path) == os.path.normpath(desktopPath):
             desktopPathFound = True
 
-        if os.path.normpath(path) == os.path.normpath(homePathFound):
+        if os.path.normpath(path) == os.path.normpath(homePath):
             homePathFound = True
 
     # If paths are not found then add them to the global paths

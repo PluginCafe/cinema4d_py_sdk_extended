@@ -14,7 +14,7 @@ Classic API:
 
 
 ### call_uv_command
-Version: R18, R19, R20, R21 - Win/Mac
+Version: R18, R19, R20, R21, S22 - Win/Mac
 
     Calls BodyPaint 3D UV commands.
 

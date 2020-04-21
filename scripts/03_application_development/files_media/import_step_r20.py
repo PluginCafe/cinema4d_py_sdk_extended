@@ -16,7 +16,7 @@ Documentation links:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 

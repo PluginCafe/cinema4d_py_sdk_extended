@@ -15,7 +15,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -48,7 +48,7 @@ def main():
 
     # GetDataCount() returns the number of polygons in Polygon mode
     count = tag.GetDataCount()
-    for idx in xrange(count):
+    for idx in range(count):
         # Sets Vertex Colors red
         c4d.VertexColorTag.SetPolygon(addr, idx, poly)
 
@@ -57,4 +57,4 @@ def main():
 
 
 if __name__ == '__main__':
-        main()
+    main()

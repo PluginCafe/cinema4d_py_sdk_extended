@@ -15,7 +15,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -45,12 +45,12 @@ class ExampleDialog(c4d.gui.GeDialog):
         """
         # User click on Ok button
         if messageId == c4d.DLG_OK:
-            print "User Click on Ok"
+            print("User Click on Ok")
             return True
 
         # User click on Cancel button
         elif messageId == c4d.DLG_CANCEL:
-            print "User Click on Cancel"
+            print("User Click on Cancel")
 
             # Close the Dialog
             self.Close()

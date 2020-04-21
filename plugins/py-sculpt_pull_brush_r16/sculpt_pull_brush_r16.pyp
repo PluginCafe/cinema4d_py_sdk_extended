@@ -90,7 +90,7 @@ class SculptBrushPullTool(c4d.plugins.SculptBrushToolData):
             multPreMult = -multPreMult
 
         # Loops over every points for this dab and move it if we need to.
-        for a in xrange(0, pointCount):
+        for a in range(0, pointCount):
             # Retrieves the index of the point on the PolygonObject.
             pointData = dab.GetPointData(a)
             pointIndex = pointData["pointIndex"]

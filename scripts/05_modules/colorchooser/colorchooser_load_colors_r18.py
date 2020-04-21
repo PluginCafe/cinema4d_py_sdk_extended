@@ -12,7 +12,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 import os
@@ -31,7 +31,8 @@ def main():
         raise RuntimeError("Selected file is not a C4D file format.")
 
     # Loads the document
-    loadedDoc = c4d.documents.LoadDocument(filename, c4d.SCENEFILTER_0)
+    flag = c4d.SCENEFILTER_NONE if c4d.GetC4DVersion() > 20000 else c4d.SCENEFILTER_0
+    loadedDoc = c4d.documents.LoadDocument(filename, flag)
     if loadedDoc is None:
         raise RuntimeError("Failed to load the document.")
 

@@ -98,9 +98,9 @@ class MyXampleSaver(c4d.plugins.BitmapSaverData):
             # Retrieves bitmap data, in python 2.7 str and bits are the same, so we are storing raw bits here
             content = ""
             # Iterates each lines to fill the BaseBitmap
-            for y in xrange(bm.GetBh()):
+            for y in range(bm.GetBh()):
                 # Iterates each rows to fill the BaseBitmap
-                for x in xrange(bm.GetBw()):
+                for x in range(bm.GetBw()):
 
                     # Extracts red, green, blue information
                     r, g, b = bm[x, y]

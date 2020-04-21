@@ -10,7 +10,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -26,13 +26,13 @@ def main():
         raise RuntimeError("Failed to retrieve bc")
 
     # Iterates over the content of the BaseContainer using a for loop
-    for key in xrange(len(bc)):
+    for key in range(len(bc)):
         # Check if the data retrieved can be printed in python (some DataType are not supported in Python)
         key = bc.GetIndexId(key)
         try:
-            print key, bc[key]
+            print(key, bc[key])
         except AttributeError:
-            print "Entry:{0} is DataType {1} and can't be printed in Python".format(key, bc.GetType(key))
+            print("Entry:{0} is DataType {1} and can't be printed in Python".format(key, bc.GetType(key)))
 
 
 if __name__ == "__main__":

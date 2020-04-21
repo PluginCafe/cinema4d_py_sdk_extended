@@ -9,7 +9,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -32,10 +32,10 @@ def main():
     weights = c4d.modules.mograph.GeGetMoDataWeights(tag)
 
     # Prints clones weights
-    print "'" + op.GetName() + "'", "Clones Weights:"
+    print("'{0}' Clones Weights:".format(op.GetName()))
 
     for index, value in enumerate(weights):
-        print index, ":", value
+        print("{0} : {1}".format(index, value))
 
 
 if __name__ == '__main__':

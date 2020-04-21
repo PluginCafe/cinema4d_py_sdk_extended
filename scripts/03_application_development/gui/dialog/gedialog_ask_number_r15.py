@@ -15,7 +15,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R15, R16, R17, R18, R19, R20, R21
+    - R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -142,11 +142,11 @@ def main():
     # This code will be executed only when the Dialog will be closed
     # Access member variable of the dlg check if the user pressed cancel
     if dlg.userCancel:
-        print "User Press the Cancel Button"
+        print("User Press the Cancel Button")
         return
 
     # Retrieves the values stored in the member variable of the Dialog
-    print "Value entered: {0}".format(dlg.value)
+    print("Value entered: {0}".format(dlg.value))
 
 
 if __name__ == "__main__":

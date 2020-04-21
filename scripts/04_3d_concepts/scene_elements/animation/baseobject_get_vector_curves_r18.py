@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -37,10 +37,10 @@ def main():
     if not ret:
         raise RuntimeError("Failed to retrieve the vector curve.")
 
-    print "c4d.ID_BASEOBJECT_REL_ROTATION curves:"
-    print "Curve H:", curveX
-    print "Curve P:", curveY
-    print "Curve B:", curveZ
+    print("c4d.ID_BASEOBJECT_REL_ROTATION curves:")
+    print("Curve H: {0}".format(curveX))
+    print("Curve P: {0}".format(curveY))
+    print("Curve B: {0}".format(curveZ))
 
 
 if __name__ == '__main__':

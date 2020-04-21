@@ -10,7 +10,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R19, R20, R21
+    - R19, R20, R21, S22
 """
 import c4d
 
@@ -48,15 +48,15 @@ def main():
     # Asks for number of vertex level
     while True:
         # Opens a Dialog where user can enter a text
-        input = c4d.gui.InputDialog("Enter number of vertex level:")
+        userInput = c4d.gui.InputDialog("Enter number of vertex level:")
 
         # Checks if operation was cancelled
-        if input == "":
+        if userInput == "":
             return
 
         # Tries to convert to integer
         try:
-            vertexLevel = int(input)
+            vertexLevel = int(userInput)
             break
         except ValueError:
             c4d.gui.MessageDialog("Please enter a number.")
@@ -70,7 +70,7 @@ def main():
 
     # Gets vertex level count after reduction
     realVertexResult = polyReduction.GetVertexLevel()
-    print "Vertex Result: " + str(realVertexResult)
+    print("Vertex Result: {0}".format(realVertexResult))
 
     # Updates original PolygonObject
     op.Message(c4d.MSG_UPDATE)

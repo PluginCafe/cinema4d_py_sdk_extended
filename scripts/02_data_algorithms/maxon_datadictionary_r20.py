@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import maxon
 
@@ -24,10 +24,10 @@ def main():
     mDict = maxon.DataDictionary()
 
     # Sets the value of the tuple
-    for key, value in pyDict.iteritems():
+    for key, value in pyDict.items():
         mDict.Set(key, value)
 
-    print mDict
+    print(mDict)
 
 
 if __name__ == "__main__":

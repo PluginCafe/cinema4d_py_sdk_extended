@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R21
+    - R21, S22
 """
 import c4d
 
@@ -46,7 +46,7 @@ def PythonCallBack(progress, progress_type):
         text = "AO"
 
     # Prints to the console the current progress
-    print "ProgressHook called [{0} / p: {1}]".format(text, progress * 100.0)
+    print("ProgressHook called [{0} / p: {1}]".format(text, progress * 100.0))
 
 
 def PythonWriteCallBack(mode, bmp, fn, mainImage, frame, renderTime, streamnum, streamname):
@@ -82,7 +82,7 @@ def PythonWriteCallBack(mode, bmp, fn, mainImage, frame, renderTime, streamnum, 
     elif mode == c4d.WRITEMODE_ASSEMBLE_SINGLEIMAGE:
         text = "Assemble single image"
 
-    print "ProgressWriteHook called [{0} / p: {1}]".format(text, renderTime)
+    print("ProgressWriteHook called [{0} / p: {1}]".format(text, renderTime))
 
 
 def main():

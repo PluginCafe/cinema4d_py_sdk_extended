@@ -14,7 +14,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 import array
@@ -111,16 +111,16 @@ def main():
     rawNormalData = ReadNormalTag(tag)
 
     # Prints the current value stored in tag, since data are stored as int16 and not float you have to divide them by 32000.0
-    print [normal / 32000.0 for normal in rawNormalData]
+    print([normal / 32000.0 for normal in rawNormalData])
 
     # Creates a list representing a float gradient value from 0 to 1 then remap these value from float to int16 by multiplying them by 32000
-    valueToSet = [int(float(normalID) / (len(rawNormalData) - 1 ) * 32000.0) for normalID in xrange(len(rawNormalData))]
+    valueToSet = [int(float(normalID) / (len(rawNormalData) - 1) * 32000.0) for normalID in range(len(rawNormalData))]
 
     # Writes the previous list to the normal tag.
     WriteNormalTag(tag, valueToSet)
 
     # Reads back the normal stored in the normal tag, value should go from 0 to 1
-    print [normal / 32000.0 for normal in ReadNormalTag(tag)]
+    print([normal / 32000.0 for normal in ReadNormalTag(tag)])
 
     # Pushes an update event to Cinema 4D
     c4d.EventAdd()

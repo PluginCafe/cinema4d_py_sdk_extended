@@ -10,7 +10,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R19, R20, R21
+    - R19, R20, R21, S22
 """
 import c4d
 
@@ -48,15 +48,15 @@ def main():
     # Asks for number of triangle level
     while True:
         # Opens a Dialog where user can enter a text
-        input = c4d.gui.InputDialog("Enter number of triangle level:")
+        userInput = c4d.gui.InputDialog("Enter number of triangle level:")
 
         # Checks if operation was cancelled
-        if input == "":
+        if userInput == "":
             return
 
         # Tries to convert to integer
         try:
-            triangleLevel = int(input)
+            triangleLevel = int(userInput)
             break
         except ValueError:
             c4d.gui.MessageDialog("Please enter a number.")
@@ -70,7 +70,7 @@ def main():
 
     # Gets triangle level count after reduction
     realTriangleResult = polyReduction.GetTriangleLevel()
-    print "Triangle Result: " + str(realTriangleResult)
+    print("Triangle Result: ".format(realTriangleResult))
 
     # Updates original PolygonObject
     op.Message(c4d.MSG_UPDATE)

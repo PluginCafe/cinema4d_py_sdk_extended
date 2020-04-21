@@ -12,7 +12,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R17, R18, R19, R20, R21
+    - R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -35,7 +35,7 @@ def main():
     for group in overrideGroups:
 
         # Print the group name and its selection state
-        print "Group {0}, isSelected: {1}".format(group.GetName(), bool(group.GetBit(c4d.BIT_ACTIVE)))
+        print("Group {0}, isSelected: {1}".format(group.GetName(), bool(group.GetBit(c4d.BIT_ACTIVE))))
 
 
 if __name__ == '__main__':

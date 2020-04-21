@@ -16,7 +16,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R16, R17, R18, R19, R20, R21
+    - R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -98,8 +98,9 @@ def main():
     if not op.CheckType(1018544):
         raise TypeError("objects is not cloner.")
 
-    print RetrieveColorWithMoData(op)
-    print RetrieveColorWithCache(op)
+    print(RetrieveColorWithMoData(op))
+    print(RetrieveColorWithCache(op))
+
 
 if __name__ == "__main__":
     main()

@@ -46,6 +46,7 @@ def PythonToken(data):
     # Returns the frame number as a string. So this will replace the token by the frame number.
     return str(data[4])
 
+
 def PythonHiddenToken(data):
     """
     The function that will be called to return the string representation of a token.
@@ -76,7 +77,7 @@ def PythonHiddenToken(data):
     return str(data[4])
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     # First it's important to check if the token is not already registered
     for registeredToken in c4d.modules.tokensystem.GetAllTokenEntries():
         # Checks if the token name is already used, if it's the case exit.

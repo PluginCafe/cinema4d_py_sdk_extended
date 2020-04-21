@@ -18,7 +18,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 import maxon
@@ -43,17 +43,17 @@ def polygonToVolume(obj):
     polygons = maxon.BaseArray(maxon.frameworks.volume.VolumeConversionPolygon)
     polygons.Resize(obj.GetPolygonCount())
     for i, poly in enumerate(obj.GetAllPolygons()):
-        newpoly = maxon.frameworks.volume.VolumeConversionPolygon()
-        newpoly.a = poly.a
-        newpoly.b = poly.b
-        newpoly.c = poly.c
+        newPoly = maxon.frameworks.volume.VolumeConversionPolygon()
+        newPoly.a = poly.a
+        newPoly.b = poly.b
+        newPoly.c = poly.c
 
         if poly.IsTriangle():
-            newpoly.SetTriangle()
+            newPoly.SetTriangle()
         else:
-            newpoly.d = poly.d
+            newPoly.d = poly.d
 
-        polygons[i] = newpoly
+        polygons[i] = newPoly
 
     # Sets the matrix used for local grid translation and rotation
     polygonObjectMatrix = maxon.Matrix()

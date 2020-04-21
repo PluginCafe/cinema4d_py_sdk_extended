@@ -19,7 +19,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 import maxon
@@ -44,17 +44,17 @@ def polygonToVolume(obj):
     polygons = maxon.BaseArray(maxon.frameworks.volume.VolumeConversionPolygon)
     polygons.Resize(obj.GetPolygonCount())
     for i, poly in enumerate(obj.GetAllPolygons()):
-      newpoly = maxon.frameworks.volume.VolumeConversionPolygon()
-      newpoly.a = poly.a
-      newpoly.b = poly.b
-      newpoly.c = poly.c
+        newPoly = maxon.frameworks.volume.VolumeConversionPolygon()
+        newPoly.a = poly.a
+        newPoly.b = poly.b
+        newPoly.c = poly.c
 
-      if poly.IsTriangle():
-        newpoly.SetTriangle()
-      else:
-        newpoly.d = poly.d
+        if poly.IsTriangle():
+            newPoly.SetTriangle()
+        else:
+            newPoly.d = poly.d
 
-      polygons[i] = newpoly
+        polygons[i] = newPoly
 
     # Sets the matrice used for local grid translation and rotation
     polygonObjectMatrix = maxon.Matrix()
@@ -65,7 +65,7 @@ def polygonToVolume(obj):
     gridSize = 1
     bandWidthInterior = 1
     bandWidthExterior = 1
-    
+
     # Before R21
     if c4d.GetC4DVersion() < 21000:
         volumeRef = maxon.frameworks.volume.VolumeToolsInterface.MeshToVolume(vertices,
@@ -83,6 +83,7 @@ def polygonToVolume(obj):
 
     FogVolumeRef = maxon.frameworks.volume.VolumeToolsInterface.ConvertSDFToFog(volumeRef, 0.1)
     return FogVolumeRef
+
 
 def main():
     # Get the two objects selected and hide them
@@ -122,6 +123,7 @@ def main():
 
     # Pushes an update event to Cinema 4D
     c4d.EventAdd()
+
 
 if __name__ == '__main__':
     main()

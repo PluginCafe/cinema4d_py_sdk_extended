@@ -84,9 +84,9 @@ class MyXampleLoader(c4d.plugins.BitmapLoaderData):
             lines = bz2.decompress(lines)
 
             # Iterates each lines to fill the BaseBitmap
-            for x in xrange(width):
+            for x in range(width):
                 # Iterates each row
-                for y in xrange(height):
+                for y in range(height):
                     # Retrieves memory position according current x and y pixels
                     fr = (y * width * chatBitsSize) + (x * chatBitsSize)
 

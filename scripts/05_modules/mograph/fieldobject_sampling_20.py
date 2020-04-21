@@ -13,7 +13,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 
@@ -30,7 +30,7 @@ def main():
     sampleCount = 10
     positions = []
     offset = 0.0
-    for i in xrange(sampleCount):
+    for i in range(sampleCount):
         positions.append(c4d.Vector(offset, 0, 0))
         offset += 10.0
 

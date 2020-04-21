@@ -188,7 +188,7 @@ def RegisterPlugin():
     """
     Registers your plugin(s) here e.g. RegisterCommandPlugin.
     """
-    print "Register your plugin here"
+    print("Register your plugin here")
 
 
 if __name__ == "__main__":
@@ -213,4 +213,4 @@ if __name__ == "__main__":
         # Registers the plugin.
         RegisterPlugin()
     else:
-        print "No license found for license_example.pyp"
+        print("No license found for license_example.pyp")

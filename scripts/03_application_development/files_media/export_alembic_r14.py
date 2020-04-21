@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R14, R15, R16, R17, R18, R19, R20, R21
+    - R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -47,7 +47,7 @@ def main():
     if not c4d.documents.SaveDocument(doc, filePath, c4d.SAVEDOCUMENTFLAGS_DONTADDTORECENTLIST, abcExportId):
         raise RuntimeError("Failed to save the document.")
 
-    print "Document successfully exported to:", filePath
+    print("Document successfully exported to:", filePath)
 
 
 if __name__ == '__main__':

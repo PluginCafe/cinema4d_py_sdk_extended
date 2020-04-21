@@ -10,7 +10,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -35,22 +35,22 @@ def main():
         raise RuntimeError("Failed to create the description.")
 
     # Builds the gradient DescID
-    descid = c4d.DescID(c4d.DescLevel(c4d.SLA_GRADIENT_GRADIENT, c4d.CUSTOMDATATYPE_GRADIENT, c4d.Xgradient))
+    descId = c4d.DescID(c4d.DescLevel(c4d.SLA_GRADIENT_GRADIENT, c4d.CUSTOMDATATYPE_GRADIENT, c4d.Xgradient))
 
     # Retrieves the gradient knots description
-    desc.GetSubDescriptionWithData(descid, [gradient], c4d.BaseContainer(), None)
+    desc.GetSubDescriptionWithData(descId, [gradient], c4d.BaseContainer(), None)
 
     # Retrieves the gradient data with its knots
-    gradientData = gradient[descid]
+    gradientData = gradient[descId]
 
     # Prints the gradient knots
     knotCount = gradientData.GetKnotCount()
     for idx in range(knotCount):
-        print gradientData.GetKnot(idx)
+        print(gradientData.GetKnot(idx))
 
     # Prints the gradient description
-    for bc, paramid, groupid in desc:
-        print bc[c4d.DESC_NAME], paramid[-1].dtype
+    for bc, paramId, groupId in desc:
+        print(bc[c4d.DESC_NAME], paramId[-1].dtype)
 
 
 if __name__ == '__main__':

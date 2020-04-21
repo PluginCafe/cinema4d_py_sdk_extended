@@ -120,7 +120,7 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         count = hf.ReadInt32()
 
         # Reads the dynamic parameters value
-        for idx in xrange(count):
+        for idx in range(count):
             value = hf.ReadFloat32()
             self.parameters.append(value)
 

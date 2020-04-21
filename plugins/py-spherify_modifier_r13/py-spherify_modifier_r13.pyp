@@ -103,7 +103,6 @@ class SpherifyModifier(c4d.plugins.ObjectData):
                 self.falloffDirty = dirty
                 op.SetDirty(c4d.DIRTYFLAGS_DATA)
 
-
     def GetDDescription(self, node, description, flags):
         """
         Called by Cinema 4D when the description (UI) is queried.
@@ -399,7 +398,7 @@ class SpherifyModifier(c4d.plugins.ObjectData):
             # Checks if one of the handle of the current object is currently hovered by the mouse.
             hitId = op.GetHighlightHandle(bd)
 
-            for i in xrange(SpherifyModifier.HANDLECOUNT):
+            for i in range(SpherifyModifier.HANDLECOUNT):
                 # Defines the color of the handle according of the hovered state of the object.
                 hoverColor = c4d.VIEWCOLOR_ACTIVEPOINT if hitId != i else c4d.VIEWCOLOR_SELECTION_PREVIEW
                 bd.SetPen(c4d.GetViewColor(hoverColor))

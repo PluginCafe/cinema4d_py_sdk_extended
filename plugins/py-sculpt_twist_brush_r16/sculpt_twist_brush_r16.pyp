@@ -94,12 +94,12 @@ class SculptBrushTwistTool(c4d.plugins.SculptBrushToolData):
         # Loops over very point for this dab and move it if we need to.
         pointCount = dab.GetPointCount()
         mirrored = dab.IsMirroredDab()
-        for a in xrange(0,pointCount):
+        for a in range(0, pointCount):
             # Retrieves the index of the point on the PolygonObject.
             pointData = dab.GetPointData(a)
             pointIndex = pointData["pointIndex"]
 
-            #Retrieves the falloff for this point. This will always be a value from 0 to 1.
+            # Retrieves the falloff for this point. This will always be a value from 0 to 1.
             # The value returned is a combination of the following values all multiplied together to give a final value.
             # - The falloff curve.
             # - The color of the stamp with its color value averaged to gray and adjusted by the Gray Value.

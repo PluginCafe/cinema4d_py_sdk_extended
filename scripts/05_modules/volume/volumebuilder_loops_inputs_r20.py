@@ -12,7 +12,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 
@@ -32,7 +32,7 @@ def main():
         raise RuntimeError("There is no input object for this volume builder.")
 
     # Iterates over all objects used in the volume builder
-    for i in xrange(inputCount):
+    for i in range(inputCount):
         # Retrieves the object
         inputObject = op.GetInputObject(i)
         if inputObject is None: continue
@@ -45,5 +45,5 @@ def main():
             print("child object")
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

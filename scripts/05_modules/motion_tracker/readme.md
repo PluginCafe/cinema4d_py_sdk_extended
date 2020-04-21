@@ -14,7 +14,7 @@ Classic API:
 ## Examples
 
 ### motiontracker_get_2dtrack_from_object
-Version: R18, R19, R20, R21 - Win/Mac
+Version: R18, R19, R20, R21, S22 - Win/Mac
 
     Loops through all the tracks of the active Motion Tracker object.
 

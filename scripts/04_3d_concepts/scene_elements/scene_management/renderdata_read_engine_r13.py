@@ -12,7 +12,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -29,7 +29,7 @@ def main():
     #   RDATA_RENDERENGINE_PREVIEWSOFTWARE = Software OpenGL
     #   RDATA_RENDERENGINE_PREVIEWHARDWARE = Hardware OpenGL
     #   RDATA_RENDERENGINE_GPURENDERER = Pro Render
-    print renderData[c4d.RDATA_RENDERENGINE]
+    print(renderData[c4d.RDATA_RENDERENGINE])
 
 
 if __name__ == "__main__":

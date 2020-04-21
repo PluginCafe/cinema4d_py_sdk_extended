@@ -150,7 +150,7 @@ class TextureBakerHelper(object):
         # Initializes the thread
         if not self.textureBakerThread.Begin():
             # In case of errors, notifies the user
-            print "Bake Init Failed: Error " + str(self.textureBakerThread.bakeError)
+            print("Bake Init Failed: Error " + str(self.textureBakerThread.bakeError))
             self.SetString(self.infoText, str("Bake Init Failed: Error " + str(self.textureBakerThread.bakeError)))
 
         # Sets Button enable states so cancel button can be pressed

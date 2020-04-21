@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 import maxon
@@ -40,12 +40,12 @@ def main():
     volume = cache.GetVolume()
     if volume is None:
         raise RuntimeError("Failed to retrieve the core volume, most likely there is no volume set.")
-    print volume
+    print(volume)
 
     # Prints the grid name
     gridName = volume.GetGridName()
     print(gridName)
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

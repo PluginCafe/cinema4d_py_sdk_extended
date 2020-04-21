@@ -13,7 +13,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 
@@ -83,7 +83,7 @@ def main():
 
     # Writes field output values to the vertex color data
     writeData = vertexColor.GetDataAddressW()
-    for pointIndex in xrange(pointCount):
+    for pointIndex in range(pointCount):
         vertexColor.SetColor(writeData, None, None, pointIndex, c4d.Vector(output._value[pointIndex]))
 
     # Removes fields from the document

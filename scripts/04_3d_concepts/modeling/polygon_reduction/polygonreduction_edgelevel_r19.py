@@ -10,7 +10,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R19, R20, R21
+    - R19, R20, R21, S22
 """
 import c4d
 
@@ -48,15 +48,15 @@ def main():
     # Asks for number of edges level
     while True:
         # Opens a Dialog where user can enter a text
-        input = c4d.gui.InputDialog("Enter number of edges level:")
+        userInput = c4d.gui.InputDialog("Enter number of edges level:")
 
         # Checks if operation was cancelled
-        if input == "":
+        if userInput == "":
             return
 
         # Tries to convert to integer
         try:
-            edgesLevel = int(input)
+            edgesLevel = int(userInput)
             break
         except ValueError:
             c4d.gui.MessageDialog("Please enter a number.")
@@ -67,7 +67,7 @@ def main():
 
     # Retrieves edges level count after reduction
     realEdgeResult = polyReduction.GetRemainingEdgesLevel()
-    print "Edge Result: " + str(realEdgeResult)
+    print("Edge Result: {0}".format(realEdgeResult))
 
     # Updates the original PolygonObject
     op.Message(c4d.MSG_UPDATE)

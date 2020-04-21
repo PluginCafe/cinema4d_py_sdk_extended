@@ -137,7 +137,7 @@ class SculptModifierDeformer(c4d.plugins.ObjectData):
         # Defines the random seed, so random is consistent over time
         random.seed(seed)
 
-        for i in xrange(0, numStamps):
+        for i in range(numStamps):
             # Retrieves a random a pointIndex
             ptId = int(random.random() * op.GetPointCount())
 

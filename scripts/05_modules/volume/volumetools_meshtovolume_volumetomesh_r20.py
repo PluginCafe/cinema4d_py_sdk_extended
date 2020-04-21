@@ -13,7 +13,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21
+    - R20, R21, S22
 """
 import c4d
 import maxon
@@ -42,17 +42,17 @@ def main():
     polygons = maxon.BaseArray(maxon.frameworks.volume.VolumeConversionPolygon)
     polygons.Resize(op.GetPolygonCount())
     for i, poly in enumerate(op.GetAllPolygons()):
-        newpoly = maxon.frameworks.volume.VolumeConversionPolygon()
-        newpoly.a = poly.a
-        newpoly.b = poly.b
-        newpoly.c = poly.c
+        newPoly = maxon.frameworks.volume.VolumeConversionPolygon()
+        newPoly.a = poly.a
+        newPoly.b = poly.b
+        newPoly.c = poly.c
 
         if poly.IsTriangle():
-            newpoly.SetTriangle()
+            newPoly.SetTriangle()
         else:
-            newpoly.d = poly.d
+            newPoly.d = poly.d
 
-        polygons[i] = newpoly
+        polygons[i] = newPoly
 
     polygonObjectMatrix = maxon.Matrix()
     gridSize = 10

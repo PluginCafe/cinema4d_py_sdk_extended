@@ -13,7 +13,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R17, R18, R19, R20, R21
+    - R17, R18, R19, R20, R21, S22
 """
 import c4d
 
@@ -34,7 +34,7 @@ def main():
         raise TypeError("The material is not a default material.")
 
     # Makes 10 variations of this material
-    for i in xrange(10):
+    for i in range(10):
         # Creates a Take
         takeName = "Variation " + str(i)
         materialVariation = takeData.AddTake(takeName, None, None)
@@ -57,8 +57,6 @@ def main():
 
     # Pushes an update event to Cinema 4D
     c4d.EventAdd()
-
-
 
 
 if __name__ == '__main__':

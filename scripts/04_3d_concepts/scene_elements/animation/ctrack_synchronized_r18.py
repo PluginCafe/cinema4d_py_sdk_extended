@@ -11,7 +11,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21
+    - R18, R19, R20, R21, S22
 """
 # This example checks if the rotation track of an object is synchronized. If not, it will be synchronized.
 import c4d
@@ -34,7 +34,7 @@ def main():
 
         # Pushes an update event to Cinema 4D
         c4d.EventAdd()
-        print "Synchronized Object \"" + op.GetName() + "\" Track \"" + track.GetName() + "\""
+        print('Synchronized Object "{0}" Track "{1}"'.format(op.GetName(), track.GetName()))
 
 
 if __name__ == '__main__':

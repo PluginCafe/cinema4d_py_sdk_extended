@@ -10,7 +10,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
 """
 import c4d
 import time
@@ -21,15 +21,16 @@ class MyThread(c4d.threading.C4DThread):
     def Main(self):
 
         # Iterates over 100
-        for i in xrange(100):
+        for i in range(100):
 
             # Checks if thread is asked to quit
             if self.TestBreak():
-                print "Leaving at 10"
+                print("Leaving at 10")
                 break
 
-            print "Current:", i
+            print("Current:", i)
             time.sleep(1/25.)
+
 
 def main():
     # Creates our thread
@@ -38,11 +39,12 @@ def main():
     # Starts our thread
     thread.Start()
 
-    # Waits a bit to give the thread some time to perfom some operations
+    # Waits a bit to give the thread some time to perform some operations
     time.sleep(1)
 
     # Asks to close our Thread (making TestBreak returns True)
     thread.End()
+
 
 if __name__ == '__main__':
     main()
