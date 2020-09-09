@@ -12,7 +12,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
@@ -41,7 +41,11 @@ def main():
 
     # Defines the settings
     objImport[c4d.OBJIMPORTOPTIONS_PHONG_ANGLE_DEFAULT] = 22.5
-    objImport[c4d.OBJIMPORTOPTIONS_TEXTURECOORDINATES] = True
+    if c4d.GetC4DVersion() > 22600:
+        objImport[c4d.OBJIMPORTOPTIONS_IMPORT_UVS] = c4d.OBJIMPORTOPTIONS_UV_ORIGINAL
+    else:
+        objImport[c4d.OBJEXPORTOPTIONS_TEXTURECOORDINATES] = True
+
     objImport[c4d.OBJIMPORTOPTIONS_SPLITBY] = c4d.OBJIMPORTOPTIONS_SPLITBY_OBJECT
     objImport[c4d.OBJIMPORTOPTIONS_MATERIAL] = c4d.OBJIMPORTOPTIONS_MATERIAL_MTLFILE
     objImport[c4d.OBJIMPORTOPTIONS_POINTTRANSFORM_FLIPZ] = True

@@ -19,7 +19,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
+    - R23
 """
 import c4d
 import struct
@@ -29,8 +29,8 @@ import bz2
 # Be sure to use a unique ID obtained from www.plugincafe.com
 PLUGIN_ID = 1025255
 
-BMP_NAME = "Py-XAMPLE"
-BMP_IDENTIFIER = "XAMPLE"
+BMP_NAME = "Py-XAMPLE Loader"
+BMP_IDENTIFIER = b"XAMPLE"
 
 
 class MyXampleLoader(c4d.plugins.BitmapLoaderData):
@@ -68,7 +68,7 @@ class MyXampleLoader(c4d.plugins.BitmapLoaderData):
 
             # Calculates the bits size of 3 int and 3 char
             intBitsSize = struct.calcsize("iii")
-            chatBitsSize = struct.calcsize("ccc")
+            chatBitsSize = struct.calcsize("hhh")
             
             # Extracts bit depth, width and height information
             bt, width, height = struct.unpack("iii", lines[:intBitsSize])
@@ -91,10 +91,10 @@ class MyXampleLoader(c4d.plugins.BitmapLoaderData):
                     fr = (y * width * chatBitsSize) + (x * chatBitsSize)
 
                     # Extracts red, green, blue information
-                    r, g, b = struct.unpack("ccc", lines[fr:fr+chatBitsSize])
+                    r, g, b = struct.unpack("hhh", lines[fr:fr+chatBitsSize])
 
                     # Assigns pixel value for x, y pixel
-                    bm[x, y] = ord(r), ord(g), ord(b)
+                    bm[x, y] = r, g, b
         
         return c4d.IMAGERESULT_OK
 

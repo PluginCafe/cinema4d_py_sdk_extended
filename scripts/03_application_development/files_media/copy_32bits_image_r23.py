@@ -13,7 +13,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
+    - R23
 """
 import c4d
 
@@ -57,27 +57,15 @@ def main():
     # the image has 32 bits per-channel : (32*3)/8 = 12 bytes per pixel (1 byte = 8 bits)
     # the image has 3 channels per pixel (RGB) : 12/3 = 4 bytes per component = 1 float
     inc = orig.GetBt() // 8
-
-    # Creates a byte sequence buffer large enough to store the copied image pixels
-    sq = c4d.storage.ByteSeq(None, width * height * inc)
-    if sq is None:
-        raise RuntimeError("Failed to create the bytes sequence.")
-
-    # Copy data to our buffer
+    bytesArray = bytearray(width * height * inc)
+    memoryView = memoryview(bytesArray)
     for row in range(height):
-        # Offset on bitmap row + offset bytes per pixel
-        bufferAtOffset = sq.GetOffset(row*(width*inc))
+        memoryViewSlice = memoryView[row*(width*inc):]
+        orig.GetPixelCnt(0, row, width, memoryViewSlice, inc, c4d.COLORMODE_RGBf, c4d.PIXELCNT_0)
 
-        # Read pixels from the original bitmap into the buffer
-        orig.GetPixelCnt(0, row, width, bufferAtOffset, inc, c4d.COLORMODE_RGBf, c4d.PIXELCNT_0)
-
-    # Copy buffer to final picture
     for row in range(height):
-        # Offset on bitmap row + offset bytes per pixel
-        bufferAtOffset = sq.GetOffset(row * (width * inc))
-
-        # Set pixels in bitmap copy
-        copy.SetPixelCnt(0, row, width, bufferAtOffset, inc, c4d.COLORMODE_RGBf, c4d.PIXELCNT_0)
+        memoryViewSlice = memoryView[row * (width * inc):]
+        copy.SetPixelCnt(0, row, width, memoryViewSlice, inc, c4d.COLORMODE_RGBf, c4d.PIXELCNT_0)
 
     # Show original and copied image in the picture viewer
     c4d.bitmaps.ShowBitmap(orig)

@@ -13,7 +13,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - S22.114
+    - S22.114, R23
 """
 import c4d
 
@@ -74,31 +74,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-import c4d
-
-initialMatrices = []
-initialMatrices.append(c4d.Matrix(c4d.Vector(0)))
-initialMatrices.append(c4d.Matrix(c4d.Vector(1)))
-initialMatrices.append(c4d.Matrix(c4d.Vector(2)))
-
-print("Initial Data")
-for mat in initialMatrices:
-    print(mat)
-
-
-print("Transform them to str")
-def vecToDict(vector):
-    return {"x": vector.x, "y": vector.y, "z": vector.z}
-
-def matToDict(matricesList):
-    finalMat = []
-    for mat in matricesList:
-        matDict = {"off": vecToDict(mat.off),
-                   "v1": vecToDict(mat.v1),
-                   "v2": vecToDict(mat.v2),
-                   "v3": vecToDict(mat.v3)}
-        finalMat.append(matDict)
-
-    return finalMat
-

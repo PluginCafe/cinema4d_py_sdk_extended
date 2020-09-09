@@ -17,14 +17,14 @@ Classic API Tag:
 ## Examples
 
 ### instanceobject_create
-Version: R20, R21, S22 - Win/Mac
+Version: R20, R21, S22, R23 - Win/Mac
 
     Instantiates 100 cubes, with an InstanceObject.
     Offsets each instance with a custom Matrix.
     Colorizes each instance with a custom color.
 
 ### instanceobject_matrix
-Version: R20, R21, S22 - Win/Mac
+Version: R20, R21, S22, R23 - Win/Mac
 
     Distributes and creates Sphere along a Matrix Object with an InstanceObject.
 

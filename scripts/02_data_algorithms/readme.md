@@ -20,39 +20,39 @@ Maxon API:
 ## Examples
 
 ### basecontainer_basic
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Basic usage of a BaseContainer.
 
 ### basecontainer_iterates
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Iterates over the content of a BaseContainer.
 
 ### c4dnoise_luka
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Creates a Luka Noise into a BaseBitmap.
     Displays this BaseBitmap into the Picture Viewer.
 
 ### icondata_basic
-Version: R21, S22 - Win/Mac 
+Version: R21, S22, R23 - Win/Mac 
 
     Displays the icon of the selected object into the Picture Viewer.
     Before R21 it's possible to call BaseList2D.GetIcon which will returns a dictionary representing an IconData.
 
 ### maxon_basearray
-Version: R20, R21, S22 - Win/Mac
+Version: R20, R21, S22, R23 - Win/Mac
 
     Creates a BaseArray of maxon.Int (any maxon type is working).
 
 ### maxon_datadictionary
-Version: R20, R21, S22 - Win/Mac
+Version: R20, R21, S22, R23 - Win/Mac
 
     Converts a Python dictionary to a Maxon Data Dictionary.
  
 ### maxon_tuple
-Version: R20, R21, S22 - Win/Mac
+Version: R20, R21, S22, R23 - Win/Mac
 
     Creates a Maxon Tuple of 3 fields (any maxon type is working).
     

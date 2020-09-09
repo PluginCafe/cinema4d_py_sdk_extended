@@ -25,7 +25,7 @@ Maxon API:
 ## Examples
 
 ### read_write_normal_tag
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Reads and Write the Raw Data of a Normal Tag.
     Normals are stored for each vertex of each polygon.

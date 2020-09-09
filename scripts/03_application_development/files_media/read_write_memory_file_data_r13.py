@@ -12,7 +12,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
@@ -40,7 +40,11 @@ def WriteMemoryFile():
     file.WriteString("MemoryFileStruct Example")
 
     # Writes an integer to the memory file
-    file.WriteLong(1214)
+    file.WriteInt32(1214)
+
+    if c4d.GetC4DVersion() > 22600:
+        # Writes an byte array to the memory file
+        file.WriteMemory(bytearray("Bytes Array data", "utf-8"))
 
     # Closes the file
     file.Close()
@@ -71,8 +75,13 @@ def ReadMemoryFile(data):
     print("The string value is :", value)
 
     # Reads the int from the memory file
-    value = file.ReadLong()
+    value = file.ReadInt32()
     print("The int value is :", value)
+
+    if c4d.GetC4DVersion() > 22600:
+        # Reads the bytes from the memory file
+        value = file.ReadMemory()
+        print("The memory value is :", value)
 
     # Closes file
     file.Close()

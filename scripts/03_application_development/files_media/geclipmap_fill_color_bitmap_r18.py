@@ -13,7 +13,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R18, R19, R20, R21, S22
+    - R18, R19, R20, R21, S22, R23
 """
 import c4d
 
@@ -43,7 +43,7 @@ def FillBitmapWithColor(srcBmp, rgba):
     geClipMap.SetDrawMode(c4d.GE_CM_DRAWMODE_BLEND, c4d.GE_CM_SRC_MAX_OPACITY)
 
     # Defines the colors used to paint a rectangle
-    geClipMap.SetColor(rgba.x, rgba.y, rgba.z, rgba.w)
+    geClipMap.SetColor(int(rgba.x), int(rgba.y), int(rgba.z), int(rgba.w))
 
     # Paints a rectangle into all the pictures
     geClipMap.FillRect(0, 0, w, h)

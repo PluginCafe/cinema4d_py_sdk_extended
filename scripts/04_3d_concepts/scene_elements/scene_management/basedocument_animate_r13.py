@@ -16,7 +16,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
@@ -42,7 +42,7 @@ def main():
         c4d.GeSyncMessage(c4d.EVMSG_TIMECHANGED)
 
         # Redraws the viewport and regenerate the cache object
-        c4d.DrawViews(c4d.DRAWFLAGS_ONLY_ACTIVE_VIEW | c4d.DRAWFLAGS_NO_THREAD | c4d.DRAWFLAGS_NO_REDUCTION | c4d.DRAWFLAGS_STATICBREAK)
+        c4d.DrawViews(c4d.DRAWFLAGS_ONLY_ACTIVE_VIEW | c4d.DRAWFLAGS_NO_THREAD | c4d.DRAWFLAGS_STATICBREAK)
 
         # Do the stuff for each frame here you may be interested in BaseDocument.Polygonize()
         print("Frame {0}".format(frame))

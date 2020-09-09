@@ -11,11 +11,11 @@ Classic API:
 ## Examples
 
 ### threading_basic
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Demonstrates how to handle C4DThread from a script.
 
 ### threading_testdbreak
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Uses TestDBreak to define a custom condition to leave a thread.

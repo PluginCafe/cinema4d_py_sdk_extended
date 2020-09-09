@@ -306,7 +306,7 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
 
         val = p * info.direction
 
-        data.SetFloat(c4d.PYCIRCLEOBJECT_RAD, c4d.utils.FCut(val, 0.0, sys.maxint))
+        data.SetFloat(c4d.PYCIRCLEOBJECT_RAD, c4d.utils.FCut(val, 0.0, sys.maxsize))
 
     def Draw(self, op, drawpass, bd, bh):
         """

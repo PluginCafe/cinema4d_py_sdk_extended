@@ -105,8 +105,8 @@ class LicenceHelper(object):
 
         # Reads the content
         licFileContent = None
-        with open(self.storedLicensePath, "r") as licFile:
-            licFileContent = licFile.read().decode("utf-8")
+        with open(self.storedLicensePath, "r", encoding="utf-8") as licFile:
+            licFileContent = licFile.read()
 
         # Checks the license
         return self.IsValidSerial(licFileContent)
@@ -160,7 +160,7 @@ class LicensingExampleDialog(c4d.gui.GeDialog, LicenceHelper):
         # User enter something in the input text
         if messageId == self.ID_EDIT_TEXT:
             # Retrieves teh text from the input string field and converts it to utf-8
-            enteredString = self.GetString(self.ID_EDIT_TEXT).decode("utf-8")
+            enteredString = self.GetString(self.ID_EDIT_TEXT)
 
             # Checks if the entered string is a correct serial
             if self.IsValidSerial(enteredString):

@@ -16,7 +16,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21, S22
+    - R20, R21, S22, R23
 """
 import c4d
 import maxon
@@ -88,21 +88,33 @@ def main():
     if not objList:
         raise RuntimeError("Failed to retrieve selected objects")
 
+    # Opens a LoadDialog to define the path of the VDB file to save
+    filePath = c4d.storage.SaveDialog()
+
+    # Leaves if nothing was selected
+    if not filePath:
+        return
+
+    # Add the vdb extension if needed
+    if not filePath.endswith(".vdb"):
+        filePath += ".vdb"
+
     # Creates a maxon.BaseArray with all our obj, we want to convert
     volumesArray = maxon.BaseArray(maxon.frameworks.volume.VolumeRef)
     volumesArray.Resize(len(objList))
     for i, obj in enumerate(objList):
         volumesArray[i] = polygonToVolume(obj)
 
+    # Generates the final file path to save the vdb
+    path = maxon.Url(filePath)
+    scale = 1.0
+    metaData = maxon.DataDictionary()
     try:
-        # Generates the final file path to save the vdb
-        path = maxon.Url(os.path.join(os.path.dirname(__file__), "file.vdb"))
-        scale = 1.0
-        metaData = maxon.DataDictionary()
         maxon.frameworks.volume.VolumeToolsInterface.SaveVDBFile(path, scale, volumesArray, metaData)
-        print("File saved to ", path)
-    except Exception as e:
-        print("SaveVDBFile error {}, {}".format(e.message, e.args))
+    except IOError:
+        raise IOError("Failed to Save the VDB file.")
+
+    print("File saved to ", path)
 
 
 if __name__ == '__main__':

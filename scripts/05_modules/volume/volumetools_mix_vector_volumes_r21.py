@@ -18,7 +18,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R21, S22
+    - R21, S22, R23
 """
 import c4d
 import maxon

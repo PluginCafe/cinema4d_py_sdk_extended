@@ -10,7 +10,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R19, R20, R21, S22
+    - R19, R20, R21, S22, R23
 """
 import c4d
 
@@ -70,7 +70,7 @@ def main():
 
     # Gets triangle level count after reduction
     realTriangleResult = polyReduction.GetTriangleLevel()
-    print("Triangle Result: ".format(realTriangleResult))
+    print("Triangle Result: {0}".format(realTriangleResult))
 
     # Updates original PolygonObject
     op.Message(c4d.MSG_UPDATE)

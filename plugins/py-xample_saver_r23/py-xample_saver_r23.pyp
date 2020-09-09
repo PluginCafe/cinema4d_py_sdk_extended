@@ -19,7 +19,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R15, R16, R17, R18, R19, R20, R21
+    - R23
 """
 import c4d
 import struct
@@ -29,8 +29,8 @@ import bz2
 # Be sure to use a unique ID obtained from www.plugincafe.com
 PLUGIN_ID = 1025254
 
-BMP_NAME = "Py-XAMPLE"
-BMP_IDENTIFIER = "XAMPLE"
+BMP_NAME = "Py-XAMPLE Saver"
+BMP_IDENTIFIER = b"XAMPLE"
 BMP_SUFFIX = "xample"
 
 
@@ -60,8 +60,8 @@ class MyXampleSaver(c4d.plugins.BitmapSaverData):
             # Try to convert the entered value in integer otherwise ask again.
             try:
                 result = int(result)
-            except ValueError, e:
-                c4d.gui.MessageDialog(e, c4d.GEMB_OK)
+            except ValueError as e:
+                c4d.gui.MessageDialog(str(e), c4d.GEMB_OK)
                 continue
 
             # Checks if entered value is between 1, and 9, otherwise ask again.
@@ -96,7 +96,7 @@ class MyXampleSaver(c4d.plugins.BitmapSaverData):
             fn.write(p)
             
             # Retrieves bitmap data, in python 2.7 str and bits are the same, so we are storing raw bits here
-            content = ""
+            content = b""
             # Iterates each lines to fill the BaseBitmap
             for y in range(bm.GetBh()):
                 # Iterates each rows to fill the BaseBitmap
@@ -106,8 +106,8 @@ class MyXampleSaver(c4d.plugins.BitmapSaverData):
                     r, g, b = bm[x, y]
 
                     # Stores pixel information as bits
-                    content += struct.pack("ccc", chr(r), chr(g), chr(b))
-            
+                    content += struct.pack("hhh", r, g, b)
+
             # Compress pixels information
             compression = data.GetInt32(self.COMPRESSION, self.STANDARD_COMP)
 
@@ -121,6 +121,8 @@ if __name__ == "__main__":
     # Registers the bitmap saver plugin
     c4d.plugins.RegisterBitmapSaverPlugin(id=PLUGIN_ID,
                                           str=BMP_NAME,
-                                          info=c4d.PLUGINFLAG_BITMAPSAVER_ALLOWOPTIONS | c4d.PLUGINFLAG_BITMAPSAVER_SUPPORT_8BIT| c4d.PLUGINFLAG_BITMAPSAVER_FORCESUFFIX,
+                                          info=c4d.PLUGINFLAG_BITMAPSAVER_ALLOWOPTIONS |
+                                               c4d.PLUGINFLAG_BITMAPSAVER_SUPPORT_8BIT |
+                                               c4d.PLUGINFLAG_BITMAPSAVER_FORCESUFFIX,
                                           dat=MyXampleSaver(),
                                           suffix=BMP_SUFFIX)

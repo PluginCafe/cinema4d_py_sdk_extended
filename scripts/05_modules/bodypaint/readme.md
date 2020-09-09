@@ -14,11 +14,11 @@ Classic API:
 
 
 ### call_uv_command
-Version: R18, R19, R20, R21, S22 - Win/Mac
+Version: R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Calls BodyPaint 3D UV commands.
 
 ### get_uv_seams
-Version: S22.114 - Win/Mac
+Version: S22.114, R23 - Win/Mac
 
     Copies the UV seams to the edge polygon selection.

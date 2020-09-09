@@ -16,51 +16,51 @@ Maxon API:
 ## Examples
 
 ### copy_32bits_image
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R23 - Win/Mac
 
     Copies the internal data of a 32 bit per-channel image to a new one.
 
 ### export_alembic
-Version: R14, R15, R16, R17, R18, R19, R20, R21, S22  - Win/Mac
+Version: R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Exports Alembic with custom settings.
 
 ### export_obj
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Exports Obj with custom settings.
     
 ### geclipmap_fill_color_bitmap
-Version: R18, R19, R20, R21, S22 - Win/Mac
+Version: R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Adds an overlay color to a Picture.
     
 ### import_obj
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Imports Obj with custom settings.
     
 ### import_sketchup
-Version: R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Imports Sketchup File with custom settings.
     
 ### import_step
-Version: R20, R21, S22 - Win/Mac
+Version: R20, R21, S22, R23 - Win/Mac
 
     Imports STP/STEP with custom settings.
     
 ### read_write_memory_file_bitmap
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Writes/Reads a bitmap to/from memory.
 
 ### read_write_memory_file_data
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Writes/Reads simple data to/from memory.
 
 ### set_get_globaltexturepaths
-Version: R20, R21, S22 - Win/Mac
+Version: R20, R21, S22, R23 - Win/Mac
 
     Sets and gets global texture paths (Preferences->Files->Paths).

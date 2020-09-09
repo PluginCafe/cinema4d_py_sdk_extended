@@ -14,17 +14,17 @@ Classic API:
 ## Examples
 
 ### tokensystem_filter
-Version: R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
      Uses the token system to evaluate token with custom variables.
 
 ### tokensystem_render
-Version: R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Renders a BaseDocument and saves the resulting image using a filename handling tokens.
 
 ### tokensystem_root
-Version: R17, R18, R19, R20, R21, S22 - Win/Mac
+Version: R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Tokenize the Take Name to a Filename and display how to extract data from a Filename.
 

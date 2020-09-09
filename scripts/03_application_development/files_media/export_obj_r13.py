@@ -12,7 +12,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22
+    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
@@ -40,7 +40,10 @@ def main():
         raise RuntimeError("Failed to retrieve BaseContainer private data.")
 
     # Defines OBJ export settings
-    objExport[c4d.OBJEXPORTOPTIONS_TEXTURECOORDINATES] = True
+    if c4d.GetC4DVersion() > 22600:
+        objExport[c4d.OBJEXPORTOPTIONS_EXPORT_UVS] = c4d.OBJEXPORTOPTIONS_UV_ORIGINAL
+    else:
+        objExport[c4d.OBJEXPORTOPTIONS_TEXTURECOORDINATES] = True
     objExport[c4d.OBJEXPORTOPTIONS_MATERIAL] = c4d.OBJEXPORTOPTIONS_MATERIAL_MATERIAL
 
     # Finally export the document

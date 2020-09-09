@@ -10,7 +10,7 @@ Note:
 
 Compatible:
     - Win / Mac
-    - R17, R18, R19, R20, R21, S22
+    - R17, R18, R19, R20, R21, S22, R23
 """
 import os
 import platform
@@ -102,8 +102,8 @@ def GetTempFolder(instalDir):
 
 def main():
     # Path must be in unicode, it can be retrieved from c4d with c4d.storage.GeGetStartupPath()
-    winInstallationPath = unicode(r"C:\Program Files\MAXON\Cinema 4D R20")
-    macInstallationPath = unicode(r"/Users/m_adam/Application/MAXON/Cinema 4D R20")
+    winInstallationPath = r"C:\Program Files\MAXON\Cinema 4D R20"
+    macInstallationPath = r"/Users/m_adam/Application/MAXON/Cinema 4D R20"
     print("Path:", GetTempFolder(winInstallationPath))
 
 

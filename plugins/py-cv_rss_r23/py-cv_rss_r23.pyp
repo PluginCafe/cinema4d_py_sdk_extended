@@ -20,13 +20,13 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R15, R16, R17, R18, R19, R20, R21
+    - R23
 """
 import c4d
 import os
-import urllib
+import urllib.request
 import webbrowser
-import xml
+import xml.dom.minidom
 
 # Be sure to use a unique ID obtained from www.plugincafe.com
 PLUGIN_ID = 1025244
@@ -224,7 +224,7 @@ class MyDialog(c4d.gui.GeDialog):
 
         # Retrieves the RSS Url and parse its XML
         print("Updating... " + self.rss_url)
-        dom = xml.dom.minidom.parse(urllib.urlopen(self.rss_url))
+        dom = xml.dom.minidom.parse(urllib.request.urlopen(self.rss_url))
 
         # Resets the rss_items list - otherwise the new ones get tacked on the old
         self.rss_items = []

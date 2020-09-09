@@ -267,9 +267,9 @@ class ToolDataWithUiExample(c4d.plugins.ToolData):
         doc.InsertObject(cloned)
 
         # Creates some random position
-        x = random.randrange(-1000.0, 1000.0, 0.1, float)
-        y = random.randrange(-1000.0, 1000.0, 0.1, float)
-        z = random.randrange(-1000.0, 1000.0, 0.1, float)
+        x = round(random.uniform(-1000.0, 1000.0), 3)
+        y = round(random.uniform(-1000.0, 1000.0), 3)
+        z = round(random.uniform(-1000.0, 1000.0), 3)
 
         # Sets the position of the object
         newPos = c4d.Vector(x, y, z)

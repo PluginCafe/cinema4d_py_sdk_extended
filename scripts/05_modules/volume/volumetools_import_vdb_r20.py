@@ -12,7 +12,7 @@ Class/method highlighted:
 
 Compatible:
     - Win / Mac
-    - R20, R21, S22
+    - R20, R21, S22, R23
 """
 import c4d
 import maxon
@@ -37,7 +37,7 @@ def main():
     try:
         volumeArr = maxon.frameworks.volume.VolumeToolsInterface.LoadVDBFile(path, scale, gridNames, gridIndices, metaData)
     except Exception as e:
-        print("LoadVDBFile error {}, {}".format(e.message, e.args))
+        print("LoadVDBFile error {}, {}".format(e, e.args))
 
     if volumeArr is None:
         raise RuntimeError("Unknown error.")

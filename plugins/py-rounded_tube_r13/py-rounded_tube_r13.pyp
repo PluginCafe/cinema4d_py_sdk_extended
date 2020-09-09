@@ -350,11 +350,11 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
 
         # According the current HandleID
         if i is 0:
-            op[c4d.PY_TUBEOBJECT_RAD] = c4d.utils.FCut(op[c4d.PY_TUBEOBJECT_RAD]+val, op[c4d.PY_TUBEOBJECT_IRADX], sys.maxint)
+            op[c4d.PY_TUBEOBJECT_RAD] = c4d.utils.FCut(op[c4d.PY_TUBEOBJECT_RAD]+val, op[c4d.PY_TUBEOBJECT_IRADX], sys.maxsize)
         elif i is 1:
             op[c4d.PY_TUBEOBJECT_IRADX] = c4d.utils.FCut(op[c4d.PY_TUBEOBJECT_IRADX]+val, op[c4d.PY_TUBEOBJECT_ROUNDRAD], op[c4d.PY_TUBEOBJECT_RAD])
         elif i is 2:
-            op[c4d.PY_TUBEOBJECT_IRADY] = c4d.utils.FCut(op[c4d.PY_TUBEOBJECT_IRADY]+val, op[c4d.PY_TUBEOBJECT_ROUNDRAD], sys.maxint)
+            op[c4d.PY_TUBEOBJECT_IRADY] = c4d.utils.FCut(op[c4d.PY_TUBEOBJECT_IRADY]+val, op[c4d.PY_TUBEOBJECT_ROUNDRAD], sys.maxsize)
         elif i is 3 or i is 4:
             op[c4d.PY_TUBEOBJECT_ROUNDRAD] = c4d.utils.FCut(op[c4d.PY_TUBEOBJECT_ROUNDRAD]+val, 0.0, min(op[c4d.PY_TUBEOBJECT_IRADX], op[c4d.PY_TUBEOBJECT_IRADY]))
 
