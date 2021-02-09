@@ -29,9 +29,9 @@ def main():
     bc[c4d.RDATA_FORMAT] = c4d.FILTER_EXR
 
     # Defines OpenEXR settings
-    compressionmethodID = maxon.Id('net.maxon.mediasession.openexr.export.compressionmethod')
-    halffloatID = maxon.Id('net.maxon.mediasession.openexr.export.halffloat')
-    layernumberingID = maxon.Id('net.maxon.mediasession.openexr.export.layernumbering')
+    compressionmethodID = maxon.InternedId('net.maxon.mediasession.openexr.export.compressionmethod')
+    halffloatID = maxon.InternedId('net.maxon.mediasession.openexr.export.halffloat')
+    layernumberingID = maxon.InternedId('net.maxon.mediasession.openexr.export.layernumbering')
 
     # Configures OpenEXR format options with a maxon.DataDictionary
     exportSettings = maxon.DataDictionary()
