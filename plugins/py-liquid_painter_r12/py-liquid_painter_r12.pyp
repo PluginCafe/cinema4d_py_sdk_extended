@@ -13,10 +13,6 @@ Class/method highlighted:
     - ToolData.Draw()
     - ToolData.GetCursorInfo()
     - ToolData.AllocSubDialog()
-
-Compatible:
-    - Win / Mac
-    - R12, R13, R14, R15, R16, R17, R18, R19, R20, R21
 """
 import c4d
 import os
@@ -29,9 +25,7 @@ IDS_PRIMITIVETOOL = 50000
 
 
 class SettingsDialog(c4d.gui.SubDialog):
-    """
-    Dialog to display option in the ToolData, in this case the Sphere size.
-    """
+    """Dialog to display option in the ToolData, in this case the Sphere size."""
     parameters = {}
 
     def __init__(self, arg):
@@ -42,9 +36,7 @@ class SettingsDialog(c4d.gui.SubDialog):
         self.parameters = arg
 
     def CreateLayout(self):
-        """
-        This Method is called automatically when Cinema 4D Create the Layout (display) of the GeDialog.
-        """
+        """This Method is called automatically when Cinema 4D Create the Layout (display) of the GeDialog."""
         value = getattr(self.parameters, "sphere_size", 15)
 
         # Creates a Group to align 2 items
@@ -60,16 +52,18 @@ class SettingsDialog(c4d.gui.SubDialog):
         self.GroupEnd()
         return True
 
-    def Command(self, messageId, msg):
-        """
-          This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
+    def Command(self, messageId, bc):
+        """This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
+
           It is also called when a string menu item is selected.
-         :param messageId: The ID of the gadget that triggered the event.
-         :type messageId: int
-         :param bc: The original message container
-         :type bc: c4d.BaseContainer
-         :return: False if there was an error, otherwise True.
-         """
+
+        Args:
+            messageId (int): The ID of the gadget that triggered the event.
+            bc (c4d.BaseContainer): The original message container
+
+        Returns:
+            False if there was an error, otherwise True.
+        """
         # When the user change the Gadget with the ID 1002 (the input number field)
         if id == 1002:
             # Stores the value in the parameter variable
@@ -85,11 +79,13 @@ class LiquidTool(c4d.plugins.ToolData):
         self.data = {'sphere_size':15}
 
     def GetState(self, doc):
-        """
-        Called by Cinema 4D to know if the tool can be used currently
-        :param doc: The current active document.
-        :type doc: c4d.documents.BaseDocument
-        :return: True if the tool can be used, otherwise False.
+        """Called by Cinema 4D to know if the tool can be used currently
+
+        Args:
+            doc (c4d.documents.BaseDocument): The current active document.
+
+        Returns:
+            True if the tool can be used, otherwise False.
         """
         if doc.GetMode() == c4d.Mpaint:
             return False
@@ -97,20 +93,19 @@ class LiquidTool(c4d.plugins.ToolData):
         return c4d.CMD_ENABLED
 
     def MouseInput(self, doc, data, bd, win, msg):
-        """
-        Called by Cinema 4D, when the user click on the viewport and the tool is active.
+        """Called by Cinema 4D, when the user click on the viewport and the tool is active.
+
         Mainly the place to do moue interaction from the viewport.
-        :param doc: The current active document.
-        :type doc: c4d.documents.BaseDocument
-        :param data:  The tool settings container.
-        :type data: c4d.BaseContainer
-        :param bd:  The BaseDraw object of the active editor view.
-        :type bd: c4d.BaseDraw
-        :param win: The EditorWindow object for the active editor view.
-        :type win: c4d.gui.EditorWindow
-        :param msg: The original message container.
-        :type msg: c4d.BaseContainer
-        :return: False if a problem occurred during this function.
+
+        Args:
+            doc (c4d.documents.BaseDocument): The current active document.
+            data (c4d.BaseContainer): The tool settings container.
+            bd (c4d.BaseDraw): The BaseDraw object of the active editor view.
+            win (c4d.gui.EditorWindow): The EditorWindow object for the active editor view.
+            msg (c4d.BaseContainer): The original message container.
+
+        Returns:
+            False if a problem occurred during this function.
         """
         # Retrieves which clicks is currently clicked
         device = 0
@@ -190,21 +185,18 @@ class LiquidTool(c4d.plugins.ToolData):
         return True
 
     def Draw(self, doc, data, bd, bh, bt, flags):
-        """
-        Called by Cinema 4d when the display is updated to display some visual element of your tool in the 3D view.
-        :param doc: The current active document.
-        :type doc: c4d.documents.BaseDocument
-        :param data: The tool settings container.
-        :type data: c4d.BaseContainer.
-        :param bd: The editor's view.
-        :type bd: c4d.BaseDraw
-        :param bh: The BaseDrawHelp editor's view.
-        :type bh: c4d.plugins.BaseDrawHelp
-        :param bt: The calling thread.
-        :type bt: c4d.threading.BaseThread
-        :param flags: The current drawing pass.
-        :type flags: TOOLDRAWFLAGS
-        :return: The result of the drawing (most likely c4d.DRAWRESULT_OK)
+        """Called by Cinema 4D when the display is updated to display some visual element of your tool in the 3D view.
+
+        Args:
+            doc (c4d.documents.BaseDocument): The current active document.
+            data (c4d.BaseContainer.): The tool settings container.
+            bd (c4d.BaseDraw): The editor's view.
+            bh (c4d.plugins.BaseDrawHelp): The BaseDrawHelp editor's view.
+            bt (c4d.threading.BaseThread): The calling thread.
+            flags (TOOLDRAWFLAGS): The current drawing pass.
+
+        Returns:
+            The result of the drawing (most likely c4d.DRAWRESULT_OK)
         """
 
         # Resets the drawing matrix to the world space matrix.
@@ -230,21 +222,15 @@ class LiquidTool(c4d.plugins.ToolData):
         return c4d.TOOLDRAW_HANDLES | c4d.TOOLDRAW_AXIS
 
     def GetCursorInfo(self, doc, data, bd, x, y, bc):
-        """
-        Called by Cinema 4D when the cursor is over editor window to get the state of the mouse pointer.
-        :param doc: The current active document.
-        :type doc: c4d.documents.BaseDocument
-        :param data: The tool settings container.
-        :type data: c4d.BaseContainer
-        :param bd: The editor's view.
-        :type bd: c4d.BaseDraw
-        :param x: The x coordinate of the mouse cursor relative to the top-left of the currently active editor view.
-        :type x: float
-        :param y:The y coordinate of the mouse cursor relative to the top-left of the currently active editor view.
-        :type y: float
-        :param bc: The container to store the result in.
-        :type bc: c4d.BaseContainer
-        :return:
+        """Called by Cinema 4D when the cursor is over editor window to get the state of the mouse pointer.
+
+        Args:
+            doc (c4d.documents.BaseDocument): The current active document.
+            data (c4d.BaseContainer): The tool settings container.
+            bd (c4d.BaseDraw): The editor's view.
+            x (float): The x coordinate of the mouse cursor relative to the top-left of the currently active editor view.
+            y (float): The y coordinate of the mouse cursor relative to the top-left of the currently active editor view.
+            bc (c4d.BaseContainer): The container to store the result in.
         """
         # If the cursor has left a user area, simply return True
         if bc.GetId() == c4d.BFM_CURSORINFO_REMOVE:
@@ -256,11 +242,13 @@ class LiquidTool(c4d.plugins.ToolData):
         return True
 
     def AllocSubDialog(self, bc):
-        """
-        Called by Cinema 4D To allocate the Tool Dialog Option.
-        :param bc: Currently not used.
-        :type bc: c4d.BaseContainer
-        :return: The allocated sub dialog.
+        """Called by Cinema 4D To allocate the Tool Dialog Option.
+
+        Args:
+            bc (c4d.BaseContainer): Currently not used.
+
+        Returns:
+            The allocated sub dialog.
         """
         return SettingsDialog(getattr(self, "data", {'sphere_size': 15}))
 

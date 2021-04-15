@@ -13,9 +13,6 @@ Class/method highlighted:
     - GeListNode.GetDown()
     - GeListNode.GetNext()
 
-Compatible:
-    - Win / Mac
-    - R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 import os

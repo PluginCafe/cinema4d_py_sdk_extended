@@ -22,9 +22,6 @@ Class/method highlighted:
     - GeDialog.AttachUserArea
 
 
-Compatible:
-    - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 import weakref
@@ -34,9 +31,7 @@ SIZE = 100
 
 
 class Square(object):
-    """
-    Abstract class to represent a Square in a GeUserArea.
-    """
+    """Abstract class to represent a Square in a GeUserArea."""
 
     def __init__(self, geUserArea, index):
         self.index = index  # The initial square index (only used to differentiate square between each others)
@@ -46,11 +41,10 @@ class Square(object):
         self.parentGeUserArea = weakref.ref(geUserArea)  # A weak reference to the host GeUserArea
 
     def GetParentedIndex(self):
-        """
-        Returns the current index in the parent list.
+        """Returns the current index in the parent list.
 
-        :return: The index or c4d.NOTOK if there is no parent.
-        :rtype: int
+        Returns:
+            int: The index or c4d.NOTOK if there is no parent.
         """
         parent = self.GetParent()
         if parent is None:
@@ -59,11 +53,10 @@ class Square(object):
         return parent._squareList.index(self)
 
     def GetParent(self):
-        """
-        Retrieves the parent instance, stored in the weakreaf self.parentGeUserArea.
+        """Retrieves the parent instance, stored in the weakreaf self.parentGeUserArea.
 
-        :return: The parent instance of the Square.
-        :rtype: c4d.gui.GeUserArea
+        Returns:
+            c4d.gui.GeUserArea: The parent instance of the Square.
         """
         if self.parentGeUserArea:
             geUserArea = self.parentGeUserArea()
@@ -74,11 +67,11 @@ class Square(object):
         return None
 
     def DrawNormal(self, x, y):
-        """
-        Called by the parent GeUserArea to draw the Square normally.
+        """Called by the parent GeUserArea to draw the Square normally.
 
-        :param x: X position to draw.
-        :param y: Y position to draw.
+        Args:
+            x: X position to draw.
+            y: Y position to draw.
         """
         geUserArea = self.GetParent()
         geUserArea.DrawSetPen(self.col)
@@ -88,12 +81,12 @@ class Square(object):
         geUserArea.DrawText(str(self.index), x, y)
 
     def DrawDraggedInitial(self, x, y):
-        """
-        Called by the parent GeUserArea when the Square is dragged
+        """Called by the parent GeUserArea when the Square is dragged
         with the initial position (same coordinate than DrawNormal).
 
-        :param x: X position to draw.
-        :param y: Y position to draw.
+        Args:
+            x: X position to draw.
+            y: Y position to draw.
         """
         geUserArea = self.GetParent()
         geUserArea.DrawBorder(c4d.BORDER_ACTIVE_1,
@@ -101,12 +94,12 @@ class Square(object):
                               x + self.w, y + self.h)
 
     def DrawDragged(self, x, y):
-        """
-        Called by the parent GeUserArea when the Square is dragged
+        """Called by the parent GeUserArea when the Square is dragged
         with the current mouse position.
 
-        :param x: X position to draw.
-        :param y: Y position to draw.
+        Args:
+            x: X position to draw.
+            y: Y position to draw.
         """
         geUserArea = self.GetParent()
         geUserArea.DrawSetPen(c4d.Vector(1))
@@ -117,9 +110,7 @@ class Square(object):
 
 
 class DraggingArea(c4d.gui.GeUserArea):
-    """
-    Custom implementation of a GeUserArea that creates 4 squares and lets you drag them.
-    """
+    """Custom implementation of a GeUserArea that creates 4 squares and lets you drag them."""
 
     def __init__(self):
         self._squareList = []   # Stores a list of Square that will be draw in the GeUserArea.
@@ -137,25 +128,24 @@ class DraggingArea(c4d.gui.GeUserArea):
     #  Square management
     # ===============================
     def CreateSquare(self):
-        """
-        Creates a square that will be draw later.
+        """Creates a square that will be draw later.
 
-        :return: The created square
-        :rtype: Square
+        Returns:
+            Square: The created square
         """
         square = Square(self, len(self._squareList))
         self._squareList.append(square)
         return square
 
     def GetXYFromId(self, index):
-        """
-        Retrieves the X, Y op, left position according to an index in order.
+        """Retrieves the X, Y op, left position according to an index in order.
         This produces an array of Square correctly aligned.
 
-        :param index: The index to retrieve X, Y from.
-        :type index: int
-        :return: tuple(x left position, y top position).
-        :return: tuple(int, int)
+        Args:
+            index (int): The index to retrieve X, Y from.
+
+        Returns:
+            tuple(x left position, y top position).
         """
         x = SIZE * index
         xPadding = 5 * index
@@ -165,15 +155,14 @@ class DraggingArea(c4d.gui.GeUserArea):
         return x, y
 
     def GetIdFromXY(self, xIn, yIn):
-        """
-        Retrieves the square id stored in self._squareList according to its normal (not dragged) position.
+        """Retrieves the square id stored in self._squareList according to its normal (not dragged) position.
 
-        :param xIn: The position in x.
-        :type xIn: int
-        :param yIn: The position in y.
-        :type yIn: int
-        :return: The id or c4d.NOTOK (-1) if not found.
-        :rtype: int
+        Args:
+            xIn (int): The position in x.
+            yIn (int): The position in y.
+
+        Returns:
+            int: The id or c4d.NOTOK (-1) if not found.
         """
 
         # We could optimize the method by reversing the algorithm  from GetXYFromID,
@@ -191,8 +180,7 @@ class DraggingArea(c4d.gui.GeUserArea):
     # ===============================
 
     def DrawSquares(self):
-        """
-        Called in DrawMsg.
+        """Called in DrawMsg.
         Draws all squares contained in self._squareList
         """
         for squareId, square in enumerate(self._squareList):
@@ -204,8 +192,7 @@ class DraggingArea(c4d.gui.GeUserArea):
                 square.DrawDraggedInitial(x, y)
 
     def DrawDraggedSquare(self):
-        """
-        Called in DrawMsg.
+        """Called in DrawMsg.
         Draws the dragged squares
         """
         if self.draggedObj is None or self.clickedPos is None:
@@ -216,19 +203,15 @@ class DraggingArea(c4d.gui.GeUserArea):
         self.draggedObj.DrawDragged(x, y)
 
     def DrawMsg(self, x1, y1, x2, y2, msg):
-        """
-        This method is called automatically when Cinema 4D Draw the Gadget.
+        """This method is called automatically when Cinema 4D Draw the Gadget.
 
-        :param x1: The upper left x coordinate.
-        :type x1: int
-        :param y1: The upper left y coordinate.
-        :type y1: int
-        :param x2: The lower right x coordinate.
-        :type x2: int
-        :param y2: The lower right y coordinate.
-        :type y2: int
-        :param msg_ref: The original mesage container.
-        :type msg_ref: c4d.BaseContainer
+        Args:
+            x1 (int): The upper left x coordinate.
+            y1 (int): The upper left y coordinate.
+            x2 (int): The lower right x coordinate.
+            y2 (int): The lower right y coordinate.
+            msg_ref (c4d.BaseContainer): The original mesage container.
+            msg: 
         """
 
         # Initializes draw region
@@ -254,20 +237,18 @@ class DraggingArea(c4d.gui.GeUserArea):
     # ===============================
     @property
     def isCurrentlyDragged(self):
-        """
-        Checks if a dragging operation currently occurs.
+        """Checks if a dragging operation currently occurs.
 
-        :return: True if a dragging operation currently occurs otherwise False.
-        :rtype: bool
+        Returns:
+            bool: True if a dragging operation currently occurs otherwise False.
         """
         return self.clickedPos is not None and self.draggedObj is not None
 
     def GetDraggedSquareWithPosition(self):
-        """
-        Retrieves the clicked square during a drag event from the click position.
+        """Retrieves the clicked square during a drag event from the click position.
 
-        :return: The square or None if there is nothing dragged.
-        :rtype: Union[Square, None]
+        Returns:
+            Union[Square, None]: The square or None if there is nothing dragged.
         """
         if self.clickedPos is None:
             return None
@@ -280,14 +261,14 @@ class DraggingArea(c4d.gui.GeUserArea):
         return self._squareList[squareId]
 
     def InputEvent(self, msg):
-        """
-        Called by Cinema 4D, when there is a user interaction (click) on the GeUserArea.
+        """Called by Cinema 4D, when there is a user interaction (click) on the GeUserArea.
         This is the place to catch and handle drag interaction.
 
-        :param msg: The event container.
-        :type msg: c4d.BaseContainer
-        :return: True if the event was handled, otherwise False.
-        :rtype: bool
+        Args:
+            msg (c4d.BaseContainer): The event container.
+
+        Returns:
+            bool: True if the event was handled, otherwise False.
         """
         # Do nothing if it's not a left mouse click event
         if msg[c4d.BFM_INPUT_DEVICE] != c4d.BFM_INPUT_MOUSE and msg[c4d.BFM_INPUT_CHANNEL] != c4d.BFM_INPUT_MOUSELEFT:
@@ -391,9 +372,7 @@ class DraggingArea(c4d.gui.GeUserArea):
 
 
 class MyDialog(c4d.gui.GeDialog):
-    """
-    Creates a Dialog with only a GeUserArea within.
-    """
+    """Creates a Dialog with only a GeUserArea within."""
 
     def __init__(self):
         # It's important to stores our Python implementation instance of the GeUserArea in class variable,
@@ -401,9 +380,7 @@ class MyDialog(c4d.gui.GeDialog):
         self.area = DraggingArea()
 
     def CreateLayout(self):
-        """
-        This method is called automatically when Cinema 4D Create the Layout (display) of the Dialog.
-        """
+        """This method is called automatically when Cinema 4D Create the Layout (display) of the Dialog."""
         self.AddUserArea(1000, c4d.BFH_SCALEFIT | c4d.BFV_SCALEFIT)
         self.AttachUserArea(self.area, 1000)
         return True

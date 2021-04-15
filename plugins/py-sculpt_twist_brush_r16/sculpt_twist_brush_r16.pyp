@@ -12,9 +12,6 @@ Class/method highlighted:
     - SculptBrushToolData.OverwriteLoadedPresetSettings()
     - SculptBrushToolData.ApplyDab()
 
-Compatible:
-    - Win / Mac
-    - R16, R17, R18, R19, R20, R21
 """
 import c4d
 
@@ -26,38 +23,39 @@ IDS_PYTHON_BRUSH_TWIST = 10000
 
 
 class SculptBrushTwistTool(c4d.plugins.SculptBrushToolData):
-    """ Inherit from SculptBrushToolData to create your own sculpting tool """
+    """Inherit from SculptBrushToolData to create your own sculpting tool."""
 
     def GetToolPluginId(self):
-        """
-        Called by Cinema 4D, to know the plugin ID of this tool.
-        :return: The unique id for the tool plugin as obtained from www.plugincafe.com
-        :rtype: int
+        """Called by Cinema 4D, to know the plugin ID of this tool.
+
+        Returns:
+            int: The unique id for the tool plugin as obtained from www.plugincafe.com
         """
         return PLUGIN_ID
 
     def GetResourceSymbol(self):
-        """
-        Called by Cinema 4D, to know the resource to be used for this tool.
-        :return: The resource name of the tool
-        :rtype: str
+        """Called by Cinema 4D, to know the resource to be used for this tool.
+
+        Returns:
+            str: The resource name of the tool
         """
         return "pythontwistbrush"
 
     def OverwriteLoadedPresetSettings(self, data):
-        """
-        Called by Cinema 4D, after a preset has been loaded.
-        :param data: The settings for the loaded brush.
-        :type data: c4d.BaseContainer()
+        """Called by Cinema 4D, after a preset has been loaded.
+
+        Args:
+            data (c4d.BaseContainer): The settings for the loaded brush.
         """
         data[c4d.MDATA_SCULPTBRUSH_STAMP_FOLLOW] = False
 
     def ApplyDab(self, dab):
-        """
-        Called by Cinema 4D, to modify the sculpt object.
-        Implement the brush functionality in this method
-        :param dab: The brush dab data.
-        :type dab: c4d.modules.sculpting.BrushDabData
+        """Called by Cinema 4D, to modify the sculpt object.
+        
+        Implement the brush functionality in this method.
+
+        Args:
+            dab (c4d.modules.sculpting.BrushDabData): The brush dab data.
         """
         # Retrieves the Polygon Object
         poly = dab.GetPolygonObject()

@@ -9,22 +9,17 @@ Class/method highlighted:
     - SelectionTag.GetBaseSelect()
     - BaseObject.MakeTag()
 
-Compatible:
-    - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
 
 def AssignMatToObject(obj, matList, onlyToSelection=False):
-    """
-    Checks if the passed parameter are ok.
-    :param obj: The BaseObject to apply the material.
-    :type obj: Union[c4d.BaseObject, c4d.PolygonObject]
-    :param matList: the materials list that must be applied.
-    :type matList: list
-    :param onlyToSelection: **True** to define if the material should be applied to only the selected polygons.
-    :type onlyToSelection: bool
+    """Checks if the passed parameter are ok.
+
+    Args:
+        obj (Union[c4d.BaseObject, c4d.PolygonObject]): The BaseObject to apply the material.
+        matList (list): the materials list that must be applied.
+        onlyToSelection (bool, optional): True** to define if the material should be applied to only the selected polygons.. Defaults to False.
     """
     if obj is None:
         return False

@@ -16,9 +16,6 @@ Class/method highlighted:
     - c4d.VolumeObject
     - VolumeObject.SetVolume()
 
-Compatible:
-    - Win / Mac
-    - R21, S22, R23
 """
 import c4d
 import maxon
@@ -26,13 +23,13 @@ from maxon.frameworks import volume
 
 
 def CreateVectorVolume(vectorValue):
-    """
-    Creates a VolumeRef defined as a vector volume, with a cube of 100 cm (10* 10) filled with the vector passed.
+    """Creates a VolumeRef defined as a vector volume, with a cube of 100 cm (10* 10) filled with the vector passed.
 
-    :param vectorValue: The vector value to set.
-    :type vectorValue: maxon.Vector32
-    :return: The created Vector volume with the value defined inside.
-    :rtype: maxon.frameworks.volume.VolumeRef
+    Args:
+        vectorValue (maxon.Vector32): The vector value to set.
+
+    Returns:
+        maxon.frameworks.volume.VolumeRef: The created Vector volume with the value defined inside.
     """
     # Creates volume
     volumeRef = maxon.frameworks.volume.VolumeToolsInterface.CreateNewVector32Volume(maxon.Vector32(0.0))
@@ -60,15 +57,13 @@ def CreateVectorVolume(vectorValue):
 
 
 def CreateVectorObject(volumeRef, name):
-    """
-    Creates a c4d.VolumeObject with the VolumeRef passed.
+    """Creates a c4d.VolumeObject with the VolumeRef passed.
     Names this VolumeObject with the passed argument.
     Inserts the VolumeObject into the current document.
 
-    :param volumeRef: The VolumeRef to use within the VolumeObject.
-    :type volumeRef: maxon.frameworks.volume.VolumeRef
-    :param name: The name of the inserted object into the scene.
-    :type name: str
+    Args:
+        volumeRef (maxon.frameworks.volume.VolumeRef): The VolumeRef to use within the VolumeObject.
+        name (str): The name of the inserted object into the scene.
     """
     # Creates VolumeObject
     volumeObj = c4d.BaseObject(c4d.Ovolume)

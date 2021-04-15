@@ -8,10 +8,6 @@ Description:
 Class/method highlighted:
     - ShaderData.SetExceptionColor()
     - ShaderData.Output()
-
-Compatible:
-    - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
 """
 import math
 import c4d
@@ -54,15 +50,16 @@ class PyFresnel(c4d.plugins.ShaderData):
         return 0.5 * (fperp2 + fpara2)
     
     def Output(self, sh, cd):
-        """
-        Called by Cinema 4D for each point of the visible surface of a shaded object to return the color.
+        """Called by Cinema 4D for each point of the visible surface of a shaded object to return the color.
+        
         Important: No OS calls are allowed during this function. Doing so could cause a crash, since it can be called in a multi-processor context.
-        :param sh: The shader node connected with this instance.
-        :type sh: c4d.BaseShader
-        :param cd: Channel data to use and/or modify.
-        :type cd: c4d.modules.render.ChannelData
-        :return: The color of the shaded from 0 = black to 1 = white
-        :rtype: c4d.Vector
+
+        Args:
+            sh (c4d.BaseShader): The shader node connected with this instance.
+            cd (c4d.modules.render.ChannelData): Channel data to use and/or modify.
+
+        Returns:
+            c4d.Vector: The color of the shaded from 0 = black to 1 = white
         """
         # If shader is computed in 3d space
         if cd.vd:

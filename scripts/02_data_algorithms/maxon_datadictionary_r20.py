@@ -9,9 +9,6 @@ Class/method highlighted:
     - maxon.DataDictionary
     - DataDictionary.Set()
 
-Compatible:
-    - Win / Mac
-    - R20, R21, S22, R23
 """
 import maxon
 

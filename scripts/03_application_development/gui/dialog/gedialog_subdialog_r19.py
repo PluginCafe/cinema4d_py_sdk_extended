@@ -11,9 +11,6 @@ Class/method highlighted:
     - c4d.gui.GeDialog.SubDialog
     - GeDialog.AttachSubDialog()
 
-Compatible:
-    - Win / Mac
-    - R19, R20, R21, S22, R23
 """
 import c4d
 
@@ -25,9 +22,7 @@ GADGET_ID_BUTTON_SWITCH_SUBDIALOG = 10001
 class AnotherSubDialogExample(c4d.gui.SubDialog):
 
     def CreateLayout(self):
-        """
-        This Method is called automatically when Cinema 4D Create the Layout (display) of the SubDialog.
-        """
+        """This Method is called automatically when Cinema 4D Create the Layout (display) of the SubDialog."""
 
         # Creates a Static Text
         self.AddStaticText(1000, c4d.BFH_SCALEFIT | c4d.BFV_SCALEFIT, 0, 0, "Second Sub Dialog", c4d.BORDER_THIN_IN)
@@ -38,9 +33,7 @@ class AnotherSubDialogExample(c4d.gui.SubDialog):
 class SubDialogExample(c4d.gui.SubDialog):
 
     def CreateLayout(self):
-        """
-        This Method is called automatically when Cinema 4D Create the Layout (display) of the SubDialog.
-        """
+        """This Method is called automatically when Cinema 4D Create the Layout (display) of the SubDialog."""
 
         # Creates a Static Text
         self.AddStaticText(1000, c4d.BFH_SCALEFIT | c4d.BFV_SCALEFIT, 0, 0, "First Sub Dialog", c4d.BORDER_THIN_IN)
@@ -54,9 +47,7 @@ class ExampleDialog(c4d.gui.GeDialog):
     subDialog = SubDialogExample()
 
     def CreateLayout(self):
-        """
-        This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog.
-        """
+        """This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog."""
 
         # Adds a Gadget that will host a SubDialog
         self.AddSubDialog(GADGET_ID_SUBDIALOG, c4d.BFH_SCALEFIT | c4d.BFV_SCALEFIT, 100, 100)
@@ -70,13 +61,15 @@ class ExampleDialog(c4d.gui.GeDialog):
         return True
 
     def Command(self, messageId, bc):
-        """
-        This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
+        """This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
         It is also called when a string menu item is selected.
 
-        :param messageId: The ID of the gadget that triggered the event.
-        :param bc: The original message container
-        :return: False if there was an error, otherwise True.
+        Args:
+            messageId: The ID of the gadget that triggered the event.
+            bc: The original message container
+
+        Returns:
+            False if there was an error, otherwise True.
         """
         # User click on the Switch Button
         if messageId == GADGET_ID_BUTTON_SWITCH_SUBDIALOG:

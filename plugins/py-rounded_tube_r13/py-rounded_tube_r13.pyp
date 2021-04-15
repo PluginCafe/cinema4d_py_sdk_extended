@@ -16,9 +16,6 @@ Class/method highlighted:
     - ObjectData.SetHandle()
     - ObjectData.Draw()
 
-Compatible:
-    - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
 """
 import os
 import math
@@ -33,39 +30,39 @@ class RoundedTubeHelper(object):
 
     @staticmethod
     def SetAxis(op, axis):
+        """Rotates all points of an object in a given plane coordinate.
+
+        Args:
+            op (c4d.PolygonObject): The object to modifiy
+            axis (PRIM_AXIS): The axis to convert the coordinate
+
+        Returns:
+            bool: Success of the operation
         """
-        Rotates all points of an object in a given plane coordinate
-        :param op: The object to modifiy
-        :type op: c4d.PolygonObject
-        :param axis: The axis to convert the coordinate
-        :type axis: PRIM_AXIS
-        :return: Success of the operation
-        :rtype: bool
-        """
-        if axis is c4d.PRIM_AXIS_YP:
+        if axis == c4d.PRIM_AXIS_YP:
             return False
 
         pList = op.GetAllPoints()
         if pList is None:
             return False
 
-        elif axis is c4d.PRIM_AXIS_XP:
+        elif axis == c4d.PRIM_AXIS_XP:
             for i, p in enumerate(pList):
                 op.SetPoint(i, c4d.Vector(p.y, -p.x, p.z))
 
-        elif axis is c4d.PRIM_AXIS_XN:
+        elif axis == c4d.PRIM_AXIS_XN:
             for i, p in enumerate(pList):
                 op.SetPoint(i, c4d.Vector(-p.y, p.x, p.z))
 
-        elif axis is c4d.PRIM_AXIS_YN:
+        elif axis == c4d.PRIM_AXIS_YN:
             for i, p in enumerate(pList):
                 op.SetPoint(i, c4d.Vector(-p.x, -p.y, p.z))
 
-        elif axis is c4d.PRIM_AXIS_ZP:
+        elif axis == c4d.PRIM_AXIS_ZP:
             for i, p in enumerate(pList):
                 op.SetPoint(i, c4d.Vector(p.x, -p.z, p.y))
 
-        elif axis is c4d.PRIM_AXIS_ZN:
+        elif axis == c4d.PRIM_AXIS_ZN:
             for i, p in enumerate(pList):
                 op.SetPoint(i, c4d.Vector(p.x, p.z, -p.y))
 
@@ -74,24 +71,24 @@ class RoundedTubeHelper(object):
 
     @staticmethod
     def SwapPoint(p, axis):
+        """Swap a vector according a working plane.
+
+        Args:
+            p (c4d.Vector): the position in PRIM_AXIS_YP plane
+            axis (PRIM_AXIS): The axis to convert the coordinate
+
+        Returns:
+            c4d.Vector: The position in the desired plane coordinate
         """
-        Swap a vector according a working plane
-        :param p: the position in PRIM_AXIS_YP plane
-        :type p: c4d.Vector
-        :param axis: The axis to convert the coordinate
-        :type axis: PRIM_AXIS
-        :return: The position in the desired plane coordinate
-        :rtype: c4d.Vector
-        """
-        if axis is c4d.PRIM_AXIS_XP:
+        if axis == c4d.PRIM_AXIS_XP:
             return c4d.Vector(p.y, -p.x, p.z)
-        elif axis is c4d.PRIM_AXIS_XN:
+        elif axis == c4d.PRIM_AXIS_XN:
             return c4d.Vector(-p.y, p.x, p.z)
-        elif axis is c4d.PRIM_AXIS_YN:
+        elif axis == c4d.PRIM_AXIS_YN:
             return c4d.Vector(-p.x, -p.y, p.z)
-        elif axis is c4d.PRIM_AXIS_ZP:
+        elif axis == c4d.PRIM_AXIS_ZP:
             return c4d.Vector(p.x, -p.z, p.y)
-        elif axis is c4d.PRIM_AXIS_ZN:
+        elif axis == c4d.PRIM_AXIS_ZN:
             return c4d.Vector(p.x, p.z, -p.y)
         return p
 
@@ -154,11 +151,13 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
         self.SetOptimizeCache(True)
 
     def Init(self, op):
-        """
-        Called when Cinema 4D Initialize the ObjectData (used to define, default values)
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :return: True on success, otherwise False.
+        """Called when Cinema 4D Initialize the ObjectData (used to define, default values).
+
+        Args:
+            op: (c4d.GeListNode): The instance of the ObjectData.
+
+        Returns:
+            bool: True on success, otherwise False.
         """
         self.InitAttr(op, float, c4d.PY_TUBEOBJECT_RAD)
         self.InitAttr(op, float, c4d.PY_TUBEOBJECT_IRADX)
@@ -180,14 +179,12 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
         return True
 
     def GetDimension(self, op, mp, rad):
-        """
-        Called By Cinema to retrieve the bounding box of the generated object (BaseObject.GetRad())
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :param mp: Assign the center point of the bounding box to this vector.
-        :type mp: c4d.Vector
-        :param rad: Assign the XYZ bounding box radius to this vector.
-        :type rad: c4d.Vector
+        """Called By Cinema to retrieve the bounding box of the generated object (BaseObject.GetRad())
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+            mp (c4d.Vector): Assign the center point of the bounding box to this vector.
+            rad (c4d.Vector): Assign the XYZ bounding box radius to this vector.
         """
         # Retrieves generator parameters
         rado = op[c4d.PY_TUBEOBJECT_RAD]
@@ -203,29 +200,30 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
         mp = c4d.Vector(0.0)
 
         # Assigns the total radius
-        if axis is c4d.PRIM_AXIS_XP or axis is c4d.PRIM_AXIS_XN:
+        if axis == c4d.PRIM_AXIS_XP or axis == c4d.PRIM_AXIS_XN:
             rad.x = rady
             rad.y = rado + radx
             rad.z = rado + radx
-        elif axis is c4d.PRIM_AXIS_YP or axis is c4d.PRIM_AXIS_YN:
+        elif axis == c4d.PRIM_AXIS_YP or axis == c4d.PRIM_AXIS_YN:
             rad.x = rado + radx
             rad.y = rady
             rad.z = rado + radx
-        elif axis is c4d.PRIM_AXIS_ZP or axis is c4d.PRIM_AXIS_ZN:
+        elif axis == c4d.PRIM_AXIS_ZP or axis == c4d.PRIM_AXIS_ZN:
             rad.x = rado + radx
             rad.y = rado + radx
             rad.z = rady
 
     def GetVirtualObjects(self, op, hierarchyhelp):
-        """
-        This method is called automatically when Cinema 4D ask for the cache of an object. This is also the place
-        where objects have to be marked as input object by Touching them (destroy their cache in order to disable them in Viewport)
-        :param op: The Python Generator
-        :type op: c4d.BaseObject.
-        :param hh: The hierarchy helper.
-        :type hh: c4d.HierarchyHelp (currently a PyObject).
-        :return: The Representing object (c4d.LineObject or SplineObject)
+        """This method is called automatically when Cinema 4D ask for the cache of an object. 
 
+        This is also the place where objects have to be marked as input object by Touching them (destroy their cache in order to disable them in Viewport)
+
+        Args:
+            op (c4d.BaseObject.): The Python Generator
+            hierarchyhelp (c4d.HierarchyHelp): The hierarchy helper.
+
+        Returns:
+            The Representing object (c4d.LineObject or SplineObject)
         """
         # Disable the following lines because cache flag was set
         # So the cache build is done before this method is called
@@ -280,21 +278,18 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
 
         # Returns the generated objects.
         return ret
-
     """========== Start of Handle Management =========="""
 
     def GetHandleCount(self, op):
         return self.HANDLECOUNT
 
     def GetHandle(self, op, i, info):
-        """
-        Called by Cinema 4D to retrieve the information of a given handle ID to represent a/some parameter(s).
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :param i: The handle index.
-        :type i: int
-        :param info: The HandleInfo to fill with data.
-        :type info: c4d.HandleInfo
+        """Called by Cinema 4D to retrieve the information of a given handle ID to represent a/some parameter(s).
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+            i (int): The handle index.
+            info (c4d.HandleInfo): The HandleInfo to fill with data.
         """
 
         # Retrieves parameters value from the generator object
@@ -305,19 +300,19 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
         axis = op[c4d.PRIM_AXIS] if op[c4d.PRIM_AXIS] is not None else c4d.PRIM_AXIS_YP
 
         # According the HandleID we are asked , defines different position/direction.
-        if i is 0:
+        if i == 0:
             info.position = c4d.Vector(rad, 0.0, 0.0)
             info.direction = c4d.Vector(1.0, 0.0, 0.0)
-        elif i is 1:
+        elif i == 1:
             info.position = c4d.Vector(rad+iradx, 0.0, 0.0)
             info.direction = c4d.Vector(1.0, 0.0, 0.0)
-        elif i is 2:
+        elif i == 2:
             info.position = c4d.Vector(rad, irady, 0.0)
             info.direction = c4d.Vector(0.0, 1.0, 0.0)
-        elif i is 3:
+        elif i == 3:
             info.position = c4d.Vector(rad+iradx, irady-rrad, 0.0)
             info.direction = c4d.Vector(0.0, -1.0, 0.0)
-        elif i is 4:
+        elif i == 4:
             info.position = c4d.Vector(rad+iradx-rrad, irady, 0.0)
             info.direction = c4d.Vector(-1.0, 0.0, 0.0)
 
@@ -327,17 +322,15 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
         info.type = c4d.HANDLECONSTRAINTTYPE_LINEAR
 
     def SetHandle(self, op, i, p, info):
-        """
-        Called by Cinema 4D when the user set the handle.
+        """Called by Cinema 4D when the user set the handle.
+
         This is the place to retrieve the information of a given handle ID and drive your parameter(s).
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :param i: The handle index.
-        :type i: int
-        :param p: The new Handle Position.
-        :type p: c4d.Vector
-        :param info: The HandleInfo filled with data.
-        :type info: c4d.HandleInfo
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+            i (int): The handle index.
+            p (c4d.Vector): The new Handle Position.
+            info (c4d.HandleInfo): The HandleInfo filled with data.
         """
         # Creates a HandleInfo
         tmp = c4d.HandleInfo()
@@ -349,27 +342,28 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
         val = (p-tmp.position) * info.direction
 
         # According the current HandleID
-        if i is 0:
+        if i == 0:
             op[c4d.PY_TUBEOBJECT_RAD] = c4d.utils.FCut(op[c4d.PY_TUBEOBJECT_RAD]+val, op[c4d.PY_TUBEOBJECT_IRADX], sys.maxsize)
-        elif i is 1:
+        elif i == 1:
             op[c4d.PY_TUBEOBJECT_IRADX] = c4d.utils.FCut(op[c4d.PY_TUBEOBJECT_IRADX]+val, op[c4d.PY_TUBEOBJECT_ROUNDRAD], op[c4d.PY_TUBEOBJECT_RAD])
-        elif i is 2:
+        elif i == 2:
             op[c4d.PY_TUBEOBJECT_IRADY] = c4d.utils.FCut(op[c4d.PY_TUBEOBJECT_IRADY]+val, op[c4d.PY_TUBEOBJECT_ROUNDRAD], sys.maxsize)
-        elif i is 3 or i is 4:
+        elif i == 3 or i == 4:
             op[c4d.PY_TUBEOBJECT_ROUNDRAD] = c4d.utils.FCut(op[c4d.PY_TUBEOBJECT_ROUNDRAD]+val, 0.0, min(op[c4d.PY_TUBEOBJECT_IRADX], op[c4d.PY_TUBEOBJECT_IRADY]))
 
     def Draw(self, op, drawpass, bd, bh):
-        """
-        Called by Cinema 4d when the display is updated to display some visual element of your object in the 3D view.
-        This is also the place to draw Handle
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :param drawpass:
-        :param bd: The editor's view.
-        :type bd: c4d.BaseDraw
-        :param bh: The BaseDrawHelp editor's view.
-        :type bh: c4d.plugins.BaseDrawHelp
-        :return: The result of the drawing (most likely c4d.DRAWRESULT_OK)
+        """Called by Cinema 4D when the display is updated to display some visual element of your object in the 3D view.
+        
+        This is also the place to draw handles
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+            drawpass (int): The current draw pass.
+            bd (c4d.BaseDraw): The editor's view.
+            bh (c4d.plugins.BaseDrawHelp): The BaseDrawHelp editor's view.
+
+        Returns:
+            bool: The result of the drawing (most likely c4d.DRAWRESULT_OK)
         """
         # If the current draw pass is not the handle, skip this Draw Call.
         if drawpass != c4d.DRAWPASS_HANDLES:
@@ -405,19 +399,18 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
             bd.SetPen(c4d.GetViewColor(handleColorFlag))
             
             # Draws the lines 0, 1, 2 are draw in the same drawcall
-            if i is 0:
+            if i == 0:
                 info2 = c4d.HandleInfo()
                 self.GetHandle(op, 1, info2)
                 bd.DrawLine(info.position, info2.position, 0)
                 self.GetHandle(op, 2, info2)
                 bd.DrawLine(info.position, info2.position, 0)
-            elif i is 3:
+            elif i == 3:
                 bd.DrawLine(info.position, RoundedTube.SwapPoint(c4d.Vector(rad+iradx, irady, 0.0), axis), 0)
-            elif i is 4:
+            elif i == 4:
                 bd.DrawLine(info.position, RoundedTube.SwapPoint(c4d.Vector(rad+iradx, irady, 0.0), axis), 0)
 
         return c4d.DRAWRESULT_OK
-
     """========== End of Handle Management =========="""
 
 

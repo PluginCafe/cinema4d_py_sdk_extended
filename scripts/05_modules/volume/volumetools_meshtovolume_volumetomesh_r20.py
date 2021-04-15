@@ -11,9 +11,6 @@ Class/method highlighted:
     - maxon.frameworks.volume.VolumeToolsInterface.MeshToVolume()
     - maxon.frameworks.volume.VolumeToolsInterface.VolumeToMesh()
 
-Compatible:
-    - Win / Mac
-    - R20, R21, S22, R23
 """
 import c4d
 import maxon

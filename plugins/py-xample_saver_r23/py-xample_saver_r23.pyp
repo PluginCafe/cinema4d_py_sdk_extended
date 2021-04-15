@@ -17,9 +17,6 @@ Class/method highlighted:
     - BitmapSaverData.Edit()
     - BitmapSaverData.Save()
 
-Compatible:
-    - Win / Mac
-    - R23
 """
 import c4d
 import struct
@@ -41,11 +38,13 @@ class MyXampleSaver(c4d.plugins.BitmapSaverData):
     STANDARD_COMP = 9
     
     def Edit(self, data):
-        """
-        Called by Cinema 4D, to query the option for the exporter
-        :param data: The settings for the plugin.
-        :type data: c4d.BaseContainer
-        :return: True if the dialog opened successfully
+        """Called by Cinema 4D, to query the option for the exporter.
+
+        Args:
+            data (c4d.BaseContainer): The settings for the plugin.
+
+        Returns:
+            True if the dialog opened successfully
         """
         std = data.GetInt32(self.COMPRESSION, self.STANDARD_COMP)
 
@@ -74,17 +73,16 @@ class MyXampleSaver(c4d.plugins.BitmapSaverData):
             return True
 
     def Save(self, fn, bm, data, savebits):
-        """
-        Called by Cinema 4D, when the plugin should save BaseBitmap as a files.
-        :param fn: The name of the file.
-        :type fn: str
-        :param bm: The Bitmap, to be filled with the data (need to be initialized).
-        :type bm: c4d.bitmaps.BaseBitmap
-        :param data: The settings for the plugin.
-        :type data: c4d.BaseContainer
-        :param savebits: Flags defines for the save process.
-        :type savebits: SAVEBIT
-        :return: IMAGERESULT
+        """Called by Cinema 4D, when the plugin should save BaseBitmap as a files.
+
+        Args:
+            fn (str): The name of the file.
+            bm (c4d.bitmaps.BaseBitmap): The Bitmap, to be filled with the data (need to be initialized).
+            data (c4d.BaseContainer): The settings for the plugin.
+            savebits (SAVEBIT): Flags defines for the save process.
+
+        Returns:
+            IMAGERESULT
         """
         # Opens the file in binary write mode
         with open(fn, "wb") as fn:

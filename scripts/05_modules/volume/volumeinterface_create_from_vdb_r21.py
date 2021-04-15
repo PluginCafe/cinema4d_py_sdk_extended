@@ -13,9 +13,6 @@ Class/method highlighted:
     - c4d.modules.volume.VolumeObject
     - VolumeObject.SetVolume()
 
-Compatible:
-    - Win / Mac
-    - R21, S22, R23
 """
 import c4d
 import maxon

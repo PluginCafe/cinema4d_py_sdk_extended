@@ -11,29 +11,28 @@ Class/method highlighted:
     - CKey.SetInterpolation()
     - CKey.SetKeyDefault()
 
-Compatible:
-    - Win / Mac
-    - R13, R14 R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 
 import c4d
 
 
 def CreateKey(curve, time, value, interpolation):
-    """
-    Creates a Key on the given curve at the given time with a given value and with the given interpolation.
+    """Creates a Key on the given curve at the given time with a given value and with the given interpolation.
 
-    :param curve: The Curve where to add the keyframe.
-    :type curve: c4d.CCurve
-    :param time: The time of the keyframe.
-    :type time: c4d.BaseTime
-    :param value: The value of the keyframe.
-    :type value: float
-    :param interpolation: The interpolation of the key along the curve.
-    :type interpolation: c4d.CINTERPOLATION_XXX
-    :return: They key and the index of the key in the CCurve.
-    :rtype: tuple(c4d.Ckey, int)
-    :raise MemoryError: If for some reason, it was not possible to create the key.
+    Args:
+        curve (c4d.CCurve): The Curve where to add the keyframe.
+        time (c4d.BaseTime): The time of the keyframe.
+        value (float): The value of the keyframe.
+        interpolation (c4d.CINTERPOLATION_XXX): The interpolation of the key along the curve.
+
+    Returns:
+        tuple(c4d.Ckey, int)
+
+    Raises:
+        MemoryError: If for some reason, it was not possible to create the key.
+    
+    Returns:
+        c4d.CKey, int: They key and the index of the key in the CCurve.
     """
     # Adds the key
     keyDict = curve.AddKey(time)

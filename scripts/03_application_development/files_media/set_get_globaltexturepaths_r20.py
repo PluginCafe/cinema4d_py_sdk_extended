@@ -9,9 +9,6 @@ Class/method highlighted:
     - c4d.SetGlobalTexturePaths()
     - c4d.GetGlobalTexturePaths()
 
-Compatible:
-    - Win / Mac
-    - R20, R21, S22, R23
 """
 import c4d
 import os

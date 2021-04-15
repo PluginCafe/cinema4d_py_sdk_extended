@@ -18,9 +18,6 @@ Class/method highlighted:
     - CommandData.Execute()
     - CommandData.RestoreLayout()
 
-Compatible:
-    - Win / Mac
-    - R18, R19, R20, R21
 """
 import c4d
 
@@ -29,19 +26,16 @@ PLUGIN_ID = 1037872
 
 
 class TextureBakerThread(c4d.threading.C4DThread):
-    """ Cinema 4D Thread for the TextureBaker Command Plugin """
+    """Cinema 4D Thread for the TextureBaker Command Plugin"""
 
     def __init__(self, doc, textags, texuvws, destuvws):
-        """
-        Initializes the Texture Baker thread
-        :param doc: the document hosting the object.
-        :type doc: c4d.documents.BaseDocument
-        :param textags: List of the texture tag(s) to bake. Must be assigned to an object.
-        :type textags: [c4d.TextureTag]
-        :param texuvws: The UVW tag(s) to bake.
-        :type texuvws: [c4d.UVWTag]
-        :param destuvws: The destination UVW tag for the bake.
-        :type destuvws: [c4d.UVWTag]
+        """Initializes the Texture Baker thread.
+
+        Args:
+            doc (c4d.documents.BaseDocument): the document hosting the object.
+            textags (c4d.TextureTag): List of the texture tag(s) to bake. Must be assigned to an object.
+            texuvws (c4d.UVWTag): The UVW tag(s) to bake.
+            destuvws (c4d.UVWTag): The destination UVW tag for the bake.
         """
         self.doc = doc
         self.textags = textags
@@ -54,7 +48,7 @@ class TextureBakerThread(c4d.threading.C4DThread):
         self.bakeError = c4d.BAKE_TEX_ERR_NONE
 
     def Begin(self):
-        """ Setups and starts the texture baking thread. """
+        """Setups and starts the texture baking thread."""
 
         # Defines baking setting
         bakeData = c4d.BaseContainer()
@@ -108,17 +102,16 @@ class TextureBakerThread(c4d.threading.C4DThread):
 class TextureBakerHelper(object):
 
     def EnableButtons(self, baking):
-        """
-        Defines the state of the button according of the baking process
-        :param baking: Current baking state (True if baking occurs)
+        """Defines the state of the button according of the baking process.
+
+        Args:
+            baking: Current baking state (True if baking occurs)
         """
         self.Enable(self.BUTTON_BAKE, not baking)
         self.Enable(self.BUTTON_ABORT, baking)
 
     def Bake(self):
-        """
-        Bake the active object to texture
-        """
+        """Bake the active object to texture"""
         # Retrieves selected document
         doc = c4d.documents.GetActiveDocument()
         if doc is None:
@@ -158,9 +151,7 @@ class TextureBakerHelper(object):
         self.SetString(self.infoText, "Baking")
 
     def Abort(self):
-        """
-        Cancels the baking progress
-        """
+        """Cancels the baking progress"""
         # Checks if there is a baking process currently
         if self.textureBakerThread and self.textureBakerThread.IsRunning():
             self.aborted = True
@@ -169,7 +160,7 @@ class TextureBakerHelper(object):
 
 
 class TextureBakerDlg(c4d.gui.GeDialog, TextureBakerHelper):
-    """ Main dialog for the Texture Baker """
+    """Main dialog for the Texture Baker"""
 
     BUTTON_BAKE = 1000
     BUTTON_ABORT = 1001
@@ -179,9 +170,7 @@ class TextureBakerDlg(c4d.gui.GeDialog, TextureBakerHelper):
     infoText = None
 
     def CreateLayout(self):
-        """
-        This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog.
-        """
+        """This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog."""
         # Defines the title
         self.SetTitle("Texture Baker")
 
@@ -202,14 +191,15 @@ class TextureBakerDlg(c4d.gui.GeDialog, TextureBakerHelper):
         return True
 
     def Command(self, id, msg):
-        """
-        This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
+        """This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
         It is also called when a string menu item is selected.
-        :param id: The ID of the gadget that triggered the event.
-        :type id: int
-        :param msg: The original message container
-        :type msg: c4d.BaseContainer
-        :return: False if there was an error, otherwise True.
+
+        Args:
+            id (int): The ID of the gadget that triggered the event.
+            msg (c4d.BaseContainer): The original message container
+
+        Returns:
+            bool: False if there was an error, otherwise True.
         """
         if id == self.BUTTON_BAKE:
             self.Bake()
@@ -220,13 +210,14 @@ class TextureBakerDlg(c4d.gui.GeDialog, TextureBakerHelper):
         return True
 
     def CoreMessage(self, id, msg):
-        """
-        This Method is called automatically when Core (Main) Message is received.
-        :param id: The ID of the gadget that triggered the event.
-        :type id: int
-        :param msg: The original message container
-        :type msg: c4d.BaseContainer
-        :return: False if there was an error, otherwise True.
+        """This Method is called automatically when Core (Main) Message is received.
+
+        Args:
+            id (int): The ID of the gadget that triggered the event.
+            msg (c4d.BaseContainer): The original message container
+
+        Returns:
+            bool: False if there was an error, otherwise True.
         """
         # Checks if texture baking has finished
         if id == PLUGIN_ID:
@@ -258,10 +249,10 @@ class TextureBakerDlg(c4d.gui.GeDialog, TextureBakerHelper):
         return c4d.gui.GeDialog.CoreMessage(self, id, msg)
 
     def AskClose(self):
-        """
-        This Method is called automatically when self.Close() is called or the user press the Close cross in top menu.
-        :return: True if the Dialog shouldn't close, otherwise False.
-        :rtype: bool
+        """This Method is called automatically when self.Close() is called or the user press the Close cross in top menu.
+
+        Returns:
+            bool: True if the Dialog shouldn't close, otherwise False.
         """
         # Aborts the baking process on dialog close
         self.Abort()
@@ -269,17 +260,17 @@ class TextureBakerDlg(c4d.gui.GeDialog, TextureBakerHelper):
 
 
 class TextureBakerData(c4d.plugins.CommandData):
-    """
-    Command Data class that holds the TextureBakerDlg instance.
-    """
+    """Command Data class that holds the TextureBakerDlg instance."""
     dialog = None
 
     def Execute(self, doc):
-        """
-        Called when the user Execute the command (CallCommand or a clicks on the Command from the plugin menu)
-        :param doc: the current active document
-        :type doc: c4d.documents.BaseDocument
-        :return: True if the command success
+        """Called when the user Execute the command (CallCommand or a clicks on the Command from the plugin menu)
+
+        Args:
+            doc (c4d.documents.BaseDocument): the current active document
+
+        Returns:
+            bool: True if the command success
         """
         # Creates the dialog if its not already exists
         if self.dialog is None:
@@ -289,11 +280,13 @@ class TextureBakerData(c4d.plugins.CommandData):
         return self.dialog.Open(dlgtype=c4d.DLG_TYPE_ASYNC, pluginid=PLUGIN_ID, defaultw=250, defaulth=50)
 
     def RestoreLayout(self, sec_ref):
-        """
-        Used to restore an asynchronous dialog that has been placed in the users layout.
-        :param sec_ref: The data that needs to be passed to the dlg (almost no use of it).
-        :type sec_ref: PyCObject
-        :return: True if the restore success
+        """Used to restore an asynchronous dialog that has been placed in the users layout.
+
+        Args:
+            sec_ref (PyCObject): The data that needs to be passed to the dlg (almost no use of it).
+
+        Returns:
+            bool: True if the restore success
         """
         # Creates the dialog if its not already exists
         if self.dialog is None:

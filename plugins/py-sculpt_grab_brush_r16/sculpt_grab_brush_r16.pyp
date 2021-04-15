@@ -12,9 +12,6 @@ Class/method highlighted:
     - SculptBrushToolData.PostInitDefaultSettings()
     - SculptBrushToolData.ApplyDab()
 
-Compatible:
-    - Win / Mac
-    - R16, R17, R18, R19, R20, R21
 """
 import c4d
 
@@ -26,41 +23,42 @@ IDS_PYTHON_BRUSH_GRAB = 10000
 
 
 class SculptBrushGrabTool(c4d.plugins.SculptBrushToolData):
-    """ Inherit from SculptBrushToolData to create your own sculpting tool """
+    """Inherit from SculptBrushToolData to create your own sculpting tool"""
 
     def GetToolPluginId(self):
-        """
-        Called by Cinema 4D, to know the plugin ID of this tool.
-        :return: The unique id for the tool plugin as obtained from www.plugincafe.com
-        :rtype: int
+        """Called by Cinema 4D, to know the plugin ID of this tool.
+
+        Returns:
+            int: The unique id for the tool plugin as obtained from www.plugincafe.com
         """
         return PLUGIN_ID
 
     def GetResourceSymbol(self):
-        """
-        Called by Cinema 4D, to know the resource to be used for this tool.
-        :return: The resource name of the tool
-        :rtype: str
+        """Called by Cinema 4D, to know the resource to be used for this tool.
+
+        Returns:
+            str: The resource name of the tool
         """
         return "pythongrabbrush"
 
     def PostInitDefaultSettings(self, doc, data):
-        """
-        Called by Cinema 4D, to define custom default values.
+        """Called by Cinema 4D, to define custom default values.
+
         See the pythongrabbrush.res and pythongrabbrush.h files for where this value is defined.
-        :param doc: The current document.
-        :type doc: c4d.documents.BaseDocument
-        :param data: The settings for the loaded brush.
-        :type data: c4d.BaseContainer
+
+        Args:
+            doc (c4d.documents.BaseDocument): The current document.
+            data (c4d.BaseContainer): The settings for the loaded brush.
         """
         data.SetInt32(c4d.MDATA_PYTHONGRABBRUSH_DIRMODE, c4d.MDATA_PYTHONGRABBRUSH_DIRMODE_MOUSEDIR)
 
     def ApplyDab(self, dab):
-        """
-        Called by Cinema 4D, to modify the sculpt object.
-        Implement the brush functionality in this method
-        :param dab: The brush dab data.
-        :type dab: c4d.modules.sculpting.BrushDabData
+        """Called by Cinema 4D to modify the sculpt object.
+
+        Implement the brush functionality in this method.
+
+        Args:
+            dab (c4d.modules.sculpting.BrushDabData): The brush dab data.
         """
         # Retrieves the Polygon Object
         polyObj = dab.GetPolygonObject()

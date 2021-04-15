@@ -17,10 +17,6 @@ Class/method highlighted:
     - GeDialog.InitValues()
     - GeDialog.Timer()
     - GeDialog.Command()
-
-Compatible:
-    - Win / Mac
-    - R23
 """
 import c4d
 import os
@@ -90,9 +86,7 @@ class MyDialog(c4d.gui.GeDialog):
         self.CVRssData = None
 
     def CreateLayout(self):
-        """
-        This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog.
-        """
+        """This Method is called by Cinema 4D to retrieve the layout of the dialog."""
         # Defines the title
         self.SetTitle("Cineversity RSS")
         
@@ -161,10 +155,10 @@ class MyDialog(c4d.gui.GeDialog):
         return True
     
     def InitValues(self):
-        """
-        Called after CreateLayout being called to define the values in the UI
-        :return: 	True if successful, or False to signalize an error.
-        :rtype: bool
+        """Called after CreateLayout() has been called to set the starting values in the UI.
+
+        Returns:
+            bool: True if successful, or False to signalize an error.
         """
         # Retrieves saved values from the world container of this plugin
         self.CVRssData = c4d.plugins.GetWorldPluginData(PLUGIN_ID)
@@ -184,18 +178,16 @@ class MyDialog(c4d.gui.GeDialog):
         return True
 
     def Timer(self, msg):
-        """
-        This method is called automatically by Cinema 4D according to the timer set with GeDialog.SetTimer method.
-        :param msg: The timer message
-        :type msg: c4d.BaseContainer
+        """Called by Cinema 4D in intervals defined by the GeDialog.SetTimer() method.
+
+        Args:
+            msg (c4d.BaseContainer): The timer message
         """
         # Scroll RSS function
         self.UpdateToNextRss()
 
     def UpdateToNextRss(self):
-        """
-        Called to update the Dialog Title with the next Title available in the RSS feed.
-        """
+        """Called to update the dialog title with the next title available in the RSS feed."""
         
         # If updates time has been reached
         if c4d.GeGetTimer() < self.last_update + self.update_time:
@@ -218,9 +210,7 @@ class MyDialog(c4d.gui.GeDialog):
             self.current_item = 0
 
     def UpdateRss(self):
-        """
-        Retrieves the RSS Feed, updates internal data and UI if needed
-        """
+        """Retrieves the RSS feed, updates internal data and UI if needed."""
 
         # Retrieves the RSS Url and parse its XML
         print("Updating... " + self.rss_url)
@@ -259,20 +249,20 @@ class MyDialog(c4d.gui.GeDialog):
         self.UpdateToNextRss()
         
     def GoToUrl(self):
-        """
-        Opens the web browser to the current displayed rss page
-        """
+        """Opens the web browser to the currently displayed RSS page."""
         url = self.rss_items[self.current_item-1]['link'].encode('utf-8')
         webbrowser.open(url, 2, True)
         return True
     
     def Command(self, id, msg):
-        """
-         This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
-         It is also called when a string menu item is selected.
-        :param id: The ID of the gadget that triggered the event.
-        :param msg: The original message container
-        :return: False if there was an error, otherwise True.
+        """This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called. It is also called when a string menu item is selected.
+
+        Args:
+            id (int): The ID of the gadget that triggered the event.
+            msg (c4d.BaseContainer): The original message container.
+
+        Returns:
+            bool: False if there was an error, otherwise True.
         """
 
         # Clicks on any items of Scroll menu
@@ -359,9 +349,10 @@ class MyDialog(c4d.gui.GeDialog):
         return True
     
     def SetFeedUrl(self, private):
-        """
-        Sets the url feed
-        :param private: the url feed to set, if empty asks for it
+        """Sets the url feed.
+
+        Args:
+            private (str): The url feed to set, if empty, asks for it.
         """
 
         # If private is empty ask for it in a popup dialog
@@ -380,9 +371,10 @@ class MyDialog(c4d.gui.GeDialog):
         return True  
 
     def SetScrollItems(self, private):
-        """
-        Sets scroll_items variable
-        :param private: how many items to scroll through.
+        """Sets scroll_items variable.
+
+        Args:
+            private (int): How many items to scroll through.
         """
         self.scroll_items = private
 
@@ -391,9 +383,10 @@ class MyDialog(c4d.gui.GeDialog):
         return True
 
     def SetScrollTime(self, private):
-        """
-        # Sets the amount of time to show each item
-        :param private: time in seconds
+        """Sets the amount of time to show each item.
+
+        Args:
+            private (int): Time in seconds.
         """
         # Translates time in milliseconds
         self.scroll_time = private * 1000
@@ -406,9 +399,10 @@ class MyDialog(c4d.gui.GeDialog):
         return True
 
     def SetUpdateTime(self, private):
-        """
-        Sets the amount of time between updating RSS
-        :param private: time in minutes
+        """Sets the amount of time between updating RSS.
+
+        Args:
+            private (int): Time in minutes.
         """
         # Translates time in milliseconds
         self.update_time = private*1000*60
@@ -418,16 +412,12 @@ class MyDialog(c4d.gui.GeDialog):
         return True
 
     def About(self):
-        """
-        Opens the About dialog
-        """
+        """Opens the About dialog"""
         c4d.gui.MessageDialog("Cineversity RSS v0.7\nby Rick Barrett (SDG)", c4d.GEMB_OK)
         return True
         
     def UpdatePrefs(self):
-        """
-        Updates the data stored in the world container (used to retrieve settings when Cinema 4D leaves)
-        """
+        """Updates the data stored in the world container."""
         self.CVRssData.SetString(FEED, self.rss_url)
         self.CVRssData.SetInt32(ITEMS, self.scroll_items)
         self.CVRssData.SetInt32(SCROLL, self.scroll_time)
@@ -436,17 +426,17 @@ class MyDialog(c4d.gui.GeDialog):
 
 
 class CVRss(c4d.plugins.CommandData):
-    """
-    Command Data class that holds the CVRssDialog instance.
-    """
+    """Command Data class that holds the CVRssDialog instance."""
     dialog = None
     
     def Execute(self, doc):
-        """
-        Called when the user Execute the command (CallCommand or a clicks on the Command from the plugin menu)
-        :param doc: the current active document
-        :type doc: c4d.documents.BaseDocument
-        :return: True if the command success
+        """Called when the user executes a command via either CallCommand() or a click on the Command from the plugin menu.
+
+        Args:
+            doc (c4d.documents.BaseDocument): The current active document.
+
+        Returns:
+            bool: True if the command success.
         """
         # Creates the dialog if its not already exists
         if self.dialog is None:
@@ -456,11 +446,13 @@ class CVRss(c4d.plugins.CommandData):
         return self.dialog.Open(dlgtype=c4d.DLG_TYPE_ASYNC, pluginid=PLUGIN_ID, defaultw=400, defaulth=32)
 
     def RestoreLayout(self, sec_ref):
-        """
-        Used to restore an asynchronous dialog that has been placed in the users layout.
-        :param sec_ref: The data that needs to be passed to the dlg (almost no use of it).
-        :type sec_ref: PyCObject
-        :return: True if the restore success
+        """Used to restore an asynchronous dialog that has been placed in the users layout.
+
+        Args:
+            sec_ref (PyCObject): The data that needs to be passed to the dialog.
+
+        Returns:
+            bool: True if the restore success
         """
         # Creates the dialog if its not already exists
         if self.dialog is None:

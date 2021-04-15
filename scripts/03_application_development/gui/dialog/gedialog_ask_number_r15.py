@@ -13,9 +13,6 @@ Class/method highlighted:
     - GeDialog.InitValues()
     - GeDialog.Command()
 
-Compatible:
-    - Win / Mac
-    - R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
@@ -54,9 +51,7 @@ class AskNumber(c4d.gui.GeDialog):
         self.userCancel = False
 
     def AskClose(self):
-        """
-        This Method is called automatically when self.Close() is called or the user press the Close cross in top menu.
-        """
+        """This Method is called automatically when self.Close() is called or the user press the Close cross in top menu."""
 
         # Cancel close if it's not called from OK or Cancel Button
         if self.value is None and not self.userCancel:
@@ -65,9 +60,7 @@ class AskNumber(c4d.gui.GeDialog):
         return False
 
     def CreateLayout(self):
-        """
-        This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog.
-        """
+        """This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog."""
         # Defines the title of the Dialog
         self.SetTitle("Enter a Number")
 
@@ -86,9 +79,7 @@ class AskNumber(c4d.gui.GeDialog):
         return True
 
     def InitValues(self):
-        """
-        This Method is called automatically after the GUI is initialized.
-        """
+        """This Method is called automatically after the GUI is initialized."""
 
         # If the dlg type is an int we define the input number to only accept integer
         if self.dlgType == DLG_TYPE_INT:
@@ -101,13 +92,15 @@ class AskNumber(c4d.gui.GeDialog):
         return True
 
     def Command(self, id, msg):
-        """
-        This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
+        """This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
         It is also called when a string menu item is selected.
 
-        :param id: The ID of the gadget that triggered the event.
-        :param msg: The original message container
-        :return: False if there was an error, otherwise True.
+        Args:
+            id: The ID of the gadget that triggered the event.
+            msg: The original message container
+
+        Returns:
+            False if there was an error, otherwise True.
         """
 
         # If the user right click on the input, means user want to reset

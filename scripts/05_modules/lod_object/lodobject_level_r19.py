@@ -9,9 +9,6 @@ Class/method highlighted:
     - LodObject.GetCurrentLevel()
     - LodObject.GetShowControlDescID()
 
-Compatible:
-    - Win / Mac
-    - R19, R20, R21, S22, R23
 """
 import c4d
 

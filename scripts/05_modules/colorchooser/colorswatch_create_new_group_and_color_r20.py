@@ -10,9 +10,6 @@ Class/method highlighted:
     - c4d.modules.colorchooser.SwatchGroup
     - maxon.ColorA
 
-Compatible:
-    - Win / Mac
-    - R20, R21, S22, R23
 """
 import c4d
 import maxon

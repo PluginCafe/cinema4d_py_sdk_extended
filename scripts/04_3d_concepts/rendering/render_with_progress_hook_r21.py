@@ -9,21 +9,16 @@ Class/method highlighted:
     - c4d.bitmaps.MultipassBitmap
     - c4d.documents.RenderDocument()
 
-Compatible:
-    - Win / Mac
-    - R21, S22, R23
 """
 import c4d
 
 
 def PythonCallBack(progress, progress_type):
-    """
-    Function passed in RenderDocument. It will be called automatically by Cinema 4D with the current render progress.
+    """Function passed in RenderDocument. It will be called automatically by Cinema 4D with the current render progress.
 
-    :param progress: The percent of the progress for the current step
-    :type progress: float
-    :param progress_type: The Main part of the current rendering step
-    :type progress_type: c4d.RENDERPROGRESSTYPE
+    Args:
+        progress (float): The percent of the progress for the current step
+        progress_type (c4d.RENDERPROGRESSTYPE): The Main part of the current rendering step
     """
     text = str()
 
@@ -50,26 +45,18 @@ def PythonCallBack(progress, progress_type):
 
 
 def PythonWriteCallBack(mode, bmp, fn, mainImage, frame, renderTime, streamnum, streamname):
-    """
-    Function passed in RenderDocument.
+    """Function passed in RenderDocument.
     It will be called automatically by Cinema 4D when the file rendered file should be saved.
 
-    :param mode: The write mode.
-    :type mode: c4d.WRITEMODE
-    :param bmp: The bitmap written to.
-    :type bmp: c4d.bitmaps.BaseBitmap
-    :param fn: The path where the file should be saved.
-    :type fn: str
-    :param mainImage: True for main image, otherwise False.
-    :type mainImage: bool
-    :param frame: The frame number.
-    :type frame: int
-    :param renderTime: The bitmap frame time.
-    :type renderTime: int
-    :param streamnum: The stream number.
-    :type streamnum: int
-    :param streamname: The stream name.
-    :type streamname: str
+    Args:
+        mode (c4d.WRITEMODE): The write mode.
+        bmp (c4d.bitmaps.BaseBitmap): The bitmap written to.
+        fn (str): The path where the file should be saved.
+        mainImage (bool): True for main image, otherwise False.
+        frame (int): The frame number.
+        renderTime (int): The bitmap frame time.
+        streamnum (int): The stream number.
+        streamname (streamname: str): The stream name.
     """
     text = str()
 

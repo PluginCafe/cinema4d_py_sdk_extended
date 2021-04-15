@@ -25,15 +25,12 @@ Note:
     and directly register the plugin by editing a plugin source code.
 
     Even if you encrypt your python plugin it will be just harder for the attackers but not impossible.
-
-Compatible:
-    - Win / Mac
-    - R21
 """
 import c4d
 import os
 import errno
 import json
+import sys
 
 
 class LicenceHelper(object):
@@ -62,14 +59,15 @@ class LicenceHelper(object):
         self.storedLicensePath = os.path.join(tempFolder, "plugins", "py_licensing_example", "license.txt")
 
     def IsValidSerial(self, enteredLicense):
-        """
-        Very stupid check if the entered serial is valid.
+        """Very stupid check if the entered serial is valid.
+        
         This is the place where you should hook your licensing logic.
 
-        :param enteredLicense: The string entered as serial.
-        :type enteredLicense: str
-        :return: True if the serial is correct, False otherwise.
-        :rtype: bool
+        Args:
+            enteredLicense (str): The string entered as serial.
+
+        Returns:
+            bool: True if the serial is correct, False otherwise.
         """
         return enteredLicense == self._GetValidSerial()
 
@@ -77,8 +75,7 @@ class LicenceHelper(object):
         return "License_{0}".format(self.userID)
 
     def SaveSerialInFile(self):
-        """
-        To be called in order to save the serial somewhere in the client,
+        """To be called in order to save the serial somewhere in the client,
         so we don't ask each restart for the serial
         """
         # Creates the directory if it does not exist
@@ -96,9 +93,7 @@ class LicenceHelper(object):
             licFile.write(self._GetValidSerial())
 
     def IsStoredSerialValid(self):
-        """
-        Called to read if there is already a file saved (i.e. the user already entered a valid serial and was saved).
-        """
+        """Called to read if there is already a file saved (i.e. the user already entered a valid serial and was saved)."""
         # Checks if the file exists
         if not os.path.exists(self.storedLicensePath):
             return False
@@ -119,9 +114,7 @@ class LicensingExampleDialog(c4d.gui.GeDialog, LicenceHelper):
     serialEnteredIsValid = False
 
     def CreateLayout(self):
-        """
-        This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog.
-        """
+        """This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog."""
         # Defines the title of the Dialog
         self.SetTitle("Licensing Example -- Ask for serial")
 
@@ -138,9 +131,7 @@ class LicensingExampleDialog(c4d.gui.GeDialog, LicenceHelper):
         return True
 
     def InitValues(self):
-        """
-        This method is called automatically after the GUI is initialized.
-        """
+        """This method is called automatically after the GUI is initialized."""
         # Defines the help text present in the Edit Text
         self.SetString(self.ID_EDIT_TEXT,
                        "Enter the correct serial here",
@@ -149,13 +140,16 @@ class LicensingExampleDialog(c4d.gui.GeDialog, LicenceHelper):
         return True
 
     def Command(self, messageId, bc):
-        """
-        This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
+        """This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
+
         It is also called when a string menu item is selected.
 
-        :param messageId: The ID of the gadget that triggered the event.
-        :param bc: The original message container
-        :return: False if there was an error, otherwise True.
+        Args:
+            messageId (int): The ID of the gadget that triggered the event.
+            bc (c4d.BaseContainer): The original message container
+
+        Returns:
+            False if there was an error, otherwise True.
         """
         # User enter something in the input text
         if messageId == self.ID_EDIT_TEXT:
@@ -185,13 +179,15 @@ class LicensingExampleDialog(c4d.gui.GeDialog, LicenceHelper):
 
 
 def RegisterPlugin():
-    """
-    Registers your plugin(s) here e.g. RegisterCommandPlugin.
-    """
+    """Registers your plugin(s) here e.g. RegisterCommandPlugin."""
     print("Register your plugin here")
 
 
 if __name__ == "__main__":
+    # If there is nogui argument(commandline or c4dpy) don't run this plugin since it open a dialog.
+    if "-nogui" in sys.argv:
+        exit()
+
     # Creates a new instance of the GeDialog
     dlg = LicensingExampleDialog()
 

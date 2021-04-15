@@ -11,16 +11,13 @@ Classic API:
 ## Examples
 
 ### uvwtag_retrieve_uv_point_pinned
-Version: S22.114 - Win/Mac
 
     Sets the polygon point selection to the uv points pinned.
 
 ### uvwtag_addselection_to_uv_point_pinned
-Version: S22.114 - Win/Mac
 
     Adds the polygon point selection to the uv points pinned.
  
 ### uvwtag_removeselection_to_uv_point_pinned
-Version: S22.114 - Win/Mac
 
     Removes the polygon point selection to the uv points pinned.

@@ -13,9 +13,6 @@ Class/method highlighted:
     - TP_MasterSystem.SetPosition()
     - TP_MasterSystem.SetColor()
 
-Compatible:
-    - Win / Mac
-    - R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 

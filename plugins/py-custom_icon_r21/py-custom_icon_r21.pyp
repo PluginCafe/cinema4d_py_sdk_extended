@@ -3,7 +3,7 @@ Copyright: MAXON Computer GmbH
 Author: Maxime Adam
 
 Description:
-    - Demonstrates how to define custom icon color according to the new Cinema 4D R21 icon features.
+    - Demonstrates how to define a custom icon color according to the new Cinema 4D R21 icon features.
 
 Class/method highlighted:
     - MSG_GETCUSTOMICON
@@ -12,10 +12,6 @@ Class/method highlighted:
     - maxon.Color
     - c4d.CustomIconSettings.FillCustomIconSettingsFromBaseList2D()
     - c4d.CustomIconSettings.GetCustomIcon()
-
-Compatible:
-    - Win / Mac
-    - R21
 """
 import os
 import c4d
@@ -27,13 +23,14 @@ PLUGIN_ID = 1053134
 class CustomIconObjectData(c4d.plugins.ObjectData):
 
     def Init(self, node):
-        """
-        Called when Cinema 4D Initialize the ObjectData (used to define, default values)
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :return: True on success, otherwise False.
-        """
+        """Called by Cinema 4D to initialize the instance.
 
+        Args:
+            node (c4d.GeListNode): The instance of the ObjectData.
+
+        Returns:
+            bool: True on success, otherwise False.
+        """
         # Creates a BaseContainer to store all custom color mode
         iconSpecialModes = c4d.BaseContainer()
 
@@ -59,29 +56,27 @@ class CustomIconObjectData(c4d.plugins.ObjectData):
         return True
 
     def GetVirtualObjects(self, node, hh):
-        """
-        This method is called automatically when Cinema 4D ask for the cache of an object. This is also the place
-        where objects have to be marked as input object by Touching them (destroy their cache in order to disable them in Viewport)
+        """This method is called automatically when Cinema 4D asks for the cache of an object. This is also the place where objects have to be marked as input object by touching them (destroy their cache in order to disable them in Viewport).
 
-        :param node: The Python Generator
-        :type node: c4d.BaseObject.
-        :param hh: The hierarchy helper.
-        :type hh: c4d.HierarchyHelp (currently a PyObject).
-        :return: The Representing object
+        Args:
+            node (c4d.BaseObject): The Python generator.
+            hh (c4d.HierarchyHelp): The hierarchy helper.
+
+        Returns:
+            c4d.BaseObject: The represented object.
         """
         return c4d.BaseObject(c4d.Onull)
 
     def Message(self, node, msgId, data):
-        """
-        Called by Cinema 4D part to notify the object to a special event
+        """Called by Cinema 4D part to notify the object to a special event.
 
-        :param node: The instance of the ObjectData.
-        :type node: c4d.BaseObject
-        :param msgId: The message ID type.
-        :type msgId: int
-        :param data: The message data.
-        :type data: Any, depends of the message passed.
-        :return: Depends of the message type, most of the time True.
+        Args:
+            node (c4d.BaseObject): The instance of the ObjectData.
+            msgId (int): The message ID type.
+            data (Any): The message data.
+
+        Returns:
+            Any: Depends of the message type, most of the time True.
         """
         if msgId == c4d.MSG_GETCUSTOMICON:
             settings = c4d.CustomIconSettings()

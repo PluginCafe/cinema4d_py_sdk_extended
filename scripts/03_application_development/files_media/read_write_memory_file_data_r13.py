@@ -10,18 +10,15 @@ Class/method highlighted:
     - c4d.storage.MemoryFileStruct
     - c4d.storage.HyperFile
 
-Compatible:
-    - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
 
 def WriteMemoryFile():
-    """
-    Writes data to a memory file.
-
-    :return: The byte sequence or None
+    """Writes data to a memory file.
+    
+    Returns: 
+        The byte sequence or None
     """
     # Creates a MemoryFile, data will be written in
     mfs = c4d.storage.MemoryFileStruct()
@@ -54,10 +51,10 @@ def WriteMemoryFile():
 
 
 def ReadMemoryFile(data):
-    """
-    Reads data from a memory file.
+    """Reads data from a memory file.
 
-    :param data: the byte sequence to read
+    Args:
+        data: the byte sequence to read
     """
     # Creates a MemoryFile, data will be read in
     mfs = c4d.storage.MemoryFileStruct()

@@ -11,9 +11,6 @@ Class/method highlighted:
     - c4d.plugins.ReadPluginInfo()
     - c4d.plugins.WritePluginInfo()
 
-Compatible:
-    - Win / Mac
-    - R23
 """
 import c4d
 

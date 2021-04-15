@@ -12,20 +12,17 @@ Class/method highlighted:
     - c4d.LayerShaderLayer
     - LayerShader.GetFirstLayer()
 
-Compatible:
-    - Win / Mac
-    - R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
 
 def iterateShaders(sha):
-    """
-    | This function iterates over a BaseList2D, BaseShader inherit from BaseList2D.
-    | If it's a LayerShader, iterates over all layers and print their name.
+    """This function iterates over a BaseList2D, BaseShader inherit from BaseList2D.
+    
+    If it's a LayerShader, iterates over all layers and print their name.
 
-    :param sha: Shader to iterate.
-    :type sha: Union[c4d.BaseList2D, c4d.BaseShader, c4d.LayerShader]
+    Args:
+        sha (Union[c4d.BaseList2D, c4d.BaseShader, c4d.LayerShader]): Shader to iterate.
     """
     while sha:
         # Checks if the shader is a Layer Shader

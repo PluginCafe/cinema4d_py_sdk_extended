@@ -18,49 +18,40 @@ Classic API:
 ## Examples
 
 ### fieldlist_add_mask
-Version: R21, S22, R23 - Win/Mac
 
     Creates a FieldList with a formula layer, a mask and another formula layer used as a mask of the first formula layer.
     Assigns this FieldList to the active object that have a c4d.FIELDS parameter e.g. all MoGraph effectors.
 
 ### fieldlist_sampling
-Version: R20, R21, S22, R23 - Win/Mac
 
     Samples arbitrary points from multiple fields with c4d.FieldList and stores the result into a vertex color tag.
 
 ### fieldobject_sampling
-Version: R20, R21, S22, R23 - Win/Mac
 
     Samples arbitrary points within a random field.
 
 ### get_modata_selection
-Version: R20, R21, S22, R23 - Win/Mac
 
     Retrieves all selected clones of the active Cloner object.
 
 ### get_modata_weights
-Version: R20, R21, S22, R23 - Win/Mac
 
     Retrieves the weights from all clones of the active Cloner object.
 
 ### read_modata_color
-Version: R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Retrieves the color or each clone using two ways.
     First one by accessing directly the Mograph Data.
     Second one by accessing the polygon cache representation of the Mograph Cloner.
 
 ### set_modata_selection
-Version: R20, R21, S22, R23 - Win/Mac
 
     Selects all clones of the active Cloner object.
 
 ### set_modata_weights
-Version: R20, R21, S22, R23 - Win/Mac
 
     Sets a weight of 1.0 for all clones of the active Cloner object.
 
 ### voronoi_fracture
-Version: R20, R21, S22, R23 - Win/Mac
 
     Creates and define a noise shader as an input of a Voronoi Fracture object.

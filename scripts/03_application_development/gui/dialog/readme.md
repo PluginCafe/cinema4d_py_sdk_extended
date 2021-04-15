@@ -15,42 +15,35 @@ Classic API:
 ## Examples
 
 ### customgui_quicktab
-Version: R19, R20, R21, S22, R23 - Win/Mac
 
     Creates a Modal Dialog displaying a different SubDialog according to the selected entry of the QuickTab.
     Demonstrates how to add, flushes, remove tab interactively.
 
 ### gedialog_ask_number
-Version: R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Creates a Modal Dialog asking for an integer or a float.
     Retrieves the entered value, once the user exit the Dialog.
 
 ### gedialog_menu_hide_content
-Version: R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Creates an async Dialog with a top menu.
     Defines an icon in the menu to toggle group visibility.
 
 ### gedialog_modal
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Creates a basic Modal Dialog.
     
 ### gedialog_subdialog
-Version: R19, R20, R21, S22, R23 - Win/Mac
 
     Creates and attaches a SubDialog to a Dialog.
     Switch the displayed SubDialog after a click on a button.
 
 ### geuserarea_basic
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Creates and attaches a GeUserArea to a Dialog.
     Interacts from the GeDialog to the GeUserArea and vice-versa.
 
 ### geuserarea_drag
-Version: R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Creates and attaches a GeUserArea to a Dialog.
     Creates a series of aligned squares, that can be dragged and swapped together.

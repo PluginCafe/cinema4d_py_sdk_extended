@@ -11,9 +11,6 @@ Class/method highlighted:
     - maxon.frameworks.volume.VolumeToolsInterface.CreateCurlVolume()
     - VolumeObject.SetVolume()
 
-Compatible:
-    - Win / Mac
-    - R21, S22, R23
 """
 import c4d
 import maxon

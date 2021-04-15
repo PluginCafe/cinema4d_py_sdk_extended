@@ -9,7 +9,6 @@ Classic API:
 ## Examples
 
 ### thinking_particles_creates
-Version: R16, R17, R18, R19, R20, R21, S22, R23 - Win/Mac
 
     - Creates 90 Thinking Particles.
     - Defines custom position and color for each particle.

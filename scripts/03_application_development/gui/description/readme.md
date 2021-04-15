@@ -11,16 +11,13 @@ Classic API:
 ## Examples
 
 ### description_check_descid
-Version: R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Retrieves a complete DescID (with datatype and creator IDs) from another DescID.
 
 ### description_create_popup_menu
-Version: R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Retrieves a BaseContainer with all the parameters of an object.
     
 ### description_getsubdescriptionwithdata
-Version: R18, R19, R20, R21, S22, R23 - Win/Mac
 
     Retrieves SubDescription parameters information.

@@ -17,9 +17,6 @@ Class/method highlighted:
     - GeDialog.Command()
     - GeDialog.LayoutChanged()
 
-Compatible:
-    - Win / Mac
-    - R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
@@ -34,9 +31,7 @@ class MenuDlg(c4d.gui.GeDialog):
     toogleState = True
 
     def CreateLayout(self):
-        """
-        This method is called automatically when Cinema 4D Create the Layout (display) of the Dialog.
-        """
+        """This method is called automatically when Cinema 4D Create the Layout (display) of the Dialog."""
         # Defines the title of the Dialog
         self.SetTitle("A Custom Dialog with a Top Menu")
 
@@ -90,22 +85,22 @@ class MenuDlg(c4d.gui.GeDialog):
         return True
 
     def InitValues(self):
-        """
-        This method is called automatically after the GUI is initialized.
-        """
+        """This method is called automatically after the GUI is initialized."""
         # Defines the initial hidden state of the group according the the value stored.
         self.HideElement(self.ID_HIDDEN_GROUP, self.toogleState)
         return True
 
     def Command(self, id, msg):
-        """
-        This method is called automatically when the user clicks on a gadget and/or changes its value
+        """This method is called automatically when the user clicks on a gadget and/or changes its value
         this function will be called.
         It is also called when a string menu item is selected.
 
-        :param id: The ID of the gadget that triggered the event.
-        :param msg: The original message container
-        :return: False if there was an error, otherwise True.
+        Args:
+            id: The ID of the gadget that triggered the event.
+            msg: The original message container
+
+        Returns:
+            False if there was an error, otherwise True.
         """
 
         # If the user click on the "Close" item of the menu

@@ -8,9 +8,6 @@ Description:
 Note:
     - From Cinema 4D c4d.storage.GeGetC4DPath(c4d.C4D_PATH_STARTUPWRITE) can be called to retrieve the current installation path.
 
-Compatible:
-    - Win / Mac
-    - R17, R18, R19, R20, R21, S22, R23
 """
 import os
 import platform

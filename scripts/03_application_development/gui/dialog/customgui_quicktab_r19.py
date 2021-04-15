@@ -18,9 +18,6 @@ Class/method highlighted:
     - GeDialog.RemoveElement()
     - c4d.gui.SubDialog
 
-Compatible:
-    - Win / Mac
-    - R19, R20, R21, S22, R23
 """
 import c4d
 
@@ -40,9 +37,7 @@ CUSTOM_GROUP_ID_TEXT_BASE = 100000  # Defines the ID for the string to be displa
 
 
 class CustomGroup(c4d.gui.SubDialog):
-    """
-    A SubDialog to display the passed string, its used as example for the actual content of a Tab
-    """
+    """A SubDialog to display the passed string, its used as example for the actual content of a Tab"""
     def __init__(self, data):
         self._data = data
 
@@ -59,9 +54,10 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         self._tabList = {}  # Stores the TabName and the SubDialog that represents each tab of the QuickTab
 
     def _DrawQuickTabGroup(self):
-        """
-        Creates and draws all the SubDialog for each tab, take care it does not hide these according to a selection state.
-        :return: True if success otherwise False.
+        """Creates and draws all the SubDialog for each tab, take care it does not hide these according to a selection state.
+
+        Returns: 
+            True if success otherwise False.
         """
 
         # Checks if the quicktab is defined
@@ -82,10 +78,10 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         return True
 
     def GetActiveTabs(self):
-        """
-        Retrieves two list of currently selected tabs from the self._quickTab.
-        :return: The first list, contains tabs Id (from self._quickTab the dict) and the second list contains all names of the selected tabs.
-        :rtype: list(int), list(name)
+        """Retrieves two list of currently selected tabs from the self._quickTab.
+
+        Returns:
+            list(int), list(name): The first list, contains tabs Id (from self._quickTab the dict) and the second list contains all names of the selected tabs.
         """
         # Checks if the quicktab is defined
         if self._quickTab is None:
@@ -102,9 +98,10 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         return returnIds, returnNames
 
     def DisplayCorrectGroup(self):
-        """
-        Hides all unused groups and display the correct one.
-        :return: True if success otherwise False.
+        """Hides all unused groups and display the correct one.
+
+        Returns: 
+            True if success otherwise False.
         """
         # Retrieves the selected tab
         activeIds, activeNames = self.GetActiveTabs()
@@ -119,15 +116,15 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         return True
 
     def AppendTab(self, tabName, content, active=True):
-        """
-        Appends a tab to the current quicktab with the associated content to be displayed.
-        :param tabName: The name the tab should have.
-        :type tabName: str
-        :param content: The SubDialog to be drawn/linked when the tab is selected.
-        :type content: c4d.gui.SubDialog
-        :param active: If True, the inserted tab will be selected
-        :type active: bool
-        :return: True if success otherwise False.
+        """Appends a tab to the current quicktab with the associated content to be displayed.
+
+        Args:
+            tabName (str): The name the tab should have.
+            content (c4d.gui.SubDialog): The SubDialog to be drawn/linked when the tab is selected.
+            active (bool, optional): If True, the inserted tab will be selected. Defaults to True.
+
+        Returns:
+            True if success otherwise False.
         """
         # Checks if the quicktab is defined
         if self._quickTab is None:
@@ -158,9 +155,10 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         return True
 
     def FlushAllTabs(self):
-        """
-        Removes all tabs and their content from the GUI.
-        :return: True if success otherwise False.
+        """Removes all tabs and their content from the GUI.
+
+        Returns: 
+            True if success otherwise False.
         """
         # Checks if the quicktab is defined
         if self._quickTab is None:
@@ -182,11 +180,13 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         return True
 
     def RemoveTab(self, tabNameToRemove):
-        """
-        Removes a tab by its name
-        :param tabNameToRemove: The tab to remove.
-        :type tabNameToRemove: str
-        :return: True if success otherwise False.
+        """Removes a tab by its name
+
+        Args:
+            tabNameToRemove (str): The tab to remove.
+
+        Returns:
+            True if success otherwise False.
         """
         # Checks if the quicktab is defined
         if self._quickTab is None:
@@ -212,9 +212,7 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         return True
 
     def CreateLayout(self):
-        """
-        This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog.
-        """
+        """This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog."""
 
         # Creates a QuickTab Custom Gui
         bc = c4d.BaseContainer()
@@ -239,9 +237,7 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         return True
 
     def InitValues(self):
-        """
-        This Method is called automatically after the GUI is initialized.
-        """
+        """This Method is called automatically after the GUI is initialized."""
         # Creates the first Tab
         cg1 = CustomGroup(["This is the first Tab", "Just dummy text here"])
         self.AppendTab("First Tab", cg1, True)
@@ -252,12 +248,15 @@ class QuickTabDialogExample(c4d.gui.GeDialog):
         return True
 
     def Command(self, id, msg):
-        """
-         This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
+        """This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
          It is also called when a string menu item is selected.
-        :param id: The ID of the gadget that triggered the event.
-        :param msg: The original message container
-        :return: False if there was an error, otherwise True.
+
+        Args:
+            id: The ID of the gadget that triggered the event.
+            msg: The original message container
+
+        Returns:
+            False if there was an error, otherwise True.
         """
 
         # If the user interacts with the quicktab, we make sure to display the CustomGUI linked to the active one

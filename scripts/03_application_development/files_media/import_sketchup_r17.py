@@ -10,9 +10,6 @@ Class/method highlighted:
     - MSG_RETRIEVEPRIVATEDATA
     - c4d.documents.MergeDocument()
 
-Compatible:
-    - Win / Mac
-    - R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 

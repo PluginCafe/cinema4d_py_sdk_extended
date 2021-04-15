@@ -10,9 +10,6 @@ Class/method highlighted:
     - MSG_RETRIEVEPRIVATEDATA
     - c4d.documents.SaveDocument()
 
-Compatible:
-    - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
@@ -45,7 +42,8 @@ def main():
     else:
         objExport[c4d.OBJEXPORTOPTIONS_TEXTURECOORDINATES] = True
     objExport[c4d.OBJEXPORTOPTIONS_MATERIAL] = c4d.OBJEXPORTOPTIONS_MATERIAL_MATERIAL
-
+    objExport[c4d.OBJEXPORTOPTIONS_ANIMATION_TYPE] = c4d.OBJEXPORTOPTIONS_NO_ANIMATION
+    
     # Finally export the document
     if not c4d.documents.SaveDocument(doc, filePath, c4d.SAVEDOCUMENTFLAGS_DONTADDTORECENTLIST, objExportId):
         raise RuntimeError("Failed to save the document.")

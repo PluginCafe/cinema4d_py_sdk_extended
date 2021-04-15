@@ -12,7 +12,6 @@ Class/method highlighted:
     - Material.GetPreview()
     - BaseList2D.GetMain()
 
-Compatible:
     - Win / Mac
     - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
@@ -20,11 +19,10 @@ import c4d
 
 
 def iterateShaders(sha):
-    """
-    This function iterates over a BaseList2D, BaseShader inherit from BaseList2D.
+    """This function iterates over a BaseList2D, BaseShader inherit from BaseList2D.
 
-    :param sha: Shader to iterate.
-    :type sha: Union[c4d.BaseList2D, c4d.BaseShader]
+    Args:
+        sha (Union[c4d.BaseList2D, c4d.BaseShader]): Shader to iterate.
     """
     while sha:
         matName = sha.GetMain().GetName()

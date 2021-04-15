@@ -10,9 +10,6 @@ Class/method highlighted:
     - maxon.DataDictionary
     - maxon.frameworks.volume.VolumeToolsInterface.LoadVDBFile()
 
-Compatible:
-    - Win / Mac
-    - R20, R21, S22, R23
 """
 import c4d
 import maxon

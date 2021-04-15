@@ -20,9 +20,6 @@ Class/method highlighted:
     - c4d.modules.sculpting.SculptLayer
     - SculptLayer.GetMask()
 
-Compatible:
-    - Win / Mac
-    - R15, R16, R17, R18, R19, R20, R21
 """
 import c4d
 import math
@@ -32,7 +29,7 @@ PLUGIN_ID = 1031644
 
 
 class Edge(object):
-    """ Represents an Edge"""
+    """Represents an Edge"""
 
     def __init__(self, color1, x1, y1, color2, x2, y2):
         if y1 < y2:
@@ -52,7 +49,7 @@ class Edge(object):
 
 
 class Span(object):
-    """ Represents a Span"""
+    """Represents a Span"""
 
     def __init__(self, color1, x1, color2, x2):
         if x1 < x2:
@@ -71,14 +68,12 @@ class MaskImageCmdHelper(object):
 
     @staticmethod
     def DrawSpan(bmp, span, y):
-        """
-        Draws a span in the given bmp
-        :param bmp: The bitmap to draw in
-        :type bmp: c4d.bitmaps.BaseBitmap
-        :param span: The span to draw
-        :type span: Span
-        :param y: height of the span to draw
-        :type y: int
+        """Draws a span in the given bmp.
+
+        Args:
+            bmp (c4d.bitmaps.BaseBitmap): The bitmap to draw in
+            span (Span): The span to draw
+            y (int): height of the span to draw
         """
         xdiff = math.ceil(span.x2) - math.floor(span.x1)
         if xdiff == 0:
@@ -103,13 +98,11 @@ class MaskImageCmdHelper(object):
     @staticmethod
     def DrawSpansBetweenEdges(bmp, e1, e2):
         """
-        :param bmp: The bitmap to draw in
-        :type bmp: c4d.bitmaps.BaseBitmap
-        :param e1: The first edge
-        :type e1: Edge
-        :param e2: The second edge
-        :type e2: Edge
-        :return:
+
+        Args:
+            bmp (c4d.bitmaps.BaseBitmap): The bitmap to draw in
+            e1 (Edge): The first edge
+            e2 (Edge): The second edge
         """
         # Calculates difference between the y coordinates of the first, second edge and return if 0
         e1ydiff = float(e1.y2 - e1.y1)
@@ -141,30 +134,20 @@ class MaskImageCmdHelper(object):
 
     @staticmethod
     def DrawTriangle(bmp, color1, x1, y1, color2, x2, y2, color3, x3, y3):
-        """
-        Draws a Triangle into the passed BaseBitmap.
-        :param bmp: The bitmap to draw in
-        :type bmp: c4d.bitmaps.BaseBitmap
-        :param bmp: The bitmap to draw in
-        :type bmp: c4d.modules.bodypaint.PaintLayerBmp
-        :param color1: Color from (0,1) of the first point
-        :type color1: c4d.Vector
-        :param x1: X position in uv space of the first point
-        :type x1: Union[float, int]
-        :param y1: Y position in uv space of the first point
-        :type y1: Union[float, int]
-        :param color2: Color from (0,1) of the second point
-        :type color2: c4d.Vector
-        :param x2: X position in uv space of the second point
-        :type x2: Union[float, int]
-        :param y2: Y position in uv space of the second point
-        :type y2: Union[float, int]
-        :param color3: Color from (0,1) of the third point
-        :type color3: c4d.Vector
-        :param x3: X position in uv space of the third point
-        :type x3: Union[float, int]
-        :param y3: Y position in uv space of the third point
-        :type y3: Union[float, int]
+        """Draws a Triangle into the passed BaseBitmap.
+
+        Args:
+            bmp (c4d.bitmaps.BaseBitmap): The bitmap to draw in
+            bmp (c4d.modules.bodypaint.PaintLayerBmp): The bitmap to draw in
+            color1 (c4d.Vector): Color from (0,1) of the first point
+            x1 (Union[float, int]): X position in uv space of the first point
+            y1 (Union[float, int]): Y position in uv space of the first point
+            color2 (c4d.Vector): Color from (0,1) of the second point
+            x2 (Union[float, int]): X position in uv space of the second point
+            y2 (Union[float, int]): Y position in uv space of the second point
+            color3 (c4d.Vector): Color from (0,1) of the third point
+            x3 (Union[float, int]): X position in uv space of the third point
+            y3 (Union[float, int]): Y position in uv space of the third point
         """
         # Creates edges for the triangle
         edges = [
@@ -252,11 +235,13 @@ class MaskImageCmdHelper(object):
 class MaskImageCmd(c4d.plugins.CommandData, MaskImageCmdHelper):
 
     def Execute(self, doc):
-        """
-        Called when the user Execute the command (CallCommand or a clicks on the Command from the plugin menu)
-        :param doc: the current active document
-        :type doc: c4d.documents.BaseDocument
-        :return: True if the command success
+        """Called when the user Execute the command (CallCommand or a clicks on the Command from the plugin menu).
+
+        Args:
+            doc (c4d.documents.BaseDocument): the current active document
+
+        Returns:
+            True if the command success
         """
         # Retrieves the selected sculpt object
         sculptObject = c4d.modules.sculpting.GetSelectedSculptObject(doc)

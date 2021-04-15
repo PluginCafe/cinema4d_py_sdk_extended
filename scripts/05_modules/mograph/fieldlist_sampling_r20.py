@@ -11,9 +11,6 @@ Class/method highlighted:
     - c4d.modules.mograph.FieldInput
     - c4d.modules.mograph.FieldOutput
 
-Compatible:
-    - Win / Mac
-    - R20, R21, S22, R23
 """
 import c4d
 

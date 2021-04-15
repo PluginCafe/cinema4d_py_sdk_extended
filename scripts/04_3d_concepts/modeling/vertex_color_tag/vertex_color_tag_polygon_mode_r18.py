@@ -13,9 +13,6 @@ Class/method highlighted:
     - VertexColorTag.GetDataAddressW()
     - VertexColorTag.SetPolygon()
 
-Compatible:
-    - Win / Mac
-    - R18, R19, R20, R21, S22, R23
 """
 import c4d
 

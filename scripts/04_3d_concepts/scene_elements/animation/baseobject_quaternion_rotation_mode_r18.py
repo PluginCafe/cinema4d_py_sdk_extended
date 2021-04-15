@@ -9,9 +9,6 @@ Class/method highlighted:
     - BaseObject.IsQuaternionRotationMode()
     - BaseObject.SetQuaternionRotationMode()
 
-Compatible:
-    - Win / Mac
-    - R18, R19, R20, R21, S22, R23
 """
 import c4d
 

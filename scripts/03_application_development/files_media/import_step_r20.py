@@ -14,9 +14,6 @@ Documentation links:
     - https://developers.maxon.net/docs/Cinema4DPythonSDK/html/consts/FORMAT_export.html
     - https://developers.maxon.net/docs/Cinema4DCPPSDK/html/_fcadimport_8h.html
 
-Compatible:
-    - Win / Mac
-    - R20, R21, S22, R23
 """
 import c4d
 

@@ -10,9 +10,6 @@ Class/method highlighted:
     - c4d.modules.colorchooser.SwatchData
     - SwatchData.Load()
 
-Compatible:
-    - Win / Mac
-    - R18, R19, R20, R21, S22, R23
 """
 import c4d
 import os

@@ -13,17 +13,15 @@ Class/method highlighted:
     - BaseDocument.SetTime()
     - BaseDocument.ExecutePasses()
 
-Compatible:
-    - Win / Mac
-    - R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
 
 def DeformedPolygonCacheIterator(op):
-    """
-    A Python Generator to iterate over all PolygonCache of passed BaseObject
-    :param op: The BaseObject to retrieve all PolygonObject cache.
+    """A Python Generator to iterate over all PolygonCache of passed BaseObject.
+
+    Args:
+        op: The BaseObject to retrieve all PolygonObject cache.
     """
     if not isinstance(op, c4d.BaseObject):
         raise TypeError("Expected a BaseObject or derived class got {0}".format(op.__class__.__name__))

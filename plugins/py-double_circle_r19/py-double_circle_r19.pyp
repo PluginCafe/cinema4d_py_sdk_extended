@@ -18,10 +18,6 @@ Class/method highlighted:
     - ObjectData.SetHandle()
     - ObjectData.Draw()
     - c4d.plugins.RegisterPluginHelpCallback()
-
-Compatible:
-    - Win / Mac
-    - R19, R20, R21
 """
 import sys
 import os
@@ -47,14 +43,14 @@ class DoubleCircleHelper(object):
 
     @classmethod
     def GenerateCircle(cls, radius, plane=c4d.PRIM_PLANE_XY):
-        """
-        Generates a circle spline of a given radius
-        :param radius: The radius of the circle to be created.
-        :type radius: float
-        :param plane: The axis plane to be used. PRIM_PLANE_XY, PRIM_PLANE_ZY or PRIM_PLANE_XZ
-        :type plane: int
-        :return: The generates Circle or None if fail.
-        :rtype: Union[c4d.SplineObject, None]
+        """Generates a circle spline of a given radius.
+
+        Args:
+            radius (float): The radius of the circle to be created.
+            plane (int, optional): The axis plane to be used. PRIM_PLANE_XY, PRIM_PLANE_ZY or PRIM_PLANE_XZ. Defaults to c4d.PRIM_PLANE_XY.
+
+        Returns:
+            Union[c4d.SplineObject, None]: The generated circle or None.
         """
         sub = 4
         TANG = 0.415
@@ -104,11 +100,13 @@ class DoubleCircleHelper(object):
 
     @staticmethod
     def ReversePointOrder(op):
-        """
-        Reverses the points order SplineObject
-        :param op: the SplineObject to be reversed
-        :type op: c4d.SplineObject
-        :return: True if point order have been reversed, otherwise False.
+        """Reverses the point order of the SplineObject.
+
+        Args:
+            op (c4d.SplineObject): The SplineObject to be reversed.
+
+        Returns:
+            bool: True if point order have been reversed, otherwise False.
         """
         # Checks if the object have points
         pointCount = op.GetPointCount()
@@ -150,11 +148,13 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
     """CircleObject Generator"""
 
     def Init(self, node):
-        """
-        Called when Cinema 4D Initialize the ObjectData (used to define, default values)
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :return: True on success, otherwise False.
+        """Called when Cinema 4D initializes the ObjectData.
+
+        Args:
+            node (c4d.GeListNode): The instance of the ObjectData.
+
+        Returns:
+            bool: True on success, otherwise False.
         """
         # Retrieves the BaseContainer Instance to set the default values
         data = node.GetDataInstance()
@@ -172,18 +172,18 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
         return True
 
     def GetContour(self, node, doc, lod, bt):
-        """
-        Called by Cinema 4D to generate the output spline. Take care this function is called in a Threading context.
+        """Called by Cinema 4D to generate the output spline. Take care, this function is called in a threading context. 
+
         No modification of the document is allowed here, only reading.
-        :param node: The instance of the ObjectData.
-        :type node: c4d.BaseObject
-        :param doc: The active document, the instance of the ObjectData is currently in.
-        :type doc: c4d.documents.BaseDocument
-        :param lod: The level of detail
-        :type lod: int
-        :param bt: The thread that currently process the Generator
-        :type bt: c4d.threading.BaseThread
-        :return: Union[c4d.SplineObject, None]
+
+        Args:
+            node (c4d.BaseObject): The instance of the ObjectData.
+            doc (c4d.documents.BaseDocument): The active document, the instance of the ObjectData is currently in.
+            lod (int): The level of detail.
+            bt (c4d.threading.BaseThread): The thread that currently processes the generator.
+
+        Returns:
+            Union[c4d.SplineObject, None]: The build SplineObject or None when a memory error occurred.
         """
         # Checks if there is an active object
         if node is None:
@@ -202,15 +202,15 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
         return spline
 
     def Message(self, node, msgId, data):
-        """
-        Called by Cinema 4D part to notify the object to a special event
-        :param node: The instance of the ObjectData.
-        :type node: c4d.BaseObject
-        :param msgId: The message ID type.
-        :type msgId: int
-        :param data: The message data.
-        :type data: Any, depends of the message passed.
-        :return: Depends of the message type, most of the time True.
+        """Called by Cinema 4D part to notify the object to a special event.
+
+        Args:
+            node (c4d.BaseObject): The instance of the ObjectData.
+            msgId (int): The message ID type.
+            data (Any): The message data, the type depends on the message type.
+
+        Returns:
+            Any: Depends of the message type, most of the time True.
         """
         # MSG_MENUPREPARE is received when called from the menu, to let some setup work.
         # In the case of this message, the data passed is the BaseDocument the object is inserted
@@ -221,18 +221,17 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
         return True
 
     def GetDEnabling(self, node, id, t_data, flags, itemdesc):
-        """
-        Called  by Cinema 4D to decide which parameters should be enabled or disabled (ghosted).
-        :param node: The instance of the ObjectData.
-        :type node: c4d.BaseObject
-        :param id: The Description ID of the parameter
-        :type id: c4d.DescID
-        :param t_data: The current data for the parameter.
-        :type: t_data: Any.
-        :param flags: Not used
-        :param itemdesc: The description, encoded to a container
-        :type itemdesc: c4d.BaseContainer
-        :return: True if the parameter should be enabled, otherwise False.
+        """Called  by Cinema 4D to decide which parameters should be enabled or disabled (ghosted).
+
+        Args:
+            node (c4d.BaseObject): The instance of the ObjectData.
+            id (c4d.DescID): The Description ID of the parameter
+            t_data (Any): The current data for the parameter.
+            flags (int): Not used.
+            itemdesc (c4d.BaseContainer): The description encoded as a container.
+
+        Returns:
+            True if the parameter should be enabled, otherwise False.
         """
         # Retrieves the current interpolation
         inter = node[c4d.SPLINEOBJECT_INTERPOLATION]
@@ -249,29 +248,27 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
         elif id[0].id == c4d.SPLINEOBJECT_MAXIMUMLENGTH:
             return inter == c4d.SPLINEOBJECT_INTERPOLATION_SUBDIV
         return True
-
     """========== Start of Handle Management =========="""
 
     def GetHandleCount(self, op):
-        """
-        Called by Cinema 4D to retrieve the count of Handle the object will have.
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :return: The number of handle
-        :rtype: int
+        """Called by Cinema 4D to retrieve the count of Handle the object will have.
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+
+        Returns:
+            int: The number of handle
         """
         # One handle will be used for this object
         return 1
 
     def GetHandle(self, op, i, info):
-        """
-        Called by Cinema 4D to retrieve the information of a given handle ID to represent a/some parameter(s).
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :param i: The handle index.
-        :type i: int
-        :param info: The HandleInfo to fill with data.
-        :type info: c4d.HandleInfo
+        """Called by Cinema 4D to retrieve the information of a given handle ID to represent parameters.
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+            i (int): The handle index.
+            info (c4d.HandleInfo): The HandleInfo to fill with data.
         """
         # Retrieves the current BaseContainer
         data = op.GetDataInstance()
@@ -288,17 +285,15 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
         info.type = c4d.HANDLECONSTRAINTTYPE_LINEAR
 
     def SetHandle(self, op, i, p, info):
-        """
-        Called by Cinema 4D when the user set the handle.
-        This is the place to retrieve the information of a given handle ID and drive your parameter(s).
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :param i: The handle index.
-        :type i: int
-        :param p: The new Handle Position.
-        :type p: c4d.Vector
-        :param info: The HandleInfo filled with data.
-        :type info: c4d.HandleInfo
+        """Called by Cinema 4D when the user sets the handle.
+
+        This is the place to retrieve the information of a given handle ID and drive your parameters.
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+            i (int): The handle index.
+            p (c4d.Vector): The new Handle Position.
+            info (c4d.HandleInfo): The HandleInfo filled with data.
         """
         data = op.GetDataInstance()
         if data is None:
@@ -309,17 +304,18 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
         data.SetFloat(c4d.PYCIRCLEOBJECT_RAD, c4d.utils.FCut(val, 0.0, sys.maxsize))
 
     def Draw(self, op, drawpass, bd, bh):
-        """
-        Called by Cinema 4d when the display is updated to display some visual element of your object in the 3D view.
-        This is also the place to draw Handle
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :param drawpass:
-        :param bd: The editor's view.
-        :type bd: c4d.BaseDraw
-        :param bh: The BaseDrawHelp editor's view.
-        :type bh: c4d.plugins.BaseDrawHelp
-        :return: The result of the drawing (most likely c4d.DRAWRESULT_OK)
+        """Called by Cinema 4D when the display is updated to display some visual element of your object in the 3D view.
+
+        This is also the place to draw a handle.
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+            drawpass: param bd: The editor's view.
+            bd (c4d.BaseDraw): The editor view to draw into.
+            bh (c4d.plugins.BaseDrawHelp): An instance of a helper class for the view.
+
+        Returns:
+            The result of the drawing (most likely c4d.DRAWRESULT_OK)
         """
         # If the current draw pass is not the handle, skip this Draw Call.
         if drawpass != c4d.DRAWPASS_HANDLES:
@@ -346,22 +342,17 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
         bd.DrawLine(info.position, c4d.Vector(0), 0)
 
         return c4d.DRAWRESULT_OK
-
     """========== End of Handle Management =========="""
 
 
 def DoubleCircleHelp(opType, baseType, group, property):
-    """
-    Called by Cinema 4D when the user use the help (Right Click - Show Help) on a parameter
-    :param opType: The node type name, for example "OPYDOUBLECIRCLE"
-    :type opType: str
-    :param baseType: The name of the base object type that opType is derived from, usually the same as opType.
-    :type baseType: str
-    :param group: The name of the group in the attribute manager, for example "ID_OBJECTPROPERTIES".
-    :type group: str
-    :param property: The symbol name of the property, for example "PYCIRCLEOBJECT_RAD".
-    :type property: str
-    :return:
+    """Called by Cinema 4D when the user opens the help (right click: Show Help) on a parameter.
+
+    Args:
+        opType (str): The node type name, for example "OPYDOUBLECIRCLE"
+        baseType (str): The name of the base object type that opType is derived from, usually the same as opType.
+        group (str): The name of the group in the attribute manager, for example "ID_OBJECTPROPERTIES".
+        property (str): The symbol name of the property, for example "PYCIRCLEOBJECT_RAD".
     """
     # Prints the information passed to the plugin help callback
     print("Py-DoubleCircle - Help:", opType, baseType, group, property)

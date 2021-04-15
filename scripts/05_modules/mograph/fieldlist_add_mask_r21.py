@@ -14,9 +14,6 @@ Class/method highlighted:
     - FieldLayer.GetMaskHead()
     - GeListNode.InsertUnder()
 
-Compatible:
-    - Win / Mac
-    - R21, S22, R23
 """
 import c4d
 

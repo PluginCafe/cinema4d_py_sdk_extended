@@ -17,10 +17,6 @@ Class/method highlighted:
     - NodeData.TranslateDescID()
     - NodeData.GetDEnabling()
     - NodeData.GetBubbleHelp()
-
-Compatible:
-    - Win / Mac
-    - R18, R19, R20, R21
 """
 import copy
 import random
@@ -47,11 +43,13 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         self.randomID = 0       # Random dynamic parameter ID to disable (see GetDEnabling() below)
 
     def Init(self, node):
-        """
-        Called by Cinema 4D on the initialization of the ObjectData, usually the place to define parameters value.
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :return: True if the initialisation success, otherwise False will not create the object.
+        """Called by Cinema 4D on the initialization of the ObjectData, usually the place to define parameters value.
+
+        Args:
+            node (c4d.GeListNode): The instance of the ObjectData.
+
+        Returns:
+            bool: True if the initialization was successful, otherwise False, preventing Cinema 4D from creating the object.
         """
 
         # Defines how many parameters the object will have
@@ -60,15 +58,15 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         return True
 
     def Message(self, node, msgId, data):
-        """
-        Called by Cinema 4D part to notify the object to a special event
-        :param node: The instance of the ObjectData.
-        :type node: c4d.BaseObject
-        :param msgId: The message ID type.
-        :type msgId: int
-        :param data: The message data.
-        :type data: Any, depends of the message passed.
-        :return: Depends of the message type, most of the time True.
+        """Called by Cinema 4D to notify the object of a event.
+
+        Args:
+            node (c4d.BaseObject): The instance of the ObjectData.
+            msgId (int): The message ID type.
+            data (Any): The message data, the type depends on the message type.
+
+        Returns:
+            Any: Depends of the message type, most of the time True.
         """
         # MSG_MENUPREPARE is received when called from the menu, to let some setup work.
         # In the case of this message, the data passed is the BaseDocument the object is inserted
@@ -83,20 +81,19 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         return True
 
     def CopyTo(self, dest, snode, dnode, flags, trn):
-        """
-        Called by Cinema 4D when the current object instance is copied.
+        """Called by Cinema 4D when the current object instance is copied.
+
         The purpose is to copy the member variable from source variable to destination variable.
-        :param dest: The new instance of the ObjectData where the data need to be copied.
-        :type dest: c4d.plugins.NodeData
-        :param snode: The source node data, i.e. the current node.
-        :type snode: c4d.GeListNode
-        :param dnode: The new node data where the data need to be copied.
-        :type dnode: c4d.GeListNode
-        :param flags: the copy flags.
-        :type flags: COPYFLAGS
-        :param trn: An alias translator for the operation.
-        :type trn: c4d.AliasTrans
-        :return: True if the data was copied successfully, otherwise False.
+
+        Args:
+            dest (c4d.plugins.NodeData): The new instance of the ObjectData where the data need to be copied.
+            snode (c4d.GeListNode): The source node data, i.e. the current node.
+            dnode (c4d.GeListNode): The new node data where the data need to be copied.
+            flags (COPYFLAGS): The copy flags.
+            trn (c4d.AliasTrans): An alias translator for the operation.
+
+        Returns:
+            True if the data was copied successfully, otherwise False.
         """
         # Copies dynamic parameters value to the destination instance of ObjectData
         dest.parameters = copy.copy(self.parameters)
@@ -104,16 +101,17 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         return True
 
     def Read(self, node, hf, level):
-        """
-        Called by Cinema 4D, when a file with an instance the ObjectData is opened.
+        """Called by Cinema 4D, when a file with an instance the ObjectData is opened.
+
         The purpose is to read the data you stored in the Write method to restore your object parameter state.
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :param hf: The HyperFile containing the data stored by Write method
-        :type hf: c4d.storage.HyperFile
-        :param level: The plugin version number for your settings.
-        :type level: int
-        :return: True if the data was read successfully, otherwise False
+
+        Args:
+            node (c4d.GeListNode): The instance of the ObjectData.
+            hf (c4d.storage.HyperFile): The HyperFile to read from.
+            level (int): The plugin version number for your settings.
+
+        Returns:
+            bool: True if the data has been read successfully, otherwise False.
         """
 
         # Reads the number of dynamic parameters
@@ -127,14 +125,16 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         return True
 
     def Write(self, node, hf):
-        """
-        Called by Cinema 4D, when the document is saved in order to save custom parameters.
+        """Called by Cinema 4D, when the document is saved in order to save custom parameters.
+
         The purpose is to write data and read them back with the Read method.
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :param hf: The HyperFile containing the data stored by Write method
-        :type hf: c4d.storage.HyperFile
-        :return: True if the data was writen successfully, otherwise False
+
+        Args:
+            node (c4d.GeListNode): The instance of the ObjectData.
+            hf (c4d.storage.HyperFile): The HyperFile to write into.
+
+        Returns:
+            bool: True if the data was written successfully, otherwise False.
         """
 
         # Writes the number of dynamic parameters
@@ -148,15 +148,15 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         return True
 
     def GetDDescription(self, node, description, flags):
-        """
-        Called by Cinema 4D when the description (UI) is queried.
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :param description: The description to modify.
-        :type description: c4d.Description
-        :param flags:
-        :return: The success status or the data to be returned.
-        :rtype: Union[Bool, tuple(bool, Any, DESCFLAGS_DESC)]
+        """Called by Cinema 4D when the description (UI) is queried.
+
+        Args:
+            node (c4d.GeListNode): The instance of the ObjectData.
+            description (c4d.Description): The description to modify.
+            flags: return: The success status or the data to be returned.
+
+        Returns:
+            Union[Bool, tuple(bool, Any, DESCFLAGS_DESC)]: The success status or the data to be returned.
         """
         data = node.GetDataInstance()
 
@@ -232,19 +232,18 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         return True, flags | c4d.DESCFLAGS_DESC_LOADED
 
     def SetDParameter(self, node, id, data, flags):
-        """
-        Called by Cinema 4D, when SetParameter is call from the node. The main purpose is to store the data for member variable.
-        It's Necessary for parameters that are not simply stored in the node's container e.g. class members.
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :param id: The parameter Id.
-        :type id: c4d.DescID
-        :param data: the data, the user defines and we have to store.
-        :type data: Any
-        :param flags: The input flags passed to define the operation.
-        :type flags: DESCFLAGS_SET
-        :return: The success status or the data to be returned.
-        :rtype: Union[Bool, tuple(bool, Any, DESCFLAGS_SET)]
+        """Called by Cinema 4D, when SetParameter is call from the node. 
+
+        The main purpose is to store the data for member variable. It is necessary for parameters that are not simply stored in the node's container e.g. class members.
+
+        Args:
+            node (c4d.GeListNode): The instance of the ObjectData.
+            id (c4d.DescID): The parameter Id.
+            data (Any): the data, the user defines and we have to store.
+            flags (DESCFLAGS_SET): The input flags passed to define the operation.
+
+        Returns:
+            Union[Bool, tuple(bool, Any, DESCFLAGS_SET)]: The success status or the data to be returned.
         """
         # Retrieves the parameter ID requested
         paramID = id[0].id
@@ -261,17 +260,17 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         return False
 
     def GetDParameter(self, node, id, flags):
-        """
-        Called by Cinema 4D, when GetParameter is call from the node. The main purpose is to return the data for member variable.
-        It's Necessary for parameters that are not simply stored in the node's container e.g. class members.
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :param id: The parameter Id.
-        :type id: c4d.DescID
-        :param flags: The input flags passed to define the operation.
-        :type flags: DESCFLAGS_GET
-        :return: The success status or the data to be returned.
-        :rtype: Union[Bool, tuple(bool, Any, DESCFLAGS_GET)]
+        """Called by Cinema 4D, when GetParameter is call from the node. 
+
+        The main purpose is to return the data for member variable. It is necessary for parameters that are not simply stored in the node's container e.g. class members.
+
+        Args:
+            node (c4d.GeListNode): The instance of the ObjectData.
+            id (c4d.DescID): The parameter Id.
+            flags (DESCFLAGS_GET): The input flags passed to define the operation.
+
+        Returns:
+            Union[Bool, tuple(bool, Any, DESCFLAGS_GET)]: The success status or the data to be returned.
         """
         # Retrieves the parameter ID requested
         paramID = id[0].id
@@ -288,15 +287,16 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         return False
 
     def TranslateDescID(self, node, id):
-        """
-        Called by the Attribute Manager for every object and every description ID.
+        """Called by the Attribute Manager for every object and every description ID.
+
         Gives a NodeData plugin the opportunity to route a description ID in the description of a node to another one.
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :param id: The parameter Id.
-        :type id: c4d.DescID
-        :return: The success status or the linked DescID
-        :rtype: Union[Bool, tuple(bool, c4d.DescID, c4d.C4DAtom)]
+
+        Args:
+            node (c4d.GeListNode): The instance of the ObjectData.
+            id (c4d.DescID): The parameter Id.
+
+        Returns:
+            Union[Bool, tuple(bool, c4d.DescID, c4d.C4DAtom)]: The success status or the linked DescID
         """
 
         # Retrieves the parameter ID requested
@@ -327,18 +327,17 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         return False
 
     def GetDEnabling(self, node, id, t_data, flags, itemdesc):
-        """
-        Called  by Cinema 4D to decide which parameters should be enabled or disabled (ghosted).
-        :param node: The instance of the ObjectData.
-        :type node: c4d.BaseObject
-        :param id: The Description ID of the parameter.
-        :type id: c4d.DescID
-        :param t_data: The current data for the parameter.
-        :type: t_data: Any.
-        :param flags: Not used
-        :param itemdesc: The description, encoded to a container.
-        :type itemdesc: c4d.BaseContainer
-        :return: True if the parameter should be enabled, otherwise False.
+        """Called  by Cinema 4D to decide which parameters should be enabled or disabled (ghosted).
+
+        Args:
+            node (c4d.BaseObject): The instance of the ObjectData.
+            id (c4d.DescID): The Description ID of the parameter.
+            t_data (Any): The current data for the parameter.
+            flags: Not used
+            itemdesc (c4d.BaseContainer): The description, encoded to a container.
+
+        Returns:
+            True if the parameter should be enabled, otherwise False.
         """
 
         # Retrieves the actual parameter queried
@@ -351,12 +350,16 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         return True
 
     def GetVirtualObjects(self, op, hh):
-        """
-        This method is called automatically when Cinema 4D ask for the cache of an object. This is also the place
-        where objects have to be marked as input object by Touching them (destroy their cache in order to disable them in Viewport)
-        :param op: The Python Generator c4d.BaseObject.
-        :param hh:The Python Generator c4d.BaseObject.
-        :return: The Representing Spline (c4d.LineObject or SplineObject)
+        """This method is called automatically when Cinema 4D ask for the cache of an object. 
+
+        This is also the place where objects have to be marked as input object by touching them (destroy their cache in order to disable them in Viewport)
+
+        Args:
+            op (c4d.BaseObject): The Python Generator c4d.BaseObject.
+            hh (c4d.HierarchyHelp): Not implemented.
+
+        Returns:
+            c4d.SplineObject: The newly allocated object chain, or None if a memory error occurred.
         """
         if op is None or hh is None:
             raise RuntimeError("Failed to retrieve op or hh.")
@@ -376,12 +379,13 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         return returnObj
 
     def GetBubbleHelp(self, node):
-        """
-        Called by Cinema 4D to create a contextual bubble help and status bar information for the node.
-        :param node: The instance of the ObjectData.
-        :type node: c4d.BaseObject
-        :return: The bubble help string.
-        :rtype: str
+        """Called by Cinema 4D to create a contextual bubble help and status bar information for the node.
+
+        Args:
+            node (c4d.BaseObject): The instance of the ObjectData.
+
+        Returns:
+            str: The bubble help string.
         """
         return "Dynamic Object Bubble Help"
 

@@ -9,9 +9,6 @@ Class/method highlighted:
     - CTrack.IsSynchronized()
     - CTrack.SetSynchronized()
 
-Compatible:
-    - Win / Mac
-    - R18, R19, R20, R21, S22, R23
 """
 # This example checks if the rotation track of an object is synchronized. If not, it will be synchronized.
 import c4d

@@ -11,9 +11,6 @@ Class/method highlighted:
     - BaseBitmap.SetPixelCnt()
     - BaseBitmap.GetPixelCnt()
 
-Compatible:
-    - Win / Mac
-    - R23
 """
 import c4d
 

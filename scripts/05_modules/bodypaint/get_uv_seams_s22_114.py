@@ -11,9 +11,6 @@ Class/method highlighted:
     - BaseSelect.CopyTo()
     - c4d.modules.bodypaint.UpdateMeshUV()
 
-Compatible:
-    - Win / Mac
-    - S22.114, R23
 """
 import c4d
 

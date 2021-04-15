@@ -15,9 +15,6 @@ Class/method highlighted:
     - GeUserArea.Message()
     - GeUserArea.SendParentMessage()
 
-Compatible:
-    - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
@@ -45,11 +42,11 @@ class ExampleGeUserArea(c4d.gui.GeUserArea):
         self.DrawRectangle(x1, y1, x2, y2)
 
     def Message(self, msg, result):
-        """
-        This Method is called automatically when the GeUserArea receives a Message.
+        """This Method is called automatically when the GeUserArea receives a Message.
 
-        :param msg: The message container.
-        :param result: A container to place results in.
+        Args:
+            msg: The message container.
+            result: A container to place results in.
         """
 
         # Messages is sent from the GeDialog at line 107
@@ -74,9 +71,7 @@ class ExampleDialog(c4d.gui.GeDialog):
     geUserArea = ExampleGeUserArea()
 
     def CreateLayout(self):
-        """
-        This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog.
-        """
+        """This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog."""
 
         # Adds a Gadget that will host a GeUserArea
         self.AddUserArea(GADGET_ID_GEUSERAREA, c4d.BFH_SCALEFIT | c4d.BFV_SCALEFIT, 100, 100)
@@ -90,13 +85,15 @@ class ExampleDialog(c4d.gui.GeDialog):
         return True
 
     def Command(self, messageId, bc):
-        """
-        This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
+        """This Method is called automatically when the user clicks on a gadget and/or changes its value this function will be called.
         It is also called when a string menu item is selected.
 
-        :param messageId: The ID of the gadget that triggered the event.
-        :param bc: The original message container
-        :return: False if there was an error, otherwise True.
+        Args:
+            messageId: The ID of the gadget that triggered the event.
+            bc: The original message container
+
+        Returns:
+            False if there was an error, otherwise True.
         """
         # User click on the Button to change the color
         if messageId == GADGET_ID_BUTTON_CHANGE_COLOR:
@@ -111,11 +108,11 @@ class ExampleDialog(c4d.gui.GeDialog):
         return True
 
     def Message(self, msg, result):
-        """
-        This Method is called automatically when the GeDialog receives a Message.
+        """This Method is called automatically when the GeDialog receives a Message.
 
-        :param msg: The message container.
-        :param result: A container to place results in.
+        Args:
+            msg: The message container.
+            result: A container to place results in.
         """
 
         # Messages is sent from the GeUserArea in line 65

@@ -9,10 +9,6 @@ Description:
 Class/method highlighted:
     - c4d.plugins.SceneSaverData
     - SceneSaverData.Save()
-
-Compatible:
-    - Win / Mac
-    - R12, R13, R14, R15, R16, R17, R18, R19, R20, R21
 """
 import c4d
 import os
@@ -65,10 +61,13 @@ class IESMetaSaverHelper(object):
 
     @staticmethod
     def HierarchyIterator(obj):
-        """
-        A Generator to iterate over the Hierarchy
-        :param obj: The starting object of the generator (will be the first result)
-        :return: All objects under and next of the `obj`
+        """A Generator to iterate over the Hierarchy.
+
+        Args:
+            obj: The starting object of the generator (will be the first result)
+
+        Returns:
+            All objects under and next of the `obj`
         """
         while obj:
             yield obj
@@ -78,9 +77,10 @@ class IESMetaSaverHelper(object):
 
     @staticmethod
     def CacheIterator(op):
-        """
-        A Python Generator to iterate over all final objects (PolygonObject, CameraObject, Light....) of the passed BaseObject
-        :param op: The BaseObject to retrieve all objects cached.
+        """A Python Generator to iterate over all final objects (PolygonObject, CameraObject, Light....) of the passed BaseObject.
+
+        Args:
+            op: The BaseObject to retrieve all objects cached.
         """
         if not isinstance(op, c4d.BaseObject):
             raise TypeError("Expected a BaseObject or derived class got {0}".format(op.__class__.__name__))
@@ -118,18 +118,16 @@ class IESMetaSaver(c4d.plugins.SceneSaverData, IESMetaSaverHelper):
     """IESMeta Exporter"""
 
     def Save(self, node, name, doc, filterflags):
-        """
-        Called by Cinema 4D when the document is asked to be saved in this format
-        :param node: The node object representing the exporter.
-        :type node: c4d.BaseList2D
-        :param name: The filename of the file to save.
-        :type name: str
-        :param doc: The document that should be saved.
-        :type doc: c4d.documents.BaseDocument
-        :param filterflags: Options for the exporter.
-        :type filterflags: SCENEFILTER
-        :return: Status of the export process.
-        :rtype: FILEERROR
+        """Called by Cinema 4D when the document is asked to be saved in this format.
+
+        Args:
+            node (c4d.BaseList2D): The node object representing the exporter.
+            name (str): The filename of the file to save.
+            doc (c4d.documents.BaseDocument): The document that should be saved.
+            filterflags (SCENEFILTER): Options for the exporter.
+
+        Returns:
+            FILEERROR: Status of the export process.
         """
         # If there is no object in the scene, nothing to export.
         firstObj = doc.GetFirstObject()

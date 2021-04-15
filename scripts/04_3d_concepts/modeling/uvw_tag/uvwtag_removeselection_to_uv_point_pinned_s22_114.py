@@ -14,18 +14,16 @@ Class/method highlighted:
 Notes:
     UV Points are indexed by 4 * polygon + point where `c` polygon is the polygon index and `c` point is the point index between `0` and `3` (a, b, c, d).
 
-Compatible:
-    - Win / Mac
-    - S22.114
 """
 import c4d
 
 
 def CPolygonGetItem(cPoly, idx):
-    """
-    Map 0-1-2-3 to the member a b c d of a c4d.CPolygon
-    :param cPoly: c4d.CPolygon
-    :param idx: A polygon point index
+    """Map 0-1-2-3 to the member a b c d of a c4d.CPolygon
+
+    Args:
+        cPoly: c4d.CPolygon
+        idx: A polygon point index
     """
     # Checks if the cpolygon is a c4d.CPolygon
     if not isinstance(cPoly, c4d.CPolygon):

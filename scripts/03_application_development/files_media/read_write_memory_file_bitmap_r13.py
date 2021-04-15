@@ -10,21 +10,20 @@ Class/method highlighted:
     - c4d.storage.HyperFile
     - HyperFile.WriteImage()
 
-Compatible:
-    - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
 
 def WriteBitmap(bmp, format=c4d.FILTER_B3D, settings=c4d.BaseContainer()):
-    """
-    Write an hyper file image to a buffer object.
+    """Write an hyper file image to a buffer object.
 
-    :param bmp: The image to convert into a buffer object
-    :param format: The filter type
-    :param settings: Optional settings
-    :return:The byte sequence or None
+    Args:
+        bmp: The image to convert into a buffer object
+        format: The filter type. Defaults to c4d.FILTER_B3D.
+        settings: Optional settings. Defaults to c4d.BaseContainer().
+
+    Returns:
+        The byte sequence or None
     """
 
     # Creates a MemoryFile, data will be written in
@@ -51,11 +50,13 @@ def WriteBitmap(bmp, format=c4d.FILTER_B3D, settings=c4d.BaseContainer()):
 
 
 def ReadBitmap(byteseq):
-    """
-    Creates a bitmap from a buffer object.
+    """Creates a bitmap from a buffer object.
 
-    :param byteseq: The buffer object.
-    :return: The image if succeeded, otherwise False
+    Args:
+        byteseq: The buffer object.
+
+    Returns:
+        The image if succeeded, otherwise False
     """
     # Initializes our HyperFile, MemoryFile and bmp where data will be stored
     hf = c4d.storage.HyperFile()

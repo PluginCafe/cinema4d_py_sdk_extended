@@ -18,9 +18,6 @@ Class/method highlighted:
     - NodeData.GetDParameter()
     - NodeData.GetDEnabling()
 
-Compatible:
-    - Win / Mac
-    - R19, R20, R21
 """
 import c4d
 
@@ -35,16 +32,28 @@ WPREF_PYPREFERENCE_CHECK = 1000
 WPREF_PYPREFERENCE_NUMBER = 1001
 
 
+# The first time Cinema 4D will compile this script into Python Bytecode, symbols will not be yet parsed.
+# This will cause PYPREFERENCE_CHECK and PYPREFERENCE_NUMBER not defined in the c4d module.
+# Thats why we manually do it (numbers are defined in res/description/pypreference.h)
+if not hasattr(c4d, "PYPREFERENCE_CHECK"):
+    c4d.PYPREFERENCE_CHECK = 1000
+
+if not hasattr(c4d, "PYPREFERENCE_NUMBER"):
+    c4d.PYPREFERENCE_NUMBER = 1001
+
+
 class PreferenceHelper(object):
 
     @staticmethod
     def GetPreferenceContainer():
-        """
-        Helper method to retrieve or create the WPREF_PYPREFERENCE container instance stored in the world container.
-        :return: The container instance stored in the world container.
-        :rtype: c4d.BaseContainer
-        :raises RuntimeError: The BaseContainer can't be retrieved.
-        :raises MemoryError: The BaseContainer can't be created.
+        """Helper method to retrieve or create the WPREF_PYPREFERENCE container instance stored in the world container.
+
+        Returns:
+            c4d.BaseContainer: The container instance stored in the world container.
+
+        Raises:
+            RuntimeError: The BaseContainer can't be retrieved.
+            MemoryError: The BaseContainer can't be created.
         """
         # Retrieves the world container instance
         world = c4d.GetWorldContainerInstance()
@@ -68,13 +77,14 @@ class PreferenceHelper(object):
         return bc
 
     def InitValues(self, descId, description=None):
-        """
-        Helper method to define type and default value of parameter
-        :param id: The parameter ID describing the type and the ID of the parameter you want to initialize.
-        :type id: c4d.DescID
-        :param description: The description of the PreferenceData.
-        :type description: c4d.Description
-        :return: True if success otherwise False.
+        """Helper method to define type and default value of parameter
+
+        Args:
+            descId (c4d.DescID): The parameter ID describing the type and the ID of the parameter you want to initialize.
+            description (c4d.Description, optional): The description of the PreferenceData. Defaults to None.
+
+        Returns:
+            True if success otherwise False.
         """
         # Retrieves the world BaseContainer of this preference, where values have to be defined
         bc = self.GetPreferenceContainer()
@@ -92,11 +102,13 @@ class PreferenceHelper(object):
 class Preference(c4d.plugins.PreferenceData, PreferenceHelper):
 
     def Init(self, node):
-        """
-        Called by Cinema 4D on the initialization of the PreferenceData, the place to define the type of object.
-        :param node: The instance of the PreferenceData.
-        :type node: c4d.GeListNode
-        :return: True if the initialisation success, otherwise False will not create the object.
+        """Called by Cinema 4D on the initialization of the PreferenceData, the place to define the type of object.
+
+        Args:
+            node (c4d.GeListNode): The instance of the PreferenceData.
+
+        Returns:
+            True if the initialization success, otherwise False will not create the object.
         """
 
         # Init default values
@@ -106,15 +118,15 @@ class Preference(c4d.plugins.PreferenceData, PreferenceHelper):
         return True
 
     def GetDDescription(self, node, description, flags):
-        """
-        Called by Cinema 4D when the description (UI) is queried.
-        :param node: The instance of the PreferenceData.
-        :type node: c4d.GeListNode
-        :param description: The description to modify.
-        :type description: c4d.Description
-        :param flags:
-        :return: The success status or the data to be returned.
-        :rtype: Union[Bool, tuple(bool, Any, DESCFLAGS_DESC)]
+        """Called by Cinema 4D when the description (UI) is queried.
+
+        Args:
+            node (c4d.GeListNode): The instance of the PreferenceData.
+            description (c4d.Description): The description to modify.
+            flags (int): The flags for the description operation.
+
+        Returns:
+            Union[Bool, tuple(bool, Any, DESCFLAGS_DESC)]: The success status or the data to be returned.
         """
         # Loads description for this objects
         if not description.LoadDescription("pypreference"):
@@ -128,19 +140,18 @@ class Preference(c4d.plugins.PreferenceData, PreferenceHelper):
         return True, flags | c4d.DESCFLAGS_DESC_LOADED
 
     def SetDParameter(self, node, id, data, flags):
-        """
-        Called by Cinema 4D, when SetParameter is call from the node.
+        """Called by Cinema 4D, when SetParameter is call from the node.
+
         The main purpose is to store the data in the world container.
-        :param node: The instance of the PreferenceData.
-        :type node: c4d.GeListNode
-        :param id: The parameter Id.
-        :type id: c4d.DescID
-        :param data: the data, the user defines and we have to store.
-        :type data: Any
-        :param flags: The input flags passed to define the operation.
-        :type flags: DESCFLAGS_SET
-        :return: The success status or the data to be returned.
-        :rtype: Union[Bool, tuple(bool, Any, DESCFLAGS_SET)]
+
+        Args:
+            node (c4d.GeListNode): The instance of the PreferenceData.
+            id (c4d.DescID): The parameter Id.
+            data (Any): the data, the user defines and we have to store.
+            flags (DESCFLAGS_SET): The input flags passed to define the operation.
+
+        Returns:
+            Union[Bool, tuple(bool, Any, DESCFLAGS_SET)]: The success status or the data to be returned.
         """
         # Retrieves the world BaseContainer of this preference, where values have to be defined
         bc = self.GetPreferenceContainer()
@@ -159,17 +170,17 @@ class Preference(c4d.plugins.PreferenceData, PreferenceHelper):
         return False
 
     def GetDParameter(self, node, id, flags):
-        """
-        Called by Cinema 4D, when GetParameter is call from the node.
+        """Called by Cinema 4D, when GetParameter is call from the node.
+        
         The main purpose is to return the data from the world container.
-        :param node: The instance of the PreferenceData.
-        :type node: c4d.GeListNode
-        :param id: The parameter Id.
-        :type id: c4d.DescID
-        :param flags: The input flags passed to define the operation.
-        :type flags: DESCFLAGS_GET
-        :return: The success status or the data to be returned.
-        :rtype: Union[Bool, tuple(bool, Any, DESCFLAGS_GET)]
+
+        Args:
+            node (c4d.GeListNode): The instance of the PreferenceData.
+            id (c4d.DescID): The parameter Id.
+            flags (DESCFLAGS_GET): The input flags passed to define the operation.
+
+        Returns:
+            Union[Bool, tuple(bool, Any, DESCFLAGS_GET)]: The success status or the data to be returned.
         """
         # Retrieves the world BaseContainer of this preference, where values have to be retrieved
         bc = self.GetPreferenceContainer()
@@ -186,18 +197,17 @@ class Preference(c4d.plugins.PreferenceData, PreferenceHelper):
         return False
 
     def GetDEnabling(self, node, id, t_data, flags, itemdesc):
-        """
-        Called  by Cinema 4D to decide which parameters should be enabled or disabled (ghosted).
-        :param node: The instance of the PreferenceData.
-        :type node: c4d.GeListNode
-        :param id: The Description ID of the parameter.
-        :type id: c4d.DescID
-        :param t_data: The current data for the parameter.
-        :type: t_data: Any.
-        :param flags: Not used
-        :param itemdesc: The description, encoded to a container.
-        :type itemdesc: c4d.BaseContainer
-        :return: True if the parameter should be enabled, otherwise False.
+        """Called  by Cinema 4D to decide which parameters should be enabled or disabled (ghosted).
+
+        Args:
+            node (c4d.GeListNode): The instance of the PreferenceData.
+            id (c4d.DescID): The Description ID of the parameter.
+            t_data (Any.): The current data for the parameter.
+            flags: Not used
+            itemdesc (c4d.BaseContainer): The description, encoded to a container.
+
+        Returns:
+            True if the parameter should be enabled, otherwise False.
         """
         # Retrieves the parameter ID asked
         paramID = id[0].id

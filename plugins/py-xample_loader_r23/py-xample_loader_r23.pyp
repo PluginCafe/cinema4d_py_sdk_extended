@@ -17,9 +17,6 @@ Class/method highlighted:
     - BitmapLoaderData.Identify()
     - BitmapLoaderData.Load()
 
-Compatible:
-    - Win / Mac
-    - R23
 """
 import c4d
 import struct
@@ -37,29 +34,29 @@ class MyXampleLoader(c4d.plugins.BitmapLoaderData):
     """Data class to import a *.xample file"""
 
     def Identify(self, name, probe, size):
-        """
-        Called by Cinema 4D, to identifie your file type (know if this Bitmap Loader can be used with the current Bitmap)
-        :param name: The name of the file.
-        :type name: str
-        :param probe: The start of data from the file currently tested.
-        :type probe: buffer
-        :param size: The size of the probe for testing this file type.
-        :type size: int
-        :return: True if the plugin can load this file.
+        """Called by Cinema 4D, to identifie your file type (know if this Bitmap Loader can be used with the current Bitmap).
+
+        Args:
+            name (str): The name of the file.
+            probe (buffer): The start of data from the file currently tested.
+            size (int): The size of the probe for testing this file type.
+
+        Returns:
+            True if the plugin can load this file.
         """
         # Checks if image starts with identifier flag
         return probe[:len(BMP_IDENTIFIER)] == BMP_IDENTIFIER
     
     def Load(self, name, bm, frame):
-        """
-        Called by Cinema 4D, when the plugin should loads the files as a BaseBitmap
-        :param name: The name of the file.
-        :type name: str
-        :param bm: The Bitmap, to be filled with the data (need to be initialized).
-        :type bm: c4d.bitmaps.BaseBitmap
-        :param frame: The current frame number for file format containing picture sequence (Quicktime, AVI...)
-        :type frame: int
-        :return: IMAGERESULT
+        """Called by Cinema 4D, when the plugin should loads the files as a BaseBitmap.
+
+        Args:
+            name (str): The name of the file.
+            bm (c4d.bitmaps.BaseBitmap): The Bitmap, to be filled with the data (need to be initialized).
+            frame (int): The current frame number for file format containing picture sequence (Quicktime, AVI...)
+
+        Returns:
+            IMAGERESULT
         """
         # Opens the file in binary read mode
         with open(name, "rb") as fn:

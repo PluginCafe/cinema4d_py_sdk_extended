@@ -21,9 +21,6 @@ Class/method highlighted:
     - CommandData.Execute()
     - CommandData.RestoreLayout()
 
-Compatible:
-    - Win / Mac
-    - R12, R13, R14, R15, R16, R17, R18, R19, R20, R21
 """
 import c4d
 import collections
@@ -34,11 +31,13 @@ PLUGIN_ID = 1025249
 
 
 def CalcValueToMB(value):
-    """
-    Convert bit to mb
-    :param value: size in bit
-    :type value: int
-    :return: size in mb
+    """Convert bit to mb
+
+    Args:
+        value (int): size in bit
+
+    Returns:
+        size in mb
     """
     return value / 1024.0 / 1024.0
 
@@ -65,18 +64,14 @@ class MemoryViewerUserArea(c4d.gui.GeUserArea):
         return True
 
     def DrawMsg(self, x1, y1, x2, y2, msg_ref):
-        """
-        This Method is called automatically when Cinema 4D Draw the Gadget.
-        :param x1: The upper left x coordinate.
-        :type x1: int
-        :param y1: The upper left y coordinate.
-        :type y1: int
-        :param x2: The lower right x coordinate.
-        :type x2: int
-        :param y2: The lower right y coordinate.
-        :type y2: int
-        :param msg_ref: The original mesage container.
-        :type msg_ref: c4d.BaseContainer
+        """This Method is called automatically when Cinema 4D Draw the Gadget.
+
+        Args:
+            x1 (int): The upper left x coordinate.
+            y1 (int): The upper left y coordinate.
+            x2 (int): The lower right x coordinate.
+            y2 (int): The lower right y coordinate.
+            msg_ref (c4d.BaseContainer): The original mesage container.
         """
         # Initializes draw region
         self.OffScreenOn()
@@ -126,10 +121,10 @@ class MemoryViewerUserArea(c4d.gui.GeUserArea):
         return
 
     def Update(self):
-        """
-        Updates the memory information, push them to the self.value
-        :return: The data that has been pushed
-        :rtype: c4d.BaseContainer
+        """Updates the memory information, push them to the self.value.
+
+        Returns:
+            c4d.BaseContainer: The data that has been pushed
         """
         # Retrieves the memory usage
         bc = c4d.storage.GeGetMemoryStat()
@@ -161,9 +156,7 @@ class MemoryViewerDialog(c4d.gui.GeDialog):
         self.AddGadget(c4d.DIALOG_NOMENUBAR, 0)
 
     def CreateLayout(self):
-        """
-        This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog.
-        """
+        """This Method is called automatically when Cinema 4D Create the Layout (display) of the Dialog."""
         # Defines the title with the Computer Name
         bc = c4d.GetMachineFeatures()
         self.SetTitle(bc[c4d.MACHINEINFO_COMPUTERNAME])
@@ -190,19 +183,20 @@ class MemoryViewerDialog(c4d.gui.GeDialog):
         return True
 
     def InitValues(self):
-        """
-        Called after CreateLayout being called to define the values in the UI
-        :return: True if successful, or False to signalize an error.
+        """Called after CreateLayout being called to define the values in the UI.
+        
+        Returns:
+            True if successful, or False to signalize an error.
         """
         # Defines the timing for Timer message to be called
         self.SetTimer(500)
         return True
 
     def Timer(self, msg):
-        """
-        This method is called automatically by Cinema 4D according to the timer set with GeDialog.SetTimer method.
-        :param msg: The timer message
-        :type msg: c4d.BaseContainer
+        """This method is called automatically by Cinema 4D according to the timer set with GeDialog.SetTimer method.
+
+        Args:
+            msg (c4d.BaseContainer): The timer message
         """
         # Retrieves the current memory information and display it
         bc = self.mem_info.Update()
@@ -210,17 +204,17 @@ class MemoryViewerDialog(c4d.gui.GeDialog):
 
 
 class MemoryViewerCommandData(c4d.plugins.CommandData):
-    """
-    Command Data class that holds the MemoryViewerDialog instance.
-    """
+    """Command Data class that holds the MemoryViewerDialog instance."""
     dialog = None
 
     def Execute(self, doc):
-        """
-        Called when the user Execute the command (CallCommand or a clicks on the Command from the plugin menu)
-        :param doc: the current active document
-        :type doc: c4d.documents.BaseDocument
-        :return: True if the command success
+        """Called when the user Execute the command (CallCommand or a clicks on the Command from the plugin menu).
+
+        Args:
+            doc (c4d.documents.BaseDocument): the current active document
+
+        Returns:
+            True if the command success
         """
         # Creates the dialog if its not already exists
         if self.dialog is None:
@@ -230,11 +224,13 @@ class MemoryViewerCommandData(c4d.plugins.CommandData):
         return self.dialog.Open(dlgtype=c4d.DLG_TYPE_ASYNC, pluginid=PLUGIN_ID, defaulth=400, defaultw=400)
 
     def RestoreLayout(self, sec_ref):
-        """
-        Used to restore an asynchronous dialog that has been placed in the users layout.
-        :param sec_ref: The data that needs to be passed to the dlg (almost no use of it).
-        :type sec_ref: PyCObject
-        :return: True if the restore success
+        """Used to restore an asynchronous dialog that has been placed in the users layout.
+
+        Args:
+            sec_ref (PyCObject): The data that needs to be passed to the dialog (almost no use of it).
+
+        Returns:
+            True if the restore success
         """
         # Creates the dialog if its not already exists
         if self.dialog is None:

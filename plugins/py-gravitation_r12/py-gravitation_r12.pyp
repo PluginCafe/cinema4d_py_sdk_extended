@@ -11,10 +11,6 @@ Note:
 Class/method highlighted:
     - c4d.plugins.ObjectData
     - ObjectData.ModifyParticles()
-
-Compatible:
-    - Win / Mac
-    - R12, R13, R14, R15, R16, R17, R18, R19, R20, R21
 """
 import os
 import c4d
@@ -27,18 +23,14 @@ class Gravitation(c4d.plugins.ObjectData):
     """Gravitation Generator"""
 
     def ModifyParticles(self, op, pp, ss, pcnt, diff):
-        """
-        Called by Cinema 4D to modify C4D particles
-        :param op: the current modifier
-        :type op: c4d.BaseObject
-        :param pp: The initial element of the Particle list.
-        :type pp: [c4d.modules.particles.Particle]
-        :param ss: The BaseParticle List to modify
-        :type ss: [c4d.modules.particles.BaseParticle]
-        :param pcnt: The number of particles in pp and ss list.
-        :type pcnt: int
-        :param diff: The time delta for the particles movement in seconds. Usually the difference in time between two frames, but this can be different for such functions as motion blur.
-        :type diff: float
+        """Called by Cinema 4D to modify C4D particles
+
+        Args:
+            op (c4d.BaseObject): the current modifier
+            pp (c4d.modules.particles.Particle]): The initial element of the Particle list.
+            ss (c4d.modules.particles.BaseParticle]): The BaseParticle List to modify
+            pcnt (int): The number of particles in pp and ss list.
+            diff (float): The time delta for the particles movement in seconds. Usually the difference in time between two frames, but this can be different for such functions as motion blur.
         """
         # Calculate simple gravitation
         gravitation = 918.0

@@ -17,9 +17,6 @@ Class/method highlighted:
     - SculptModifierInterface.SetData()
     - SculptModifierInterface.ApplyModifier()
 
-Compatible:
-    - Win / Mac
-    - R16, R17, R18, R19, R20, R21
 """
 import c4d
 import random
@@ -35,11 +32,13 @@ class SculptModifierDeformer(c4d.plugins.ObjectData):
         self.brushInterface = None
 
     def Init(self, node):
-        """
-        Called when Cinema 4D Initialize the ObjectData (used to define, default values)
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :return: True on success, otherwise False.
+        """Called when Cinema 4D Initialize the ObjectData (used to define, default values).
+
+        Args:
+            node (c4d.GeListNode): The instance of the ObjectData.
+
+        Returns:
+            True on success, otherwise False.
         """
         self.InitAttr(node, float, c4d.PYSCULPTMODIFIERDEFORMER_RADIUS)
         self.InitAttr(node, float, c4d.PYSCULPTMODIFIERDEFORMER_PRESSURE)
@@ -62,15 +61,15 @@ class SculptModifierDeformer(c4d.plugins.ObjectData):
         return True
 
     def Message(self, node, msgId, data):
-        """
-        Called by Cinema 4D part to notify the object to a special event
-        :param node: The instance of the ObjectData.
-        :type node: c4d.BaseObject
-        :param msgId: The message ID type.
-        :type msgId: int
-        :param data: The message data.
-        :type data: Any, depends of the message passed.
-        :return: Depends of the message type, most of the time True.
+        """Called by Cinema 4D part to notify the object to a special event.
+
+        Args:
+            node (c4d.BaseObject): The instance of the ObjectData.
+            msgId (int): The message ID type.
+            data (Any): The message data, the type depends on the message passed.
+
+        Returns:
+            bool: Depends of the message type, most of the time True.
         """
         # MSG_MENUPREPARE is received when called from the menu, to let some setup work.
         # In the case of this message, the data passed is the BaseDocument the object is inserted
@@ -80,25 +79,20 @@ class SculptModifierDeformer(c4d.plugins.ObjectData):
         return True
 
     def ModifyObject(self, mod, doc, op, op_mg, mod_mg, lod, flags, thread):
-        """
-        Called by Cinema 4D with the object to modify.
-        :param mod: The Python Modifier.
-        :type mod: c4d.BaseObject
-        :param doc: The document containing the plugin object.
-        :type doc: c4d.documents.BaseDocument
-        :param op: The object to modify.
-        :type op: c4d.BaseObject
-        :param op_mg: The object's world matrix.
-        :type op_mg: c4d.Matrix
-        :param mod_mg: The modifier object's world matrix.
-        :type mod_mg: c4d.Matrix
-        :param lod: The level of detail.
-        :type lod: float
-        :param flags: Currently unused.
-        :type flags: int
-        :param thread: The calling thread.
-        :type thread: c4d.threading.BaseThread
-        :return: True if the object was modified, otherwise False.
+        """Called by Cinema 4D with the object to modify.
+
+        Args:
+            mod (c4d.BaseObject): The Python Modifier.
+            doc (c4d.documents.BaseDocument): The document containing the plugin object.
+            op (c4d.BaseObject): The object to modify.
+            op_mg (c4d.Matrix): The object's world matrix.
+            mod_mg (c4d.Matrix): The modifier object's world matrix.
+            lod (float): The level of detail.
+            flags (int): Currently unused.
+            thread (c4d.threading.BaseThread): The calling thread.
+
+        Returns:
+            bool: True if the object was modified, otherwise False.
         """
         # Retrieves object parameters values
         data = mod.GetDataInstance()

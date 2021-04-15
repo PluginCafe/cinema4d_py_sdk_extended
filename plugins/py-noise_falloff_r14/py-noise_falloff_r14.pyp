@@ -18,9 +18,6 @@ Class/method highlighted:
     - FalloffData.SetHandle()
     - FalloffData.Draw()
 
-Compatible:
-    - Win / Mac
-    - R14, R15, R16, R17, R18, R19, R20, R21
 """
 import c4d
 
@@ -29,17 +26,18 @@ PLUGIN_ID = 1028347
 
 
 class NoiseFalloffHelper(object):
-    """ Utility class for the noise falloff"""
+    """Utility class for the noise falloff"""
 
     @staticmethod
     def PointInBox(p, data):
-        """
-        Returns if a point is in box.
-        :param p: The point position.
-        :type p: c4d.Vector
-        :param data: Falloff data information.
-        :type data: c4d.BaseContainer
-        :return: True if the point is in box, otherwise False
+        """Returns if a point is in box.
+
+        Args:
+            p (c4d.Vector): The point position.
+            data (c4d.BaseContainer): Falloff data information.
+
+        Returns:
+            True if the point is in box, otherwise False
         """
         res = True
 
@@ -63,16 +61,12 @@ class NoiseFalloffHelper(object):
 
     @staticmethod
     def DrawHandleLines(bd, size, i):
-        """
-        Helper method to draw a handle
+        """Helper method to draw a handle.
 
-        :param bd: The editor's view.
-        :type bd: c4d.BaseDraw
-        :param size: vector size of the object
-        :type size: c4d.Vector
-        :param i: The Handle Id
-        :type i: int
-        :return:
+        Args:
+            bd (c4d.BaseDraw): The editor's view.
+            size (c4d.Vector): vector size of the object
+            i (int): The Handle Id
         """
 
         # Defines the Draw Color
@@ -128,13 +122,14 @@ class NoiseFalloff(c4d.plugins.FalloffData, NoiseFalloffHelper):
     dirty = 0
 
     def Init(self, falldata, bc):
-        """
-        Called when Cinema 4D Initialize the Falloff Object (used to define, default values)
-        :param falldata: Falloff data information.
-        :type falldata: c4d.modules.mograph.FalloffDataData
-        :param bc: Falloff's container.
-        :type bc: c4d.BaseContainer
-        :return: True on success, otherwise False.
+        """Called when Cinema 4D Initialize the Falloff Object (used to define, default values).
+
+        Args:
+            falldata (c4d.modules.mograph.FalloffDataData): Falloff data information.
+            bc (c4d.BaseContainer): Falloff's container.
+
+        Returns:
+            True on success, otherwise False.
         """
         if bc is None:
             return False
@@ -170,13 +165,14 @@ class NoiseFalloff(c4d.plugins.FalloffData, NoiseFalloffHelper):
         return True
 
     def InitFalloff(self, bc, falldata):
-        """
-        Called when Cinema 4D initialize the Falloff (Before a sampling process)
-        :param bc: Falloff's container.
-        :type bc: c4d.BaseContainer
-        :param falldata: Falloff data information.
-        :type falldata: c4d.modules.mograph.FalloffDataData
-        :return: True on success, otherwise False.
+        """Called when Cinema 4D initialize the Falloff (Before a sampling process).
+
+        Args:
+            bc (c4d.BaseContainer): Falloff's container.
+            falldata (c4d.modules.mograph.FalloffDataData): Falloff data information.
+
+        Returns:
+            True on success, otherwise False.
         """
         if bc is None:
             return False
@@ -210,15 +206,15 @@ class NoiseFalloff(c4d.plugins.FalloffData, NoiseFalloffHelper):
         return True
 
     def GetDVisible(self, id, bc, desc_bc):
-        """
-        Called  by Cinema 4D to decide which parameters is currently visible.
-        :param id: The Description ID of the parameter
-        :type id: c4d.DescID
-        :param bc: Falloff's container
-        :type bc: c4d.BaseContainer
-        :param desc_bc: The description, encoded to a container
-        :type desc_bc: c4d.BaseContainer
-        :return: True if the parameter should be visible, otherwise False.
+        """Called  by Cinema 4D to decide which parameters is currently visible.
+
+        Args:
+            id (c4d.DescID): The Description ID of the parameter
+            bc (c4d.BaseContainer): Falloff's container
+            desc_bc (c4d.BaseContainer): The description, encoded to a container
+
+        Returns:
+            True if the parameter should be visible, otherwise False.
         """
 
         # Displays Octave only if current noise have Octave
@@ -237,44 +233,42 @@ class NoiseFalloff(c4d.plugins.FalloffData, NoiseFalloffHelper):
         return True
     
     def Sample(self, p, data):
-        """
-        Called by Cinema 4D, when a position is sampled
-        :param p: The position of the point to sample in falloff space.
-        :type p: c4d.Vector
-        :param data: Falloff data information.
-        :type data: c4d.modules.mograph.FalloffDataData
-        :return: How the effector modify the original object from 0.0 to 1.0
-        :rtype: float
+        """Called by Cinema 4D, when a position is sampled.
+
+        Args:
+            p (c4d.Vector): The position of the point to sample in falloff space.
+            data (c4d.modules.mograph.FalloffDataData): Falloff data information.
+
+        Returns:
+            float: How the effector modify the original object from 0.0 to 1.0
         """
         # If the point is in the bounding box of the falloff
         if NoiseFalloff.PointInBox(data.mat * p, data):
             return self.noise.Noise(self.type, self.sampling, data.mat * p, 0.0, self.octaves, self.absolute, self.sampleRad, self.detailAtt, self.repeat)
         else:
             return 1.0
-
     """========== Start of Handle Management =========="""
 
     def GetHandleCount(self, bc, data):
-        """
-        Called by Cinema 4D to retrieve the count of Handle the object will have.
-        :param bc: Falloff's container
-        :type bc: c4d.BaseContainer
-        :param data: Falloff data information.
-        :type data: c4d.modules.mograph.FalloffDataData
-        :return: The number of handle
-        :rtype: int
+        """Called by Cinema 4D to retrieve the count of Handle the object will have.
+
+        Args:
+            bc (c4d.BaseContainer): Falloff's container
+            data (c4d.modules.mograph.FalloffDataData): Falloff data information.
+
+        Returns:
+            int: The number of handle
         """
         return self.HANDLECOUNT
 
     def GetHandle(self, bc, i, info, data):
-        """
-        Called by Cinema 4D to retrieve the information of a given handle ID to represent a/some parameter(s).
-        :param bc: Falloff's container
-        :type bc: c4d.BaseContainer
-        :param i: The handle index.
-        :type i: int
-        :param data: Falloff data information.
-        :type data: c4d.modules.mograph.FalloffDataData
+        """Called by Cinema 4D to retrieve the information of a given handle ID to represent a/some parameter(s).
+
+        Args:
+            bc (c4d.BaseContainer): Falloff's container
+            i (int): The handle index.
+            data (c4d.modules.mograph.FalloffDataData): Falloff data information.
+            info (c4d.HandleInfo): The information for the requested handle to be filled.
         """
         if bc is None:
             return
@@ -306,17 +300,15 @@ class NoiseFalloff(c4d.plugins.FalloffData, NoiseFalloffHelper):
         info.type = c4d.HANDLECONSTRAINTTYPE_LINEAR
     
     def SetHandle(self, bc, i, p, data):
-        """
-        Called by Cinema 4D when the user set the handle.
+        """Called by Cinema 4D when the user set the handle.
+
         This is the place to retrieve the information of a given handle ID and drive your parameter(s).
-        :param bc: Falloff's container
-        :type bc: c4d.BaseContainer
-        :param i: The handle index.
-        :type i: int
-        :param p: The new Handle Position.
-        :type p: c4d.Vector
-        :param data: Falloff data information.
-        :type data: c4d.modules.mograph.FalloffDataData
+
+        Args:
+            bc (c4d.BaseContainer): Falloff's container
+            i (int): The handle index.
+            p (c4d.Vector): The new Handle Position.
+            data (c4d.modules.mograph.FalloffDataData): Falloff data information.
         """
         if bc is None:
             return False
@@ -336,18 +328,19 @@ class NoiseFalloff(c4d.plugins.FalloffData, NoiseFalloffHelper):
         bc.SetVector(c4d.FALLOFF_SIZE, size)
 
     def Draw(self, data, drawpass, bd, bh):
-        """
-        Called by Cinema 4d when the display is updated to display some visual element of your object in the 3D view.
-        This is also the place to draw Handle
-        :param op: Falloff data information.
-        :type op: c4d.modules.mograph.FalloffDataData
-        :param drawpass: The current draw pass.
-        :type drawpass: DRAWPASS
-        :param bd: The editor's view.
-        :type bd: c4d.BaseDraw
-        :param bh: The BaseDrawHelp editor's view.
-        :type bh: c4d.plugins.BaseDrawHelp
-        :return: The result of the drawing (most likely c4d.DRAWRESULT_OK)
+        """Called by Cinema 4D when the display is updated to display.
+
+        Here you can draw visual representations and handles for your object in the 3D view.
+
+        Args:
+            data (c4d.BaseContainer.): The node settings container.
+            op (c4d.modules.mograph.FalloffDataData): Falloff data information.
+            drawpass (DRAWPASS): The current draw pass.
+            bd (c4d.BaseDraw): The editor's view.
+            bh (c4d.plugins.BaseDrawHelp): The BaseDrawHelp editor's view.
+
+        Returns:
+            The result of the drawing (most likely c4d.DRAWRESULT_OK)
         """
         # If the current draw pass is not the handle, skip this Draw Call.
         if drawpass == c4d.DRAWPASS_HIGHLIGHTS:
@@ -373,7 +366,6 @@ class NoiseFalloff(c4d.plugins.FalloffData, NoiseFalloffHelper):
         NoiseFalloff.DrawHandleLines(bd, size, 2)
         
         return True
-
     """========== End of Handle Management =========="""
 
 

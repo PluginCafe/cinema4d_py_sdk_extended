@@ -13,9 +13,6 @@ Class/method highlighted:
     - C4DAtom.GetUniqueIDIndex()
     - C4DAtom.FindUniqueID()
 
-Compatible:
-    - Win / Mac
-    - R23
 """
 import c4d
 

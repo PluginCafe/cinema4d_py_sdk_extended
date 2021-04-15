@@ -19,9 +19,6 @@ Class/method highlighted:
     - ObjectData.GetVirtualObjects()
     - ObjectData.GetContour()
 
-Compatible:
-    - Win / Mac
-    - R16, R17, R18, R19, R20, R21
 """
 import c4d
 
@@ -32,11 +29,13 @@ class SplineInputGeneratorHelper(object):
 
     @staticmethod
     def FinalSpline(sourceSplineObj):
-        """
-        Retrieves the final (deformed) representation of the spline
-        :param sourceSplineObj: A c4d.BaseObject that can be represented as a Spline.
-        :type sourceSplineObj: c4d.BaseObject or c4d.SplineObject or LineObject
-        :return: The final Spline/Line Object, SplineObject should be returned when it's possible
+        """Retrieves the final (deformed) representation of the spline.
+
+        Args:
+            sourceSplineObj (c4d.BaseObject or c4d.SplineObject or LineObject): A c4d.BaseObject that can be represented as a Spline.
+
+        Returns:
+            c4d.SplineObject: The final Spline/Line Object, SplineObject should be returned when it's possible
         """
         if sourceSplineObj is None:
             raise TypeError("Expect a spline object got {0}".format(sourceSplineObj.__class__.__name__))
@@ -66,12 +65,16 @@ class SplineInputGeneratorHelper(object):
 
     @staticmethod
     def OffsetSpline(inputSpline, offsetValue):
-        """
-        Performs the Y-Offset of the spline. Take care the inputSpline can be sometime a LineObject or a SplineObject
-        depending of the context (called from GVO or GetContour).
-        :param inputSpline: The original LineObject or SplineObject
-        :param offsetValue: The amount to offset Y parameter
-        :return: A new Line/Spline instance
+        """Performs the Y-Offset of the spline. 
+
+        Take care the inputSpline can be sometime a LineObject or a SplineObject depending of the context (called from GVO or GetContour).
+
+        Args:
+            inputSpline (Union[c4d.LineObject, c4d.SplineObject]): The original LineObject or SplineObject
+            offsetValue (float): The amount to offset Y parameter
+
+        Returns:
+            Union[c4d.LineObject, c4d.SplineObject]: A new Line/Spline instance
         """
         if inputSpline is None:
             raise TypeError("Expect a SplineObject got {0}".format(inputSpline.__class__.__name__))
@@ -104,10 +107,13 @@ class SplineInputGeneratorHelper(object):
 
     @staticmethod
     def GetCloneSpline(op):
-        """
-        Emulates the GetHierarchyClone in the GetContour by using the SendModelingCommand
-        :param op: The Object to clone and retrieve the current state (take care the whole hierarchy is join into one object.
-        :return: The merged object or None, if the retrieved object is not a Spline
+        """Emulates the GetHierarchyClone in the GetContour by using the SendModelingCommand.
+
+        Args:
+            op (c4d.BaseObject): The Object to clone and retrieve the current state (take care the whole hierarchy is join into one object.
+
+        Returns:
+            Union[c4d.BaseObject, None]: The merged object or None, if the retrieved object is not a Spline.
         """
         # Copies the original object
         childSpline = op.GetClone(c4d.COPYFLAGS_NO_ANIMATION)
@@ -146,10 +152,13 @@ class SplineInputGeneratorHelper(object):
 
     @staticmethod
     def HierarchyIterator(obj):
-        """
-        A Generator to iterate over the Hierarchy
-        :param obj: The starting object of the generator (will be the first result)
-        :return: All objects under and next of the `obj`
+        """A Generator to iterate over the Hierarchy.
+
+        Args:
+            obj (c4d.BaseObject): The starting object of the generator (will be the first result)
+
+        Returns:
+            c4d.BaseObject: All objects under and next of the `obj`
         """
         while obj:
             yield obj
@@ -177,11 +186,12 @@ class OffsetYSpline(c4d.plugins.ObjectData):
         return True
 
     def GetDimension(self, op, mp, rad):
-        """
-        This Method is called automatically when Cinema 4D try to retrieve the boundaries of the object.
-        :param op: The Python Generator base object.
-        :param mp: Assign the center point of the bounding box to this vector.
-        :param rad: Assign the XYZ bounding box radius to this vector.
+        """This Method is called automatically when Cinema 4D try to retrieve the boundaries of the object.
+
+        Args:
+            op (c4d.BaseObject): The Python Generator base object.
+            mp (c4d.Vector): Assign the center point of the bounding box to this vector.
+            rad (float): Assign the XYZ bounding box radius to this vector.
         """
         if op is None:
             raise RuntimeError("Failed to retrieve op.")
@@ -201,15 +211,17 @@ class OffsetYSpline(c4d.plugins.ObjectData):
         mp.y = op.GetMg().off.y + op[c4d.PY_OFFSETYSPLINE_OFFSET]
 
     def CheckDirty(self, op, doc):
-        """
-        This Method is called automatically when Cinema 4D ask the object is dirty,
+        """This Method is called automatically when Cinema 4D ask the object is dirty,
         something changed so a new computation of the generator is needed.
+
         In reality this is only useful for GetContour, GetVirtualObjects is automatically handled by Cinema 4D,
         But since the spline returned by GetContour is cached by Cinema 4D, you have to use CheckDirty
         To define when a new call of GetContour is needed. Moreover CheckDirty is only called in some special event,
         e.g. the Python Spline Generator is under another Python Spline generator.
-        :param op: The Python Generator c4d.BaseObject.
-        :param doc: The c4d.documents.BaseDocument containing the plugin object.
+
+        Args:
+            op (c4d.BaseObject): The Python Generator c4d.BaseObject.
+            doc (c4d.documents.BaseDocument): The document containing the plugin object.
         """
         if op is None or doc is None:
             raise RuntimeError("Failed to retrieve op or doc.")
@@ -230,12 +242,16 @@ class OffsetYSpline(c4d.plugins.ObjectData):
             op.SetDirty(c4d.DIRTYFLAGS_DATA)
 
     def GetVirtualObjects(self, op, hh):
-        """
-        This method is called automatically when Cinema 4D ask for the cache of an object. This is also the place
-        where objects have to be marked as input object by Touching them (destroy their cache in order to disable them in Viewport)
-        :param op: The Python Generator c4d.BaseObject.
-        :param hh:The Python Generator c4d.BaseObject.
-        :return: The Representing Spline (c4d.LineObject or SplineObject)
+        """This method is called automatically when Cinema 4D ask for the cache of an object. 
+
+        This is also the place where objects have to be marked as input object by touching them (destroy their cache in order to disable them in Viewport)
+
+        Args:
+            op (c4d.BaseObject): The Python Generator c4d.BaseObject.
+            hh (c4d.HierarchyHelp): The helper object.
+
+        Returns:
+            Union[c4d.LineObject, c4d.SplineObject]: The represented Spline.
         """
         if op is None or hh is None:
             raise RuntimeError("Failed to retrieve op or hh.")
@@ -288,12 +304,17 @@ class OffsetYSpline(c4d.plugins.ObjectData):
         return resSpline
 
     def GetContour(self, op, doc, lod, bt):
-        """
-        This method is called automatically when Cinema 4D ask for a SplineObject, it's not called every time,
+        """This method is called automatically when Cinema 4D ask for a SplineObject, it's not called every time,
         only in some conditions like nested Spline Generator.
-        :param op: The Python Generator c4d.BaseObject.
-        :param doc: The c4d.documents.BaseDocument containing the plugin object.
-        :return: The SplineObject representing the final Spline.
+
+        Args:
+            op (c4d.BaseObject): The Python Generator c4d.BaseObject.
+            doc (c4d.documents.BaseDocument): The document containing the plugin object.
+            lod (int): The level of detail.
+            bt (c4d.threading.BaseThread): The executing thread.
+
+        Returns:
+            The SplineObject representing the final Spline.
         """
         if op is None or doc is None:
             raise RuntimeError("Failed to retrieve op or doc.")

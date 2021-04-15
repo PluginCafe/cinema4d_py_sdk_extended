@@ -13,9 +13,6 @@ Class/method highlighted:
 Note:
     Before R21 it's possible to call GetIcon which will returns an IconData as a dictionary.
 
-Compatible:
-    - Win / Mac
-    - R21, S22, R23
 """
 import c4d
 

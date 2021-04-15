@@ -10,9 +10,6 @@ Class/method highlighted:
     - c4d.documents.GetDocumentName()
     - BaseList2D.GetNext()
 
-Compatible:
-    - Win / Mac
-    - R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 

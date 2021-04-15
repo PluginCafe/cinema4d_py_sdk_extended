@@ -21,9 +21,6 @@ Class/method highlighted:
     - PaintLayerBmp.GetPixelCnt()
     - PaintLayerBmp.SetPixelCnt()
 
-Compatible:
-    - Win / Mac
-    - R16, R17, R18, R19, R20, R21
 """
 
 import c4d
@@ -37,7 +34,7 @@ IDS_PYTHON_BRUSH_PAINT = 10000
 
 
 class Edge(object):
-    """ Represents an Edge"""
+    """Represents an Edge"""
 
     def __init__(self, color1, x1, y1, color2, x2, y2):
         if y1 < y2:
@@ -57,7 +54,7 @@ class Edge(object):
 
 
 class Span(object):
-    """ Represents a Span"""
+    """Represents a Span"""
 
     def __init__(self, color1, x1, color2, x2):
         if x1 < x2:
@@ -76,16 +73,13 @@ class PaintBrushToolHelper(object):
 
     @staticmethod
     def DrawSpan(dab, bmp, span, y):
-        """
-        Draws a span in the given bmp
-        :param dab: The brush dab data.
-        :type dab: c4d.modules.sculpting.BrushDabData
-        :param bmp: The bitmap to draw in
-        :type bmp: c4d.modules.bodypaint.PaintLayerBmp
-        :param span: The span to draw
-        :type span: Span
-        :param y: height of the span to draw
-        :type y: int
+        """Draws a span in the given bmp.
+
+        Args:
+            dab (c4d.modules.sculpting.BrushDabData): The brush dab data.
+            bmp (c4d.modules.bodypaint.PaintLayerBmp): The bitmap to draw in
+            span (Span): The span to draw
+            y (int): height of the span to draw
         """
         xdiff = math.ceil(span.x2) - math.floor(span.x1)
         if xdiff == 0:
@@ -159,15 +153,12 @@ class PaintBrushToolHelper(object):
     @staticmethod
     def DrawSpansBetweenEdges(dab, bmp, e1, e2):
         """
-        :param dab: The brush dab data.
-        :type dab: c4d.modules.sculpting.BrushDabData
-        :param bmp: The bitmap to draw in
-        :type bmp: c4d.modules.bodypaint.PaintLayerBmp
-        :param e1: The first edge
-        :type e1: Edge
-        :param e2: The second edge
-        :type e2: Edge
-        :return:
+
+        Args:
+            dab (c4d.modules.sculpting.BrushDabData): The brush dab data.
+            bmp (c4d.modules.bodypaint.PaintLayerBmp): The bitmap to draw in
+            e1 (Edge): The first edge
+            e2 (Edge): The second edge
         """
         # Calculates difference between the y coordinates of the first, second edge and return if 0
         e1ydiff = float(e1.y2 - e1.y1)
@@ -199,30 +190,20 @@ class PaintBrushToolHelper(object):
 
     @staticmethod
     def DrawTriangle(dab, bmp, color1, x1, y1, color2, x2, y2, color3, x3, y3):
-        """
-        Draws a Triangle into the passed PaintLayerBmp.
-        :param dab: The brush dab data.
-        :type dab: c4d.modules.sculpting.BrushDabData
-        :param bmp: The bitmap to draw in
-        :type bmp: c4d.modules.bodypaint.PaintLayerBmp
-        :param color1: Color from (0,1) of the first point
-        :type color1: c4d.Vector
-        :param x1: X position in uv space of the first point
-        :type x1: Union[float, int]
-        :param y1: Y position in uv space of the first point
-        :type y1: Union[float, int]
-        :param color2: Color from (0,1) of the second point
-        :type color2: c4d.Vector
-        :param x2: X position in uv space of the second point
-        :type x2: Union[float, int]
-        :param y2: Y position in uv space of the second point
-        :type y2: Union[float, int]
-        :param color3: Color from (0,1) of the third point
-        :type color3: c4d.Vector
-        :param x3: X position in uv space of the third point
-        :type x3: Union[float, int]
-        :param y3: Y position in uv space of the third point
-        :type y3: Union[float, int]
+        """Draws a Triangle into the passed PaintLayerBmp.
+
+        Args:
+            dab (c4d.modules.sculpting.BrushDabData): The brush dab data.
+            bmp (c4d.modules.bodypaint.PaintLayerBmp): The bitmap to draw in
+            color1 (c4d.Vector): Color from (0,1) of the first point
+            x1 (Union[float, int]): X position in uv space of the first point
+            y1 (Union[float, int]): Y position in uv space of the first point
+            color2 (c4d.Vector): Color from (0,1) of the second point
+            x2 (Union[float, int]): X position in uv space of the second point
+            y2 (Union[float, int]): Y position in uv space of the second point
+            color3 (c4d.Vector): Color from (0,1) of the third point
+            x3 (Union[float, int]): X position in uv space of the third point
+            y3 (Union[float, int]): Y position in uv space of the third point
         """
         # Creates edges for the triangle
         edges = [
@@ -253,27 +234,28 @@ class PaintBrushTool(c4d.plugins.SculptBrushToolData, PaintBrushToolHelper):
     """Inherit from SculptBrushToolData to create your own sculpting tool"""
 
     def GetToolPluginId(self):
-        """
-        Called by Cinema 4D, to know the plugin ID of this tool.
-        :return: The unique id for the tool plugin as obtained from www.plugincafe.com
-        :rtype: int
+        """Called by Cinema 4D, to know the plugin ID of this tool.
+
+        Returns:
+            int: The unique id for the tool plugin as obtained from www.plugincafe.com
         """
         return PLUGIN_ID
 
     def GetResourceSymbol(self):
-        """
-        Called by Cinema 4D, to know the resource to be used for this tool.
-        :return: The resource name of the tool
-        :rtype: str
+        """Called by Cinema 4D, to know the resource to be used for this tool.
+
+        Returns:
+            str: The resource name of the tool
         """
         return "pythonpaintbrush"
 
     def ApplyDab(self, dab):
-        """
-        Called by Cinema 4D, to modify the sculpt object.
-        Implement the brush functionality in this method
-        :param dab: The brush dab data.
-        :type dab: c4d.modules.sculpting.BrushDabData
+        """Called by Cinema 4D, to modify the sculpt object.
+
+        Implement the brush functionality in this method.
+
+        Args:
+            dab (c4d.modules.sculpting.BrushDabData): The brush dab data.
         """
         # Retrieves the strength applied
         strength = dab.GetBrushStrength()

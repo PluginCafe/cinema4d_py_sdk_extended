@@ -14,17 +14,15 @@ Class/method highlighted:
     - GvNode.GetOperatorID()
 
 
-Compatible:
-    - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21, S22, R23
 """
 import c4d
 
 
 def iterateNodes(node):
-    """
-    This function iterates over a BaseList2D, GvNode inherit from BaseList2D.
-    :param node: GvNode to iterate.
+    """This function iterates over a BaseList2D, GvNode inherit from BaseList2D.
+
+    Args:
+        node: GvNode to iterate.
     """
     while node:
         nodeName = node.GetName()

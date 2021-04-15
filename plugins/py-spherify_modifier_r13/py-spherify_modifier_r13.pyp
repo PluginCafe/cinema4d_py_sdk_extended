@@ -19,9 +19,6 @@ Class/method highlighted:
     - ObjectData.SetHandle()
     - ObjectData.Draw()
 
-Compatible:
-    - Win / Mac
-    - R13, R14, R15, R16, R17, R18, R19, R20, R21
 """
 import os
 import sys
@@ -42,11 +39,13 @@ class SpherifyModifier(c4d.plugins.ObjectData):
         self.falloffDirty = True
 
     def Init(self, op):
-        """
-        Called when Cinema 4D Initialize the ObjectData (used to define, default values)
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :return: True on success, otherwise False.
+        """Called when Cinema 4D Initialize the ObjectData (used to define, default values).
+
+        Args:
+            op: (c4d.GeListNode): The instance of the ObjectData.
+
+        Returns:
+            True on success, otherwise False.
         """
         self.InitAttr(op, float, c4d.PYSPHERIFYMODIFIER_RADIUS)
         self.InitAttr(op, float, c4d.PYSPHERIFYMODIFIER_STRENGTH)
@@ -62,37 +61,37 @@ class SpherifyModifier(c4d.plugins.ObjectData):
 
         return True
 
-    def Message(self, node, type, data):
-        """
-        Called by Cinema 4D part to notify the object to a special event
-        :param node: The instance of the ObjectData.
-        :type node: c4d.BaseObject
-        :param msgId: The message ID type.
-        :type msgId: int
-        :param data: The message data.
-        :type data: Any, depends of the message passed.
-        :return: Depends of the message type, most of the time True.
+    def Message(self, node, msgId, data):
+        """Called by Cinema 4D part to notify the object to a special event.
+
+        Args:
+            node (c4d.BaseObject): The instance of the ObjectData.
+            msgId (int): The message ID type.
+            data (Any): The message data, the type depends of the message passed.
+
+        Returns:
+            Depends of the message type, most of the time True.
         """
         # MSG_MENUPREPARE is received when called from the menu, to let some setup work.
         # In the case of this message, the data passed is the BaseDocument the object is inserted
-        if type == c4d.MSG_MENUPREPARE:
+        if msgId == c4d.MSG_MENUPREPARE:
             # Enables deform tick when created from UI
             node.SetDeformMode(True)
 
         # Passes message to falloff
         if self.falloff is not None:
-            self.falloff.Message(type, node.GetDataInstance(), data)
+            self.falloff.Message(msgId, node.GetDataInstance(), data)
 
         return True
 
     def CheckDirty(self, op, doc):
-        """
-        This Method is called automatically when Cinema 4D ask the object his dirtiness.
+        """This Method is called automatically when Cinema 4D ask the object his dirtiness.
+
         If falloff changed, a new computation of the deformer is needed.
-        :param op: The Python Generator 
-        :type op: c4d.BaseObject.
-        :param doc: The document containing the plugin object.
-        :type doc: c4d.documents.BaseDocument 
+
+        Args:
+            op (c4d.BaseObject.): The Python Generator
+            doc (c4d.documents.BaseDocument): The document containing the plugin object.
         """
         if self.falloff is not None:
             # Gets the dirtiness of the falloff.
@@ -104,16 +103,15 @@ class SpherifyModifier(c4d.plugins.ObjectData):
                 op.SetDirty(c4d.DIRTYFLAGS_DATA)
 
     def GetDDescription(self, node, description, flags):
-        """
-        Called by Cinema 4D when the description (UI) is queried.
-        :param node: The instance of the ObjectData.
-        :type node: c4d.GeListNode
-        :param description: The description to modify.
-        :type description: c4d.Description
-        :param flags: The flags for the description operation.
-        :type flags: int
-        :return: The success status or the data to be returned.
-        :rtype: Union[Bool, tuple(bool, Any, DESCFLAGS_DESC)]
+        """Called by Cinema 4D when the description (UI) is queried.
+
+        Args:
+            node (c4d.GeListNode): The instance of the ObjectData.
+            description (c4d.Description): The description to modify.
+            flags (int): The flags for the description operation.
+
+        Returns:
+            Union[Bool, tuple(bool, Any, DESCFLAGS_DESC)]: The success status or the data to be returned.
         """
         data = node.GetDataInstance()
         if data is None:
@@ -134,20 +132,19 @@ class SpherifyModifier(c4d.plugins.ObjectData):
         return True, flags | c4d.DESCFLAGS_DESC_LOADED
 
     def CopyTo(self, dest, snode, dnode, flags, trn):
-        """
-        Called by Cinema 4D when the current object instance is copied.
+        """Called by Cinema 4D when the current object instance is copied.
+
         The purpose is to copy the member variable from source variable to destination variable.
-        :param dest: The new instance of the ObjectData where the data need to be copied.
-        :type dest: c4d.plugins.NodeData
-        :param snode: The source node data, i.e. the current node.
-        :type snode: c4d.GeListNode
-        :param dnode: The new node data where the data need to be copied.
-        :type dnode: c4d.GeListNode
-        :param flags: the copy flags.
-        :type flags: COPYFLAGS
-        :param trn: An alias translator for the operation.
-        :type trn: c4d.AliasTrans
-        :return: True if the data was copied successfully, otherwise False.
+
+        Args:
+            dest (c4d.plugins.NodeData): The new instance of the ObjectData where the data need to be copied.
+            snode (c4d.GeListNode): The source node data, i.e. the current node.
+            dnode (c4d.GeListNode): The new node data where the data need to be copied.
+            flags (COPYFLAGS): the copy flags.
+            trn (c4d.AliasTrans): An alias translator for the operation.
+
+        Returns:
+            True if the data was copied successfully, otherwise False.
         """
 
         if self.falloff is not None and dest.falloff is not None:
@@ -158,25 +155,20 @@ class SpherifyModifier(c4d.plugins.ObjectData):
         return True
 
     def ModifyObject(self, mod, doc, op, op_mg, mod_mg, lod, flags, thread):
-        """
-        Called by Cinema 4D with the object to modify.
-        :param mod: The Python Modifier.
-        :type mod: c4d.BaseObject
-        :param doc: The document containing the plugin object.
-        :type doc: c4d.documents.BaseDocument
-        :param op: The object to modify.
-        :type op: c4d.BaseObject
-        :param op_mg: The object's world matrix.
-        :type op_mg: c4d.Matrix
-        :param mod_mg: The modifier object's world matrix.
-        :type mod_mg: c4d.Matrix
-        :param lod: The level of detail.
-        :type lod: float
-        :param flags: Currently unused.
-        :type flags: int
-        :param thread: The calling thread.
-        :type thread: c4d.threading.BaseThread
-        :return: True if the object was modified, otherwise False.
+        """Called by Cinema 4D with the object to modify.
+
+        Args:
+            mod (c4d.BaseObject): The Python Modifier.
+            doc (c4d.documents.BaseDocument): The document containing the plugin object.
+            op (c4d.BaseObject): The object to modify.
+            op_mg (c4d.Matrix): The object's world matrix.
+            mod_mg (c4d.Matrix): The modifier object's world matrix.
+            lod (float): The level of detail.
+            flags (int): Currently unused.
+            thread (c4d.threading.BaseThread): The calling thread.
+
+        Returns:
+            True if the object was modified, otherwise False.
         """
         # Modifies the point object
         if not op.CheckType(c4d.Opoint):
@@ -237,14 +229,12 @@ class SpherifyModifier(c4d.plugins.ObjectData):
         return True
 
     def GetDimension(self, op, mp, rad):
-        """
-        Called By Cinema to retrieve the bounding box of the generated object (BaseObject.GetRad())
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :param mp: Assign the center point of the bounding box to this vector.
-        :type mp: c4d.Vector
-        :param rad: Assign the XYZ bounding box radius to this vector.
-        :type rad: c4d.Vector
+        """Called By Cinema to retrieve the bounding box of the generated object (BaseObject.GetRad()).
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+            mp (c4d.Vector): Assign the center point of the bounding box to this vector.
+            rad (c4d.Vector): Assign the XYZ bounding box radius to this vector.
         """
         # Checks if one of theses value are None
         radius = op[c4d.PYSPHERIFYMODIFIER_RADIUS]
@@ -256,16 +246,16 @@ class SpherifyModifier(c4d.plugins.ObjectData):
 
         # Assigns the total radius
         rad = c4d.Vector(radius)
-
     """========== Start of Handle Management =========="""
 
     def GetHandleCount(self, op):
-        """
-        Called to get the number of handles the object has. Part of the automated handle interface.
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :return: The number of handles for the object.
-        :rtype: int
+        """Called to get the number of handles the object has. Part of the automated handle interface.
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+
+        Returns:
+            int: The number of handles for the object.
         """
         if self.falloff is not None:
             return self.falloff.GetHandleCount(op.GetDataInstance()) + SpherifyModifier.HANDLECOUNT
@@ -273,14 +263,12 @@ class SpherifyModifier(c4d.plugins.ObjectData):
         return SpherifyModifier.HANDLECOUNT
 
     def GetHandle(self, op, i, info):
-        """
-        Called by Cinema 4D to retrieve the information of a given handle ID to represent a/some parameter(s).
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :param i: The handle index.
-        :type i: int
-        :param info: The HandleInfo to fill with data.
-        :type info: c4d.HandleInfo
+        """Called by Cinema 4D to retrieve the information of a given handle ID to represent a/some parameter(s).
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+            i (int): The handle index.
+            info (c4d.HandleInfo): The HandleInfo to fill with data.
         """
         # Retrieves parameters value from the generator object
         rad = op[c4d.PYSPHERIFYMODIFIER_RADIUS] if op[c4d.PYSPHERIFYMODIFIER_RADIUS] is not None else 200.0
@@ -306,17 +294,15 @@ class SpherifyModifier(c4d.plugins.ObjectData):
                 self.falloff.GetHandle(i - self.HANDLECOUNT, op.GetDataInstance(), info)
 
     def SetHandle(self, op, i, p, info):
-        """
-        Called by Cinema 4D when the user set the handle.
+        """Called by Cinema 4D when the user set the handle.
+
         This is the place to retrieve the information of a given handle ID and drive your parameter(s).
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :param i: The handle index.
-        :type i: int
-        :param p: The new Handle Position.
-        :type p: c4d.Vector
-        :param info: The HandleInfo filled with data.
-        :type info: c4d.HandleInfo
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+            i (int): The handle index.
+            p (c4d.Vector): The new Handle Position.
+            info (c4d.HandleInfo): The HandleInfo filled with data.
         """
         if i < SpherifyModifier.HANDLECOUNT:
             val = p.x
@@ -333,17 +319,17 @@ class SpherifyModifier(c4d.plugins.ObjectData):
                 self.falloff.SetHandle(i - SpherifyModifier.HANDLECOUNT, p, op.GetDataInstance(), info)
 
     def Draw(self, op, drawpass, bd, bh):
-        """
-        Called by Cinema 4d when the display is updated to display some visual element of your object in the 3D view.
-        This is also the place to draw Handle
-        :param op: The instance of the ObjectData.
-        :type op: c4d.BaseObject
-        :param drawpass:
-        :param bd: The editor's view.
-        :type bd: c4d.BaseDraw
-        :param bh: The BaseDrawHelp editor's view.
-        :type bh: c4d.plugins.BaseDrawHelp
-        :return: The result of the drawing (most likely c4d.DRAWRESULT_OK)
+        """Called by Cinema 4D when the display is updated to display some visual element of your object in the 3D view.
+
+        This is also the place to draw handles.
+
+        Args:
+            op (c4d.BaseObject): The instance of the ObjectData.
+            bd (c4d.BaseDraw): The editor's view.
+            bh (c4d.plugins.BaseDrawHelp): The BaseDrawHelp editor's view.
+
+        Returns:
+            The result of the drawing (most likely c4d.DRAWRESULT_OK)
         """
         # If the current draw pass is for object drawing (polygon spline, etc)
         if drawpass == c4d.DRAWPASS_OBJECT:
@@ -419,7 +405,6 @@ class SpherifyModifier(c4d.plugins.ObjectData):
             return c4d.DRAWRESULT_SKIP
 
         return c4d.DRAWRESULT_OK
-
     """========== End of Handle Management =========="""
 
 
