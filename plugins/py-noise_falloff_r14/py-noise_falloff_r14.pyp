@@ -187,7 +187,7 @@ class NoiseFalloff(c4d.plugins.FalloffData, NoiseFalloffHelper):
         self.type = bc.GetInt32(c4d.PYNOISEFALLOFF_TYPE)
         self.octaves = bc.GetFloat(c4d.PYNOISEFALLOFF_OCTAVES)
         self.absolute = bc.GetBool(c4d.PYNOISEFALLOFF_ABSOLUTE)
-        self.sampling = bc.GetInt32(c4d.PYNOISEFALLOFF_SAMPLING) is 0
+        self.sampling = bc.GetInt32(c4d.PYNOISEFALLOFF_SAMPLING) == 0
         self.sampleRad = bc.GetFloat(c4d.PYNOISEFALLOFF_SAMPRAD)
         self.detailAtt = bc.GetFloat(c4d.PYNOISEFALLOFF_DETATT)
         self.repeat = bc.GetInt32(c4d.PYNOISEFALLOFF_REPEAT)

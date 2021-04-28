@@ -128,6 +128,7 @@ class TextureBakerHelper(object):
         if uvwTag is None:
             self.SetString(self.infoText, "Bake Init Failed: No uv tag found")
             return
+
         tags = obj.GetTags()
         textags, texuvws, destuvws = [], [], []
         for tag in tags:
@@ -135,6 +136,10 @@ class TextureBakerHelper(object):
                 textags.append(tag)
                 texuvws.append(uvwTag)
                 destuvws.append(uvwTag)
+
+        if len(textags) == 0:
+            self.SetString(self.infoText, "Bake Init Failed: No texture tag found")
+            return
 
         # Initializes and start texture baker thread
         self.aborted = False

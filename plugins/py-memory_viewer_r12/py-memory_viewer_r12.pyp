@@ -168,7 +168,7 @@ class MemoryViewerDialog(c4d.gui.GeDialog):
         self.GroupEnd()
 
         # Adds a separator
-        self.AddSeparatorH(inith=0)
+        self.AddSeparatorH(initw=0)
 
         # Adds the User Area
         if self.GroupBegin(id=0, flags=c4d.BFH_SCALEFIT | c4d.BFV_SCALEFIT, title="", rows=1, cols=1, groupflags=c4d.BORDER_GROUP_IN):

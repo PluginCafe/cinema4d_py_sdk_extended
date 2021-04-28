@@ -171,7 +171,7 @@ class IESMetaSaver(c4d.plugins.SceneSaverData, IESMetaSaverHelper):
         if len(iesMetaList) == 0:
             # Defines the warning method according if we are allowed to displayed Dialog box or not
             displayFn = c4d.gui.MessageDialog if filterflags & c4d.SCENEFILTER_DIALOGSALLOWED else __builtins__["print"]
-            displayFn(c4d.FILEERROR_NONE)
+            displayFn("There is no IES file to export in the current document")
             return c4d.FILEERROR_NONE
 
         # Opens the file in write mode

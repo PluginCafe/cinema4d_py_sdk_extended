@@ -8,10 +8,9 @@ This folder contains plugins that should be copied in the plugins folder of Cine
 ## CommandData
 A data class for creating command plugins. (Previously known as menu plugins.)
 
-### py-cv_rss
+### py-commanddata_dialog
 
-    Creates a Dialog which display the latest RSS feed of Cineversity.
-    Opens the web browser of the current displayed news when the user click a button.
+    Creates a Dialog which display 2 buttons OK and Cancel.
     
 ### py-memory_viewer
 
