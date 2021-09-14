@@ -26,7 +26,7 @@ def main():
     doc.InsertObject(cube)
 
     # Makes it editable and finally insert it as child of Voronoi Fracture object
-    editable = c4d.utils.SendModelingCommand(c4d.MCOMMAND_MAKEEDITABLE, list=[cube], mode=c4d.MODIFY_ALL, doc=doc)
+    editable = c4d.utils.SendModelingCommand(c4d.MCOMMAND_MAKEEDITABLE, list=[cube], mode=c4d.MODELINGCOMMANDMODE_ALL, doc=doc)
     if not editable:
         raise RuntimeError("Failed to do the SendModelingCommand operation.")
     doc.InsertObject(editable[0], parent=voronoi)

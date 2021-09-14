@@ -88,7 +88,7 @@ def main():
             null.SetName(str(frame))
 
             # Inserts the objects into the documents
-            doc.AddUndo(c4d.UNDOTYPE_NEW, null)
+            doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, null)
             doc.InsertObject(null)
 
             # Defines the position of the null with the position of the point from the deformed mesh

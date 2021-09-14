@@ -341,7 +341,7 @@ class SpherifyModifier(c4d.plugins.ObjectData):
 
             if self.falloff is not None and not skipFalloff:
                 if not self.falloff.InitFalloff(op.GetDataInstance(), bh.GetDocument(), op):
-                    return c4d.DRAWRESULT_ERROR
+                    return c4d.DRAWRESULT_FAILURE
 
             # Retrieves the object color
             bd.SetPen(bd.GetObjectColor(bh, op))

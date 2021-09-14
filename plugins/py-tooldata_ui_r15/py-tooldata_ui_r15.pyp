@@ -250,7 +250,7 @@ class ToolDataWithUiExample(c4d.plugins.ToolData):
             doc.StartUndo()
 
         # Adds an undo step
-        doc.AddUndo(c4d.UNDO_NEW, cloned)
+        doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, cloned)
 
         # Inserts the cloned object in the active document.
         doc.InsertObject(cloned)

@@ -62,7 +62,7 @@ def main():
     obj = c4d.BaseObject(c4d.Ocube)
 
     # Creates the track in memory. Defined by it's DescID
-    trackY = c4d.CTrack(obj, c4d.DescID(c4d.DescLevel(c4d.ID_BASEOBJECT_POSITION, c4d.DTYPE_VECTOR, 0),
+    trackY = c4d.CTrack(obj, c4d.DescID(c4d.DescLevel(c4d.ID_BASEOBJECT_REL_POSITION, c4d.DTYPE_VECTOR, 0),
                                         c4d.DescLevel(c4d.VECTOR_Y, c4d.DTYPE_REAL, 0)))
 
     # Gets curves for the track

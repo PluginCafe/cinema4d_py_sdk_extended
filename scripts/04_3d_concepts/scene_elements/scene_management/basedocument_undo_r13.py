@@ -30,19 +30,19 @@ def main():
 
     # Inserts a Material into the active document
     doc.InsertMaterial(mat)
-    doc.AddUndo(c4d.UNDOTYPE_NEW, mat)
+    doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, mat)
 
     # Inserts both objects
     doc.InsertObject(null)
-    doc.AddUndo(c4d.UNDOTYPE_NEW, null)
+    doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, null)
 
     # Inserts both objects
     doc.InsertObject(cube)
-    doc.AddUndo(c4d.UNDOTYPE_NEW, cube)
+    doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, cube)
 
     # Inserts the Texture Tag to the cube object
     cube.InsertTag(textureTag)
-    doc.AddUndo(c4d.UNDOTYPE_NEW, textureTag)
+    doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, textureTag)
 
     # Defines the material used in the Texture Tag to our material
     doc.AddUndo(c4d.UNDOTYPE_CHANGE, textureTag)
@@ -60,7 +60,7 @@ def main():
     cube.InsertUnderLast(null)
 
     # Delete the Texture Tag
-    doc.AddUndo(c4d.UNDOTYPE_DELETE, textureTag)
+    doc.AddUndo(c4d.UNDOTYPE_DELETEOBJ, textureTag)
     textureTag.Remove()
 
     # Defines the final state of the scene

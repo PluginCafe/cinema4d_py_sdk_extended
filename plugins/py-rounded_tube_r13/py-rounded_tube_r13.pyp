@@ -227,7 +227,7 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
         """
         # Disable the following lines because cache flag was set
         # So the cache build is done before this method is called
-        # dirty = op.CheckCache(hierarchyhelp) or op.IsDirty(c4d.DIRTY_DATA)
+        # dirty = op.CheckCache(hierarchyhelp) or op.IsDirty(c4d.DIRTYFLAGS_DATA)
         # if dirty is False: return op.GetCache(hierarchyhelp)
 
         # Retrieves parameters value from the generator object

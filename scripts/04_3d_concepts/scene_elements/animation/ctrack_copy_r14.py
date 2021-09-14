@@ -38,7 +38,7 @@ def main():
 
     # Defines a list that will contains the ID of parameters we want to copy.
     # Such ID can be found by drag-and-drop a parameter into the python console.
-    trackListToCopy = [c4d.ID_BASEOBJECT_POSITION, c4d.ID_BASEOBJECT_ROTATION, c4d.ID_BASEOBJECT_SCALE]
+    trackListToCopy = [c4d.ID_BASEOBJECT_REL_POSITION, c4d.ID_BASEOBJECT_REL_ROTATION, c4d.ID_BASEOBJECT_REL_SCALE]
 
     # Start the Undo process.
     doc.StartUndo()
@@ -56,7 +56,7 @@ def main():
         foundTrack = fixedBox.FindCTrack(did)
         if foundTrack:
             # Removes the track if found.
-            doc.AddUndo(c4d.UNDOTYPE_DELETE, foundTrack)
+            doc.AddUndo(c4d.UNDOTYPE_DELETEOBJ, foundTrack)
             foundTrack.Remove()
 
         # Copies the initial CTrack in memory. All CCurve and CKey are kept in this CTrack.
@@ -64,7 +64,7 @@ def main():
 
         # Inserts the copied CTrack to the static object.
         fixedBox.InsertTrackSorted(clone)
-        doc.AddUndo(c4d.UNDOTYPE_NEW, clone)
+        doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, clone)
 
     # Ends the Undo Process.
     doc.EndUndo()

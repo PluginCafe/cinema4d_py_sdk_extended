@@ -128,14 +128,14 @@ class LiquidTool(c4d.plugins.ToolData):
             raise MemoryError("Failed to create a Phong Tag.")
 
         # Adds an undo step
-        doc.AddUndo(c4d.UNDO_NEW, metaball)
+        doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, metaball)
 
         # Inserts the object in the active document and set it as active one.
         doc.InsertObject(metaball)
         doc.SetActiveObject(metaball)
 
         # Updates the Viewport (so the metaball is drawn)
-        c4d.DrawViews(c4d.DA_ONLY_ACTIVE_VIEW | c4d.DA_NO_THREAD | c4d.DA_NO_ANIMATION)
+        c4d.DrawViews(c4d.DRAWFLAGS_ONLY_ACTIVE_VIEW | c4d.DRAWFLAGS_NO_THREAD | c4d.DRAWFLAGS_NO_ANIMATION)
 
         # Retrieves the X/Y screen position of the mouse.
         mx = msg[c4d.BFM_INPUT_X]
@@ -171,7 +171,7 @@ class LiquidTool(c4d.plugins.ToolData):
             sphere.InsertUnder(metaball)
 
             # Updates the Viewport (so the metaball with the newly created sphere is drawn)
-            c4d.DrawViews(c4d.DA_ONLY_ACTIVE_VIEW | c4d.DA_NO_THREAD | c4d.DA_NO_ANIMATION)
+            c4d.DrawViews(c4d.DRAWFLAGS_ONLY_ACTIVE_VIEW | c4d.DRAWFLAGS_NO_THREAD | c4d.DRAWFLAGS_NO_ANIMATION)
 
             # Updates drag information
             result, dx, dy, channel = win.MouseDrag()

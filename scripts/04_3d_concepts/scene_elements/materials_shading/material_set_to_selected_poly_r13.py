@@ -31,7 +31,7 @@ def AssignMatToObject(obj, matList, onlyToSelection=False):
     for mat in matList:
         # Creates the texture Tag
         textureTag = obj.MakeTag(c4d.Ttexture)
-        doc.AddUndo(c4d.UNDOTYPE_NEW, textureTag)
+        doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, textureTag)
 
         # If the texture tag is not available at this point, something went wrong
         if textureTag is None:
@@ -63,7 +63,7 @@ def AssignMatToObject(obj, matList, onlyToSelection=False):
 
         # Creates the selection tag
         selectionTag = obj.MakeTag(c4d.Tpolygonselection)
-        doc.AddUndo(c4d.UNDOTYPE_NEW, selectionTag)
+        doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, selectionTag)
 
         # Checks if there was no error during the creation of the selection tag
         if selectionTag is None:

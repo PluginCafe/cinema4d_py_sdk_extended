@@ -23,6 +23,7 @@ import math
 
 QUARTER_PI = math.pi * .25
 
+
 def ReadNormalTag(tag):
     """Reads a c4d.NormalTag to a list of c4d.Vector.
 
@@ -58,6 +59,7 @@ def ReadNormalTag(tag):
                        data[i-2] * factor,
                        data[i-1] * factor)
             for i in range(3, len(data) + 3, 3)]
+
 
 def WriteNormalTag(tag, normals, doNormalize=True):
     """Writes a list of c4d.Vector to a c4d.NormalTag.
@@ -106,6 +108,7 @@ def WriteNormalTag(tag, normals, doNormalize=True):
     data = data.tobytes()
     buffer[:len(data)] = data
 
+
 def main():
     """Entry point."""
     # Raise an error when the primary selection is not a PolygonObject.
@@ -128,7 +131,7 @@ def main():
 
     # Get the normals from the newly allocated NormalTag.
     normals = ReadNormalTag(normalTag)
-    print (f"Normals of the newly allocated tag: {normals}")
+    print(f"Normals of the newly allocated tag: {normals}")
 
     # This should not happen.
     if len(phongNormals) != len(normals):
@@ -139,20 +142,21 @@ def main():
 
     # Inspect our write operation in the console.
     normals = ReadNormalTag(normalTag)
-    print (f"Normals after writing the phong normals: {normals}")
+    print(f"Normals after writing the phong normals: {normals}")
 
     # Start an undo block.
     doc.StartUndo()
     # Insert our NormalTag.
     op.InsertTag(normalTag)
     # For insertions the undo has to be added after the operation.
-    doc.AddUndo(c4d.UNDOTYPE_NEW, normalTag)
+    doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, normalTag)
     # End the undo block.
     doc.EndUndo()
 
     # Notify Cinema and the object that we did made changes.
     op.Message(c4d.MSG_UPDATE)
     c4d.EventAdd()
+
 
 if __name__ == "__main__":
     main()

@@ -23,7 +23,7 @@ def main():
         raise RuntimeError("Failed to retrieve the description.")
 
     # Builds the object's X position parameter DescID
-    descId = c4d.DescID(c4d.DescLevel(c4d.ID_BASEOBJECT_POSITION, 0, 0), c4d.DescLevel(c4d.VECTOR_X, 0, 0))
+    descId = c4d.DescID(c4d.DescLevel(c4d.ID_BASEOBJECT_REL_POSITION, 0, 0), c4d.DescLevel(c4d.VECTOR_X, 0, 0))
 
     # Prints previously built DescID
     print(descId)

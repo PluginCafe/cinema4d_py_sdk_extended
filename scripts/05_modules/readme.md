@@ -26,6 +26,8 @@ Cinema 4D's functionality is extended with these modules.
 
 <!---  * **particles**: *The basic particle system provides a simple particle generator and basic effectors.* -->
 
+* **node**: *The node API allow you to manipulate nodes in both the materials and scene.*
+
 * **snap**: *The snap module lets you access to the snap settings, quantifying options, workplane etc.*
 
 <!---  * **sculpting**: *The Sculpting module allows to edit high-poly meshes using special sculpting tools.* -->

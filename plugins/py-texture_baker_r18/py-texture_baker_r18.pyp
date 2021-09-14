@@ -82,7 +82,7 @@ class TextureBakerThread(c4d.threading.C4DThread):
             return False
 
         # Starts bake thread
-        self.Start(c4d.THREADMODE_ASYNC, c4d.THREADPRIORITY_BELOW)
+        self.Start(c4d.THREADMODE_ASYNC, c4d.THREADPRIORITEXY_BELOW)
 
         return True
 
