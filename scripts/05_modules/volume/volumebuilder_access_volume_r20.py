@@ -12,7 +12,6 @@ Class/method highlighted:
 """
 import c4d
 import maxon
-from maxon.frameworks import volume
 
 
 def main():

@@ -7,13 +7,12 @@ Description:
 
 Class/method highlighted:
     - Ovolume.SetVolume()
-    - maxon.frameworks.volume.VolumeToolsInterface.CreateSphereVolume()
-    - maxon.frameworks.volume.VolumeToolsInterface.CreateGradient()
+    - maxon.VolumeToolsInterface.CreateSphereVolume()
+    - maxon.VolumeToolsInterface.CreateGradient()
 
 """
 import c4d
 import maxon
-from maxon.frameworks import volume
 
 
 def main():
@@ -24,15 +23,15 @@ def main():
         raise MemoryError("Failed to create a volume object.")
 
     # Creates a Sphere Volume
-    sphereVolume = maxon.frameworks.volume.VolumeToolsInterface.CreateSphereVolume(maxon.Float(100.0),
-                                                                                   maxon.Vector(0, 100, 0),
-                                                                                   maxon.Float(1.0),
-                                                                                   maxon.Int32(2),
-                                                                                   maxon.ThreadRef(),
-                                                                                   None)
+    sphereVolume = maxon.VolumeToolsInterface.CreateSphereVolume(maxon.Float(100.0),
+                                                                 maxon.Vector(0, 100, 0),
+                                                                 maxon.Float(1.0),
+                                                                 maxon.Int32(2),
+                                                                 maxon.ThreadRef(),
+                                                                 None)
 
     # Fills the volume with a Gradient
-    gradientVolume = maxon.frameworks.volume.VolumeToolsInterface.CreateGradientVolume(sphereVolume, maxon.ThreadRef())
+    gradientVolume = maxon.VolumeToolsInterface.CreateGradientVolume(sphereVolume, maxon.ThreadRef())
 
     # Sets the VolumeRef in the Volume Object and insert it in the scene
     volumeObj.SetVolume(gradientVolume)

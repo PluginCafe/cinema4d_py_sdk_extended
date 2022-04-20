@@ -6,15 +6,14 @@ Description:
     - Create a volume from scratch and assign values to voxels.
 
 Class/method highlighted:
-    - maxon.frameworks.volume.VolumeToolsInterface.CreateNewFloat32Volume()
-    - maxon.frameworks.volume.GridAccessorInterface
+    - maxon.VolumeToolsInterface.CreateNewFloat32Volume()
+    - maxon.GridAccessorInterface
     - GridAccessorRef.SetValue()
 
 
 """
 import c4d
 import maxon
-from maxon.frameworks import volume
 
 
 def main():
@@ -27,7 +26,7 @@ def main():
     doc.InsertObject(volumeObj, None, None)
 
     # Creates volume
-    volume = maxon.frameworks.volume.VolumeToolsInterface.CreateNewFloat32Volume(0.0)
+    volume = maxon.VolumeToolsInterface.CreateNewFloat32Volume(0.0)
     if volume is None:
         raise MemoryError("Failed to create a float32 volume.")
 
@@ -39,7 +38,7 @@ def main():
     volume.SetGridTransform(scaleMatrix)
 
     # Creates accessor
-    access = maxon.frameworks.volume.GridAccessorInterface.Create(maxon.Float32)
+    access = maxon.GridAccessorInterface.Create(maxon.Float32)
     if access is None:
         raise RuntimeError("Failed to retrieve the grid accessor.")
 

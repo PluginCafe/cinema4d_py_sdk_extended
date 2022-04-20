@@ -6,13 +6,12 @@ Description:
     - Reads the Float value of the first channel available from a Volume stored in a Volume Builder.
 
 Class/method highlighted:
-    - maxon.frameworks.volume.GridAccessorInterface
+    - maxon.GridAccessorInterface
     - GridAccessorRef.GetValue()
 
 """
 import c4d
 import maxon
-from maxon.frameworks import volume
 
 
 def main():
@@ -36,10 +35,10 @@ def main():
     # Gets the Volume object linked to this Ovolume object.
     volume = cache.GetVolume()
     if volume is None:
-        raise RuntimeError("Failed to retrieve the maxon.frameworks.volume.VolumeRef.")
+        raise RuntimeError("Failed to retrieve the maxon.VolumeRef.")
 
     # Initializes a Float Grid with our existing volume data
-    access = maxon.frameworks.volume.GridAccessorInterface.Create(maxon.Float32)
+    access = maxon.GridAccessorInterface.Create(maxon.Float32)
     access.Init(volume)
 
     # Reads the Float value stored at the c4d.Vector(0, 0, 0) position

@@ -8,13 +8,12 @@ Description:
 Class/method highlighted:
     - c4d.VolumeObject
     - VolumeObject.GetVolume()
-    - maxon.frameworks.volume.VolumeToolsInterface.CreateCurlVolume()
+    - maxon.VolumeToolsInterface.CreateCurlVolume()
     - VolumeObject.SetVolume()
 
 """
 import c4d
 import maxon
-from maxon.frameworks import volume
 
 
 def main():
@@ -45,7 +44,7 @@ def main():
         raise RuntimeError("Failed to retrieve the core volume, most likely there is no volume set.")
 
     # Creates a new curl volume based on the vector VolumeRef we retrieved
-    curlVecVolume = volume.VolumeToolsInterface.CreateCurlVolume(vecVolume, maxon.ThreadRef())
+    curlVecVolume = maxon.VolumeToolsInterface.CreateCurlVolume(vecVolume, maxon.ThreadRef())
 
     # Creates a Volume Object
     volumeObj = c4d.BaseObject(c4d.Ovolume)

@@ -41,3 +41,10 @@ Classic API:
 
     Loops over all shaders of the active material.
     If it's a LayerShader, loops over all layers and print its name.
+
+### shader_variation
+
+    Creates a material and add a variation shader, adds some layers and updates parameters
+    The variation shader allow to add some layers and defines the texture links with python and c++
+    To "simulate" the button pressed, we need to define the right parameter with a value of 0. This will trigger the event
+    that will execute the function corresponding to the button pressed.

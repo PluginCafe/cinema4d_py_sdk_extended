@@ -16,6 +16,10 @@ Maxon API:
 
 ## Examples
 
+### load_python_script
+
+	Handle the scripts managed by the Script Manager programmatically.
+
 ### reg_plugin_info
 
     Stores plugin information.

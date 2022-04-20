@@ -9,14 +9,13 @@ Description:
 
 Class/method highlighted:
     - maxon.Url
-    - maxon.frameworks.VolumeInterface.CreateFromFile()
+    - maxon.VolumeInterface.CreateFromFile()
     - c4d.modules.volume.VolumeObject
     - VolumeObject.SetVolume()
 
 """
 import c4d
 import maxon
-from maxon.frameworks import volume
 
 
 def main():
@@ -36,7 +35,7 @@ def main():
 
     # Creates a VolumeRef from the url
     try:
-        volumeRef = volume.VolumeInterface.CreateFromFile(url, 1.0, 0)
+        volumeRef = maxon.VolumeInterface.CreateFromFile(url, 1.0, 0)
     except IOError:
         raise IOError("Failed to load the VDB file.")
 

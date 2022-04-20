@@ -32,9 +32,12 @@ Maxon API:
     Creates a Luka Noise into a BaseBitmap.
     Displays this BaseBitmap into the Picture Viewer.
 
+### datatype_gradient
+
+    Showcases the usage of the custom data type c4d.Gradient.
+
 ### icondata_basic
  
-
     Displays the icon of the selected object into the Picture Viewer.
     Before R21 it's possible to call BaseList2D.GetIcon which will returns a dictionary representing an IconData.
 

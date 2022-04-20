@@ -9,15 +9,14 @@ Description:
 Class/method highlighted:
     - maxon.Vector
     - maxon.BaseArray
-    - maxon.frameworks.volume.VolumeRef
-    - maxon.frameworks.volume.VolumeConversionPolygon
-    - maxon.frameworks.volume.VolumeToolsInterface.MeshToVolume()
-    - maxon.frameworks.volume.VolumeToolsInterface.SaveVDBFile()
+    - maxon.VolumeRef
+    - maxon.VolumeConversionPolygon
+    - maxon.VolumeToolsInterface.MeshToVolume()
+    - maxon.VolumeToolsInterface.SaveVDBFile()
 
 """
 import c4d
 import maxon
-from maxon.frameworks import volume
 import os
 
 
@@ -36,10 +35,10 @@ def polygonToVolume(obj):
         vertices[i] = pt * matrix
 
     # Sets polygons
-    polygons = maxon.BaseArray(maxon.frameworks.volume.VolumeConversionPolygon)
+    polygons = maxon.BaseArray(maxon.VolumeConversionPolygon)
     polygons.Resize(obj.GetPolygonCount())
     for i, poly in enumerate(obj.GetAllPolygons()):
-        newPoly = maxon.frameworks.volume.VolumeConversionPolygon()
+        newPoly = maxon.VolumeConversionPolygon()
         newPoly.a = poly.a
         newPoly.b = poly.b
         newPoly.c = poly.c
@@ -63,18 +62,18 @@ def polygonToVolume(obj):
 
     # Before R21
     if c4d.GetC4DVersion() < 21000:
-        volumeRef = maxon.frameworks.volume.VolumeToolsInterface.MeshToVolume(vertices,
-                                                                              polygons, polygonObjectMatrix,
-                                                                              gridSize,
-                                                                              bandWidthInterior, bandWidthExterior,
-                                                                              thread, None)
+        volumeRef = maxon.VolumeToolsInterface.MeshToVolume(vertices,
+                                                            polygons, polygonObjectMatrix,
+                                                            gridSize,
+                                                            bandWidthInterior, bandWidthExterior,
+                                                            thread, None)
     else:
-        volumeRef = maxon.frameworks.volume.VolumeToolsInterface.MeshToVolume(vertices,
-                                                                              polygons, polygonObjectMatrix,
-                                                                              gridSize,
-                                                                              bandWidthInterior, bandWidthExterior,
-                                                                              thread,
-                                                                              maxon.POLYGONCONVERSIONFLAGS.NONE, None)
+        volumeRef = maxon.VolumeToolsInterface.MeshToVolume(vertices,
+                                                            polygons, polygonObjectMatrix,
+                                                            gridSize,
+                                                            bandWidthInterior, bandWidthExterior,
+                                                            thread,
+                                                            maxon.POLYGONCONVERSIONFLAGS.NONE, None)
     
     return volumeRef
 
@@ -97,7 +96,7 @@ def main():
         filePath += ".vdb"
 
     # Creates a maxon.BaseArray with all our obj, we want to convert
-    volumesArray = maxon.BaseArray(maxon.frameworks.volume.VolumeRef)
+    volumesArray = maxon.BaseArray(maxon.VolumeRef)
     volumesArray.Resize(len(objList))
     for i, obj in enumerate(objList):
         volumesArray[i] = polygonToVolume(obj)
@@ -107,7 +106,7 @@ def main():
     scale = 1.0
     metaData = maxon.DataDictionary()
     try:
-        maxon.frameworks.volume.VolumeToolsInterface.SaveVDBFile(path, scale, volumesArray, metaData)
+        maxon.VolumeToolsInterface.SaveVDBFile(path, scale, volumesArray, metaData)
     except IOError:
         raise IOError("Failed to Save the VDB file.")
 

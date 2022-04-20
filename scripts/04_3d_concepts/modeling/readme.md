@@ -1,31 +1,23 @@
 # Modeling
+Both the classic API and the maxon API provide types of geometry representations and modeling tools for them. The maxon API represents geometry with Scene Nodes, which are currently not yet documented in Python. Documented are here the classic API geometry representations and the modelling tools which exist for them, both in the classic and maxon API.
 
-The classic Cinema 4D provides the base classes for modeling in Cinema 4D. The MAXON API provides further, advanced modeling tools.
+## geometry
+Provides examples for the fundamental geometry types `PointObject`, `SplineObject`, `PolygonObject`, `LineObject`, and `Cpolygon`, how to construct and manipulate them, as well as for the concept of caches used by them. The manipulation and construction examples provided here are of more fundamental nature. For using existing modeling tools, see the section *modeling_commands*.
 
-Modeling operations can be performed directly on the edited object or with the c4d.utils.SendModelingCommand() function.
+## modeling_commands
+Provides examples for executing builtin modeling tools as the *Extrude* or *Current State to Object* tool with the function `SendModellingCommand`.
 
-Classic API:
-- **c4d.PointObject**: *Base class for objects that contain points.*
-- **c4d.SplineObject**: *Represents a Spline object based on PointObject.*
-- **c4d.PolygonObject**: *Represents a Polygon object based on PointObject.*
-- **c4d.utils.PolygonReduction**: *Reduces the polygon count of a given PolygonObject while retaining its overall shape.*
-- **c4d.VertexColorTag**: *A c4d.VariableTag that stores RGBA colors for the polygons of the host polygon object*
-- **c4d.UVWTag**: *Stores UVW coordinates for a (polygon) object. For each polygon a set of four UVW coordinates is stored*
-- **c4d.NormalTag**: *Stores normal vectors for a (polygon) object. For each polygon a set of four vectors is stored.*
+## polygon_reduction
+Provides examples for reducing the polygon count of `PolygonObject` instances while retaining their shape with the `PolygonReduction` type.
 
-Maxon API:
-- **maxon.frameworks.mesh_misc**: *Contains class to Get/Set mesh attributes from a c4d.CustomDataTag.*
+## uvw_tag
+Provides examples for the type `VertexColorTag` which storing per vertex color information for `PolygonObject` instances.
 
-## Content
+## vertex_color_tag
+Provides examples for the type `VertexColorTag`, a tag storing per vertex color information for a `PolygonObject` instance which can be used in shaders.
 
-* **polygon_reduction**: *Reduces the polygon count of a given PolygonObject while retaining its overall shape.*
+## read_write_normal_tag.py
+Provides an example for reading normal data from and writing normal data to the type `NormalTag`.
 
-* **vertex_color_tag**: *Adds additional color information to a polygon object*
 
-## Examples
 
-### read_write_normal_tag
-
-    Reads and Write the Raw Data of a Normal Tag.
-    Normals are stored for each vertex of each polygon.
-    Raw Data normal structure for one polygon is 12 int16 value (4 vectors for each vertex of a Cpolygon * 3 components for each vector) even if the Cpolygon is a Triangle.

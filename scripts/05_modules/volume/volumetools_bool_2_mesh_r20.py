@@ -10,16 +10,15 @@ Description:
 Class/method highlighted:
     - maxon.Vector
     - maxon.BaseArray
-    - maxon.frameworks.volume.VolumeRef
-    - maxon.frameworks.volume.VolumeConversionPolygon
-    - maxon.frameworks.volume.VolumeToolsInterface.MeshToVolume()
-    - maxon.frameworks.volume.VolumeToolsInterface.BoolVolumes()
-    - maxon.frameworks.volume.VolumeToolsInterface.VolumeToMesh()
+    - maxon.VolumeRef
+    - maxon.VolumeConversionPolygon
+    - maxon.VolumeToolsInterface.MeshToVolume()
+    - maxon.VolumeToolsInterface.BoolVolumes()
+    - maxon.VolumeToolsInterface.VolumeToMesh()
 
 """
 import c4d
 import maxon
-from maxon.frameworks import volume
 
 
 def polygonToVolume(obj):
@@ -37,10 +36,10 @@ def polygonToVolume(obj):
         vertices[i] = pt * matrix
 
     # Sets polygons
-    polygons = maxon.BaseArray(maxon.frameworks.volume.VolumeConversionPolygon)
+    polygons = maxon.BaseArray(maxon.VolumeConversionPolygon)
     polygons.Resize(obj.GetPolygonCount())
     for i, poly in enumerate(obj.GetAllPolygons()):
-        newPoly = maxon.frameworks.volume.VolumeConversionPolygon()
+        newPoly = maxon.VolumeConversionPolygon()
         newPoly.a = poly.a
         newPoly.b = poly.b
         newPoly.c = poly.c
@@ -67,18 +66,18 @@ def polygonToVolume(obj):
 
     # Before R21
     if c4d.GetC4DVersion() < 21000:
-        volumeRef = maxon.frameworks.volume.VolumeToolsInterface.MeshToVolume(vertices,
-                                                                              polygons, polygonObjectMatrix,
-                                                                              gridSize,
-                                                                              bandWidthInterior, bandWidthExterior,
-                                                                              thread, None)
+        volumeRef = maxon.VolumeToolsInterface.MeshToVolume(vertices,
+                                                            polygons, polygonObjectMatrix,
+                                                            gridSize,
+                                                            bandWidthInterior, bandWidthExterior,
+                                                            thread, None)
     else:
-        volumeRef = maxon.frameworks.volume.VolumeToolsInterface.MeshToVolume(vertices,
-                                                                              polygons, polygonObjectMatrix,
-                                                                              gridSize,
-                                                                              bandWidthInterior, bandWidthExterior,
-                                                                              thread,
-                                                                              maxon.POLYGONCONVERSIONFLAGS.NONE, None)
+        volumeRef = maxon.VolumeToolsInterface.MeshToVolume(vertices,
+                                                            polygons, polygonObjectMatrix,
+                                                            gridSize,
+                                                            bandWidthInterior, bandWidthExterior,
+                                                            thread,
+                                                            maxon.POLYGONCONVERSIONFLAGS.NONE, None)
     return volumeRef
 
 
@@ -112,10 +111,10 @@ def main():
         raise RuntimeError("Failed to convert second obj to volume.")
 
     # Does the mix operation on the volume
-    finalVolume = maxon.frameworks.volume.VolumeToolsInterface.BoolVolumes(vol1, vol2, c4d.BOOLTYPE_DIFF)
+    finalVolume = maxon.VolumeToolsInterface.BoolVolumes(vol1, vol2, c4d.BOOLTYPE_DIFF)
 
     # Converts the volume to object and insert it in the scene
-    obj = maxon.frameworks.volume.VolumeToolsInterface.VolumeToMesh(finalVolume, 0, 0.05)
+    obj = maxon.VolumeToolsInterface.VolumeToMesh(finalVolume, 0, 0.05)
     doc.InsertObject(obj)
 
     # Pushes an update event to Cinema 4D

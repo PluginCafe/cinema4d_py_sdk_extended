@@ -6,6 +6,8 @@ Cinema 4D's functionality is extended with these modules.
 
 ## Content
 
+* **assets**: *Provide content as reusable assets served with the Cinema 4D Asset Browser.*
+
 * **batch_render**: *The batch renderer allows to organize multiple rendering jobs in a render queue.*
 
 * **bodypaint**: *BodyPaint is a module that allows drawing bitmap textures on polygon objects. The BodyPaint API allows to access the edited textures.*

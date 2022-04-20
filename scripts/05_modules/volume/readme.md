@@ -8,8 +8,8 @@ Classic API:
 
 Maxon API:
 - **maxon.frameworks.volume**: *The main module to handle c4d.VolumeObject directly.*
-- **maxon.frameworks.volume.VolumeToolsInterface**: *Helper interface to handle volumes.*
-- **maxon.frameworks.volume.GridAccessorInterface**: *Interface to iterate volumes.*
+- **maxon.VolumeToolsInterface**: *Helper interface to handle volumes.*
+- **maxon.GridAccessorInterface**: *Interface to iterate volumes.*
 
 ## Examples
 

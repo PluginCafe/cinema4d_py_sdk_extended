@@ -8,12 +8,11 @@ Description:
 Class/method highlighted:
     - maxon.Url
     - maxon.DataDictionary
-    - maxon.frameworks.volume.VolumeToolsInterface.LoadVDBFile()
+    - maxon.VolumeToolsInterface.LoadVDBFile()
 
 """
 import c4d
 import maxon
-from maxon.frameworks import volume
 
 
 def main():
@@ -32,7 +31,7 @@ def main():
     metaData = maxon.DataDictionary()
     volumeArr = None
     try:
-        volumeArr = maxon.frameworks.volume.VolumeToolsInterface.LoadVDBFile(path, scale, gridNames, gridIndices, metaData)
+        volumeArr = maxon.VolumeToolsInterface.LoadVDBFile(path, scale, gridNames, gridIndices, metaData)
     except Exception as e:
         print("LoadVDBFile error {}, {}".format(e, e.args))
 

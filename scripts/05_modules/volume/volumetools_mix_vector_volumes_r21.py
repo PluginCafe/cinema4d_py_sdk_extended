@@ -8,18 +8,17 @@ Description:
     - Inserts all 3 volumes into the scene.
 
 Class/method highlighted:
-    - maxon.frameworks.volume.VolumeToolsInterface.CreateNewVector32Volume()
-    - maxon.frameworks.volume.GridAccessorInterface
+    - maxon.VolumeToolsInterface.CreateNewVector32Volume()
+    - maxon.GridAccessorInterface
     - GridAccessorRef.InitWithWriteAccess()
     - GridAccessorRef.SetValue()
-    - maxon.frameworks.volume.VolumeToolsInterface.MixVectorVolumes()
+    - maxon.VolumeToolsInterface.MixVectorVolumes()
     - c4d.VolumeObject
     - VolumeObject.SetVolume()
 
 """
 import c4d
 import maxon
-from maxon.frameworks import volume
 
 
 def CreateVectorVolume(vectorValue):
@@ -29,15 +28,15 @@ def CreateVectorVolume(vectorValue):
         vectorValue (maxon.Vector32): The vector value to set.
 
     Returns:
-        maxon.frameworks.volume.VolumeRef: The created Vector volume with the value defined inside.
+        maxon.VolumeRef: The created Vector volume with the value defined inside.
     """
     # Creates volume
-    volumeRef = maxon.frameworks.volume.VolumeToolsInterface.CreateNewVector32Volume(maxon.Vector32(0.0))
+    volumeRef = maxon.VolumeToolsInterface.CreateNewVector32Volume(maxon.Vector32(0.0))
     if volumeRef is None:
         raise MemoryError("Failed to create a float32 volume.")
 
     # Creates accessor
-    access = maxon.frameworks.volume.GridAccessorInterface.Create(maxon.Vector32)
+    access = maxon.GridAccessorInterface.Create(maxon.Vector32)
     if access is None:
         raise RuntimeError("Failed to retrieve the grid accessor.")
 
@@ -62,7 +61,7 @@ def CreateVectorObject(volumeRef, name):
     Inserts the VolumeObject into the current document.
 
     Args:
-        volumeRef (maxon.frameworks.volume.VolumeRef): The VolumeRef to use within the VolumeObject.
+        volumeRef (maxon.VolumeRef): The VolumeRef to use within the VolumeObject.
         name (str): The name of the inserted object into the scene.
     """
     # Creates VolumeObject
@@ -90,7 +89,7 @@ def main():
     CreateVectorObject(volumeRefB, "Volume B")
 
     # Mixes both vector volume together using cross product
-    resultMixVolume = volume.VolumeToolsInterface.MixVectorVolumes(volumeRefA, volumeRefB, c4d.MIXVECTORTYPE_CROSS)
+    resultMixVolume = maxon.VolumeToolsInterface.MixVectorVolumes(volumeRefA, volumeRefB, c4d.MIXVECTORTYPE_CROSS)
 
     # Inserts the mixed volume into the scene
     CreateVectorObject(resultMixVolume, "Mixed Volume")
