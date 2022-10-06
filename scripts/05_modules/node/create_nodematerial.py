@@ -101,13 +101,13 @@ def main():
     # Do the same with the Redshift node space. The Redshift plugin is not 
     # installed by default, so we call the function in an exception handling
     # context.
-    redShiftNodeSpPaceId = maxon.Id("com.redshift3d.redshift4c4d.class.nodespace")
-    if c4d.GetActiveNodeSpaceId() != redShiftNodeSpPaceId:
+    redshiftNodeSpaceId = maxon.Id("com.redshift3d.redshift4c4d.class.nodespace")
+    if c4d.GetActiveNodeSpaceId() != redshiftNodeSpaceId:
         try:
-            root = CreateMaterialForNodeSpace(redShiftNodeSpPaceId)
+            root = CreateMaterialForNodeSpace(redshiftNodeSpaceId)
             PrintChildren(root)
         except:
-            print(f"The node space with id {redShiftNodeSpPaceId} does not exist")
+            print(f"The node space with id {redshiftNodeSpaceId} does not exist")
 
     # Pushes an update event to Cinema 4D
     c4d.EventAdd()
