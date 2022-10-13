@@ -1,7 +1,0 @@
-STRINGTABLE Opyspherifydeformer
-{
-	Opyspherifydeformer "Spherify";
-
-	PYSPHERIFYDEFORMER_RADIUS		"Radius";
-	PYSPHERIFYDEFORMER_STRENGTH	"Strength";
-}
