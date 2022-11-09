@@ -26,17 +26,20 @@ def main():
     if nodeMaterial is None:
         raise ValueError("Cannot retrieve nodeMaterial reference")
 
-    # Create the node space ID for the standard's node space
-    nodespaceId = maxon.Id("net.maxon.nodespace.standard")
+    # Define the ID of standard material node space and print a warning when the active node space
+    # is not the the standard material node space.
+    nodeSpaceId = maxon.Id("net.maxon.nodespace.standard")
+    if nodeSpaceId != c4d.GetActiveNodeSpaceId():
+        print (f"Warning: Active node space is not: {nodeSpaceId}")
 
-    # Add a graph for the standard node space
-    addedGraph = nodeMaterial.AddGraph(nodespaceId)
+    # Add a graph for the standard node space.
+    addedGraph = nodeMaterial.CreateDefaultGraph(nodeSpaceId)
     if addedGraph is None:
         raise ValueError("Cannot add a graph node for this node space")
 
     # Retrieve the Nimbus reference for a specific node space from which we 
     # will retrieve the graph. One could also use 'addedGraph' defined above.
-    nimbusRef = mat.GetNimbusRef(nodespaceId)
+    nimbusRef = mat.GetNimbusRef(nodeSpaceId)
     if nimbusRef is None:
         raise ValueError("Cannot retrieve the nimbus ref for that node space")
 

@@ -9,14 +9,14 @@ Description:
     NodeMaterials inherit from BaseMaterial. To be able to use the functions 
     that are in the NodeMaterial class, the BaseMaterial must be cast to a 
     NodeMaterial. This is done with the function GetNodeMaterialReference. To 
-    add a graph to an existing node space, one must use the function AddGraph.
+    create a graph to an existing node space, one must use the function CreateDefaultGraph.
     If one wants to have access to an already added node graph, one must 
     retrieve the nimbus reference which does store the graph. Once one has 
     retrieved the graph, one can access the root that contains all the nodes.
     
 Class/method highlighted:
     - GetNodeMaterialReference
-    - AddGraph
+    - CreateDefaultGraph
     - GetActiveNodeSpaceId
     - GetChildren
     - GetNimbusRef
@@ -46,11 +46,11 @@ def CreateMaterialForNodeSpace(nodespaceId):
         raise ValueError("Cannot retrieve nodeMaterial reference.")
 
     # Add a graph for the space Id
-    addedGraph = nodeMaterial.AddGraph(nodespaceId)
-    if addedGraph is None:
-        raise ValueError("Cannot add a GraphNode for this NodeSpace.")
+    createdGraph = nodeMaterial.CreateDefaultGraph(nodespaceId)
+    if createdGraph is None:
+        raise ValueError("Cannot create a GraphNode for this NodeSpace.")
 
-    # Retrieve the Nimbus reference for a specific NodeSpace. This Nimbus reference allow you to retreive the end node.
+    # Retrieve the Nimbus reference for a specific NodeSpace. This Nimbus reference allow you to retrieve the end node.
     nimbusRef = mat.GetNimbusRef(nodespaceId)
     if nimbusRef is None:
         raise ValueError(
@@ -101,13 +101,13 @@ def main():
     # Do the same with the Redshift node space. The Redshift plugin is not 
     # installed by default, so we call the function in an exception handling
     # context.
-    redShiftNodeSpPaceId = maxon.Id("com.redshift3d.redshift4c4d.class.nodespace")
-    if c4d.GetActiveNodeSpaceId() != redShiftNodeSpPaceId:
+    redshiftNodeSpaceId = maxon.Id("com.redshift3d.redshift4c4d.class.nodespace")
+    if c4d.GetActiveNodeSpaceId() != redshiftNodeSpaceId:
         try:
-            root = CreateMaterialForNodeSpace(redShiftNodeSpPaceId)
+            root = CreateMaterialForNodeSpace(redshiftNodeSpaceId)
             PrintChildren(root)
         except:
-            print(f"The node space with id {redShiftNodeSpPaceId} does not exist")
+            print(f"The node space with id {redshiftNodeSpaceId} does not exist")
 
     # Pushes an update event to Cinema 4D
     c4d.EventAdd()

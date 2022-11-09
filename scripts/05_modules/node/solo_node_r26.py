@@ -30,7 +30,7 @@ def main():
     nodespaceId = c4d.GetActiveNodeSpaceId()
 
     # Add a graph for the space Id
-    addedGraph = nodeMaterial.AddGraph(nodespaceId)
+    addedGraph = nodeMaterial.CreateDefaultGraph(nodespaceId)
     if addedGraph is None:
         raise ValueError("Cannot add a graphnode for this nodespace")
 

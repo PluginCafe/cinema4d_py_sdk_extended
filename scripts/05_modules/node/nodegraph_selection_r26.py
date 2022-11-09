@@ -9,7 +9,7 @@ Description:
 Class/method highlighted:
     - BeginTransaction
     - SelectPort
-    - SelectWire
+    - SelectConnection
 """
 import c4d
 import maxon
@@ -32,7 +32,7 @@ def main():
     nodespaceId = c4d.GetActiveNodeSpaceId()
 
     # Add a graph for the space Id
-    addedGraph = nodeMaterial.AddGraph(nodespaceId)
+    addedGraph = nodeMaterial.CreateDefaultGraph(nodespaceId)
     if addedGraph is None:
         raise ValueError("Cannot add a graphnode for this nodespace")
 
@@ -105,7 +105,7 @@ def main():
         res = port.GetConnections(maxon.PORT_DIR.OUTPUT, connections)
         print(port, res, connections)
         for connection in connections:
-            graph.SelectWire(port, connection[0])
+            maxon.GraphModelHelper.SelectConnection(port, connection[0])
         return True
 
     # Select the wire between the material node (end node) and the BSDF node
