@@ -1,5 +1,5 @@
 #coding: utf-8
-"""Demonstrates how to extend polygonal geometry at the example of extruding polygons.
+"""Demonstrates how to modify polygonal geometry at the example of extruding polygons.
 
 The example will either extrude the selected polygons of the selected PolygonObject instance, or, 
 when no object selection is present, generate an example geometry which then will be extruded.
@@ -7,7 +7,7 @@ when no object selection is present, generate an example geometry which then wil
 Note:
     See the modelling_smc_extrude example when interested in extruding points, edges, or polygons
     with the Extrude tool in a convenient manner. This example is not about the Extrude tool but 
-    about how such tool can be implemented.
+    about how such geometry operation can be implemented.
 
 Topics:
     * Extruding polygons
@@ -23,8 +23,8 @@ Examples:
 Overview:
     It is not recommended to reinvent the wheel for basic operations as extruding polygons. While 
     writing their basic functionality can be trivial, implementing all functions and updating the 
-    adjacent data as uv or normal data is often non-trivial or at least very labor-intensive. 
-    SendModellingCommand() should be used whenever possible, as it will do all these things for 
+    adjacent data as uv or normal data is often non-trivial or at least very labour-intensive. 
+    SendModelingCommand() should be used whenever possible, as it will do all these things for 
     free. This file serves as a simple example for how such tool works which constructs geometry on
     existing geometry.
 """
@@ -140,8 +140,8 @@ def GetPolygonNormal(points: typing.Collection[c4d.Vector]) -> c4d.Vector:
         h = points[index - 1] if index > 0 else points[count - 1]
         i = points[index]
         j = points[index + 1] if index < (count - 1) else points[0]
-        # Compute the cross product for the two edges of the vertex.
         e1, e2 = (h - i), (i - j)
+        # Compute the cross product (with the % operator) for the two edges e1 and e2 of the vertex.
         vertexNormals.append(e1 % e2)
 
     # Return normalized mean of #vertexNormals. The operator ~ carries out normalization for the
@@ -152,14 +152,8 @@ def GetPolygonNormal(points: typing.Collection[c4d.Vector]) -> c4d.Vector:
 def ExtrudePolygonObject(node: c4d.PolygonObject, distance: float) -> c4d.PolygonObject:
     """Extrudes the selected polygons in a polygon object.
 
-    Usually something like this does not have to be done, and it is better to use the existing
-    modelling commands of Cinema 4D. While it is manageable to write something like an extrude
-    operation, it is quite labor-intensive to do all the adjacent operations which have to be
-    carried out, as for example updating UVW, custom normal, or other data. This example only 
-    modifies the geometry of #node to showcase how something like this is done in principle, but
-    does not update any 'adjacent' data as for example UVW data. It is also the most simplistic
-    implementation possible, and does not provide features as extruding 'islands' and negative 
-    extrusion depths.
+    This is the most simplistic implementation possible and does not provide features as extruding 
+    'islands' and negative extrusion depths.
 
     Args:
         node: The polygon object to extrude the selected polygon.
@@ -218,7 +212,7 @@ def ExtrudePolygonObject(node: c4d.PolygonObject, distance: float) -> c4d.Polygo
         # A diagram of the operation of extruding the polygon #P.
         #
         #         d'------- c'
-        #        /|        /|
+        #        /|   Q    /|
         #       / |       / |
         #      a'------- b' |/
         #     -|- d -----|- c --
@@ -228,11 +222,12 @@ def ExtrudePolygonObject(node: c4d.PolygonObject, distance: float) -> c4d.Polygo
         #     /         /
         #
         #   P                 The to be extruded (and removed) polygon.
-        #   a, b, c, d        The vertices of the to be extruded polygon #P.
+        #   Q                 The new extruded top-face polygon.
+        #   a, b, c, d        The vertices of the to be extruded polygon #Q.
         #   a', b', c', d'    The extruded vertices.
 
-        # Extrude the points. An extruded point is defined as the sum of the original point and the
-        # the polygon normal scaled to the extrusion depth.
+        # Extrude the points. An extruded point is defined as the sum of the original point and
+        # the polygon normal of P scaled to the extrusion depth.
         a_ = a + normal * distance
         b_ = b + normal * distance
         c_ = c + normal * distance
@@ -246,13 +241,13 @@ def ExtrudePolygonObject(node: c4d.PolygonObject, distance: float) -> c4d.Polygo
         points += [a_, b_, c_] if isTriangle else [a_, b_, c_, d_]
 
         # Construct the new polygons. Just as for constructing the cube object example, the order
-        # of polygons does not carry and special meaning, but the order of vertices does, as it will
+        # of polygons does not carry any special meaning, but the order of vertices does, as it will
         # determine the normal of the polygon. See the example function ConstructPolygonObject() in
         # geometry_types_xxx.py which constructs a cube object for fundamental information on
         # polygons and polygon objects.
         #
         #         d'------- c'
-        #        /|        /|
+        #        /|   Q    /|
         #       / |       / |
         #      a'------- b' |/
         #     -|- d -----|- c --
@@ -264,16 +259,16 @@ def ExtrudePolygonObject(node: c4d.PolygonObject, distance: float) -> c4d.Polygo
         newPolygons = [
             # The to be extruded polygon is a quadrangle.
             c4d.CPolygon(ia_, ib_, ic_, id_),  # The polygon at the top
-            c4d.CPolygon(ia, ib, ib_, ia_),   # The polygon for the edge #ab
-            c4d.CPolygon(ib, ic, ic_, ib_),   # The polygon for the edge #bc
-            c4d.CPolygon(ic_, ic, id, id_),   # The polygon for the edge #cd
-            c4d.CPolygon(id_, id, ia, ia_),   # The polygon for the edge #da
+            c4d.CPolygon(ia, ib, ib_, ia_),    # The polygon for the edge #ab
+            c4d.CPolygon(ib, ic, ic_, ib_),    # The polygon for the edge #bc
+            c4d.CPolygon(ic_, ic, id, id_),    # The polygon for the edge #cd
+            c4d.CPolygon(id_, id, ia, ia_),    # The polygon for the edge #da
         ] if not isTriangle else [
             # The to be extruded polygon is a triangle.
             c4d.CPolygon(ia_, ib_, ic_, ic_),  # The polygon at the top
-            c4d.CPolygon(ia, ib, ib_, ia_),   # The polygon for the edge #ab
-            c4d.CPolygon(ib, ic, ic_, ib_),   # The polygon for the edge #bc
-            c4d.CPolygon(ic_, ic, ia, ia_)    # The polygon for the edge #ca
+            c4d.CPolygon(ia, ib, ib_, ia_),    # The polygon for the edge #ab
+            c4d.CPolygon(ib, ic, ic_, ib_),    # The polygon for the edge #bc
+            c4d.CPolygon(ic_, ic, ia, ia_)     # The polygon for the edge #ca
         ]
 
         # Append the new polygons to the list of polygons of the object.

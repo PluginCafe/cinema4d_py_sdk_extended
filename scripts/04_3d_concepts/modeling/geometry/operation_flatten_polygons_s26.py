@@ -32,7 +32,7 @@ Overview:
     in general. Less 'adjacent' data of a point object is affected by simple point transformations, 
     e.g., a UVW tag will still be valid. But a NormalTag for example will be invalidated by a point
     deformation of the PolygonObject it has been built for. Just as for modelling operations which 
-    construct geometry, it is therefore recommended to instead use SendModellingCommand() wherever 
+    construct geometry, it is therefore recommended to instead use SendModelingCommand() wherever 
     possible. This file serves as a simple example for how such tool works which deforms the points
     of a geometry.
 """
@@ -241,7 +241,7 @@ def FlattenPolygonObjectSelection(node: c4d.PolygonObject, strength: float) -> c
     meanPoint = GetMean(selectedPoints)
 
     # Project the selected points into the mean plane of #selectedPolygonIds and then overwrite the
-    # ordinal point, depending on #strength.
+    # original point, depending on #strength.
     for pid in selectedPointIds:
         p = ProjectIntoPlane(points[pid], meanPoint, meanNormal)
         # MixVec() computes the linear interpolation between two vectors.

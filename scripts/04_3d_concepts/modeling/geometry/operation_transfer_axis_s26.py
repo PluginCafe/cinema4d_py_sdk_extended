@@ -44,8 +44,8 @@ def TransferAxisTo(node: c4d.PointObject, target: c4d.BaseObject) -> None:
     """Transforms the coordinate system of #node to #target while keeping its vertices in place.
 
     Args:
-        node: The node to transfer the axis for.
-        target: The node to transfer the axis to.
+        node: The object to transfer the axis for.
+        target: The object to transfer the axis to.
     """
     if not isinstance(node, c4d.PointObject):
         raise TypeError(f"Expected {c4d.PointObject} for {node}.")

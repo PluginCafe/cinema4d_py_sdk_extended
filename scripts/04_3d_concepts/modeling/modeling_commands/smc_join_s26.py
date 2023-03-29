@@ -1,11 +1,14 @@
 #coding: utf-8
 """Demonstrates how to execute the 'Join' tool.
 
-Invokes 'Join' tool on the currently selected objects in the active document via SendModellingCommand.
+Invokes 'Join' tool on the currently selected objects in the active document via `SendModelingCommand`.
 
 Topics:
     * The 'Join' tool
-    * c4d.utils.SendModellingCommand()
+    * c4d.utils.SendModelingCommand()
+
+Note:
+    See `smc_extrude_s26.py` for a more in depth overview of the topic of `SendModelingCommand`.
 """
 __author__ = "Ferdinand Hoppe"
 __copyright__ = "Copyright (C) 2022 MAXON Computer GmbH"
@@ -40,7 +43,7 @@ def main(doc: c4d.documents.BaseDocument) -> None:
     #         Object 2.1.1
     #
 
-    # The dummy document.
+    # An empty dummy document to carry the command out with.
     temp = c4d.documents.BaseDocument()
 
     # Insert clones of all input objects under a new null object and insert that null object into
@@ -61,7 +64,7 @@ def main(doc: c4d.documents.BaseDocument) -> None:
     # Execute the Join command in the dummy document.
     res = c4d.utils.SendModelingCommand(command=c4d.MCOMMAND_JOIN, 
                                         list=[null], 
-                                        mode=c4d.MODELINGCOMMANDMODE_POLYGONSELECTION, 
+                                        mode=c4d.MODELINGCOMMANDMODE_ALL, 
                                         bc=bc, 
                                         doc=temp, 
                                         flags=c4d.MODELINGCOMMANDFLAGS_CREATEUNDO)
@@ -93,6 +96,5 @@ def main(doc: c4d.documents.BaseDocument) -> None:
 
 
 if __name__ == '__main__':
-    c4d.CallCommand(13957)  # Clear the console.
     # #doc is a predefined module attribute as defined at the top of the file.
     main(doc)

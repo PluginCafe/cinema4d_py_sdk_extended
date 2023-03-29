@@ -1,5 +1,5 @@
 #coding: utf-8
-"""Demonstrates how to use the SendModellingCommand (SMC) function in general at the example of the 
+"""Demonstrates how to use the `SendModelingCommand` (SMC) function in general at the example of the 
 'Extrude' tool.
 
 Extrudes the active selection of the currently selected polygon object in the mode the active 
@@ -8,7 +8,7 @@ these three modes for the script to succeed.
 
 Topics:
     * The 'Extrude' tool
-    * c4d.utils.SendModellingCommand()
+    * c4d.utils.SendModelingCommand()
 
 Overview:
     There are in principle two ways to execute modelling commands: In the original document a node
@@ -20,15 +20,15 @@ Overview:
     
       * SMC calls which are not done from a non-main thread for a node in a loaded document.
       * Tools or tasks for which the complexity of a document directly impacts runtime of the tool
-        but not the not the result of the tool; imagine huge amounts of irrelevant data the tool 
-        might has to traverse.
+        but not the result of the tool; imagine huge amounts of irrelevant data the tool might has 
+        to traverse.
       * Some tools require setups which make a dummy document desirable, e.g., the 'Join' tool.
     
     But using a dummy document has also drawbacks:
       
        * It is computationally much more demanding since all relevant data has first to be copied 
          over and then back again.
-       * Inserting the SMC result back into its original document can be labor-intensive when the
+       * Inserting the SMC result back into its original document can be labour-intensive when the
          result is meant to replace the original object and cannot be inserted as new object. For 
          example all BaseLink parameters in that document which link to that node must then be found
          and updated too.
@@ -87,11 +87,9 @@ def main(doc: c4d.documents.BaseDocument, op: typing.Optional[c4d.BaseObject]) -
     objects = [clone]
 
     # A modelling command has also a mode of operation. The extrude tool for example behaves 
-    # differently, depending on in which editor mode the document is. E.g., being in edge mode will 
-    # extrude the active edge selection. The mode passed to SMC will emulate this and allows for
-    # example to extrude the polygons of an object which is in a document which is in edge mode. 
-    # The example here ties the SMC mode to the mode of active document. There are also more SMC
-    # modes than shown here.
+    # differently, depending on in which editor mode (point, edge, polygon, object) the document 
+    # is in. E.g., being in edge mode will extrude the active edge selection. The example here ties 
+    # the SMC mode to the mode of active document. There are also more SMC modes than shown here.
     docMode = doc.GetMode()
     if docMode == c4d.Mpoints:
         mode = c4d.MODELINGCOMMANDMODE_POINTSELECTION
@@ -131,13 +129,8 @@ def main(doc: c4d.documents.BaseDocument, op: typing.Optional[c4d.BaseObject]) -
     if not doc.StartUndo():
         raise RuntimeError("Could not open undo stack.")
 
-    # Shift #clone in its local coordinate system for bounding-box size units on the x-axis (plus 
-    # 50 units for good measure) and rename the node.
-    offset = c4d.Vector(clone.GetRad().x * 2 + 50, 0, 0)
-    clone.SetMl(clone.GetMl() * c4d.utils.MatrixMove(offset))
+    # Rename the node and insert it back.
     clone.SetName(f"{clone.GetName()} (SMC)")
-
-    # Insert #clone back.
     doc.InsertObject(clone)
 
     # Add an undo and close the stack.
@@ -152,6 +145,5 @@ def main(doc: c4d.documents.BaseDocument, op: typing.Optional[c4d.BaseObject]) -
 
 
 if __name__ == '__main__':
-    c4d.CallCommand(13957)  # Clear the console.
     # #doc and #op are predefined module attributes as defined at the top of the file.
     main(doc, op)

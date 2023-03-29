@@ -1,0 +1,8 @@
+STRINGTABLE fies_loader
+{
+	fies_loader										    "IES Import Settings";
+  IES_IMPORT_GROUP                  "IES option group";
+	IES_IMPORT_PRINT_TO_CONSOLE			  "Print to console?";
+
+
+}

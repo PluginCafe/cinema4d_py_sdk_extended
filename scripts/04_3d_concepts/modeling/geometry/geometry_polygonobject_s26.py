@@ -13,16 +13,16 @@ Examples:
     * ConstructPolygonObject(): Demonstrates constructing polygon objects at the example of a cube.
 
 Overview:
-    User-editable polygon object are represented by the type PolygonObject which is derived form 
-    PointObject. PolygonObject instances haves points expressed as Vector instances and polygons 
-    expressed asCPolygon instances. But there is no type which represent edges, as edges are only a
-    virtual concept that is only indirectly accessible through selections.
+    User-editable polygon objects are represented by the type `PolygonObject` which is derived from 
+    `PointObject`. `PolygonObject` instances carry points and polygons expressed as lists of 
+    `Vector` and `CPolygon` instances. But there is no type which represent edges, as edges are only
+    a virtual concept that is only indirectly accessible through selections.
 
     The vertex and polygon normals which are formed by a PolygonObject are not exposed directly. 
-    Instead, only sets of (possibly) interpolated vertex normals can be accessible by either a 
-    PhongTag or NormalTag attached to the polygon object; but there is no guarantee that they are
-    present. Which in turn means that the non-interpolated vertex or polygon normals should be 
-    computed manually in Python.
+    Instead, only sets of (possibly) interpolated vertex normals are accessible via either a 
+    `PhongTag` or `NormalTag` attached to the polygon object; but there is no guarantee that these
+    tags are present. Which in turn means that the non-interpolated vertex or polygon normals must
+    be computed manually.
 """
 __author__ = "Ferdinand Hoppe"
 __copyright__ = "Copyright (C) 2022 MAXON Computer GmbH"
@@ -37,7 +37,7 @@ doc: c4d.documents.BaseDocument  # The currently active document.
 op: typing.Optional[c4d.BaseObject]  # The selected object within that active document. Can be None.
 
 
-def ConstructPolygonObject(doc: c4d.documents.BaseDocument) -> None:
+def ConstructPolygonObject() -> None:
     """Demonstrates constructing polygon objects at the example of a cube.
 
     Args:
@@ -64,9 +64,8 @@ def ConstructPolygonObject(doc: c4d.documents.BaseDocument) -> None:
     # A polygon object also provides access to a set of polygons.
     polygons = cube.GetAllPolygons()
 
-    # But there is no such thing as GetAllEdges(), as edges are only an abstract concept that is
-    # not reflected in types or explicitly stored data.
-
+    # But there is no such thing as GetAllEdges(), as edges are only implicitly defined by 
+    # neighbouring indices in `CPolygon` instances.
     print (f"\nPoints and polygons of '{cube.GetName()}' after allocation:")
     print(f"{cube.GetAllPoints() = }")
     print(f"{cube.GetAllPolygons() = }")
@@ -110,16 +109,15 @@ def ConstructPolygonObject(doc: c4d.documents.BaseDocument) -> None:
     # points provided by a PolygonObject.
     quad = c4d.CPolygon(0, 1, 2, 3)
 
-    # The type provides access to the four fields #a, #b, #c, and #d, but they store only the 
-    # indices passed to the initializer of the instance and not the points they reference.
+    # The type provides access to the four fields #a, #b, #c, and #d. The fields store the indices
+    # of the points the polygon is referencing, not the actual points.
     print (f"\n{quad.a = }, {quad.b = }, {quad.c = }, {quad.d = }")
 
     # The order of point indices matters, inverting the point order will also invert the normal of 
     # the polygon.
     inverted = c4d.CPolygon(3, 2, 1, 0)
 
-    # Not only quadrangles are stored in this fashion, but also triangles. A triangle will simply 
-    # repeat its last index.
+    # A `CPolygon` storing a triangle will repeat its third point index in its field #d.
     tri = c4d.CPolygon(0, 1, 2, 2)
 
     # This can also be tested with the method IsTriangle() instead of comparing #c and #d.
@@ -155,14 +153,11 @@ def ConstructPolygonObject(doc: c4d.documents.BaseDocument) -> None:
         # not. 
         # 
         # The normal of a polygon is determined by the cross product of the edges of its vertices.
-        # When applying the right-hand-rule to the vectors #a = (0, 1) and #b = (2, 1), the two 
-        # edge vectors for the edges adjacent to the point #1, one's thumb must point downwards 
-        # when aligning the index finger with the vector #a and the middle finger with the vector 
-        # #b. However, when switching the order of the two edges, and #a is (2, 1) and #b is (0, 1), 
-        # one's thumb will point upwards, the direction the normal of that polygon should point to. 
+        # For the edges #a = (0, 1) and #b = (2, 1), the normal of the polygon would face downwards.
+        # However, when switching the order of the two edges, and #a is (2, 1) and #b is (0, 1), 
+        # the normal will face upwards, the direction the normal of that polygon should point to. 
         # The vertices must therefore be placed in a clockwise order (in relation to the diagram) 
-        # to have the polygon normal face into the desired direction. If seems overly complicated,
-        # trial and error is also a valid option ;)
+        # to have the polygon normal face into the desired direction. 
         c4d.CPolygon(3, 2, 1, 0),
 
         # The bottom side. There is no need for putting the polygons in any 'logical' order, a 
@@ -247,7 +242,7 @@ def main(doc: c4d.documents.BaseDocument) -> None:
     # Run the example constructing a polygon object.
     cube = ConstructPolygonObject(doc)
 
-     # Insert the polygon object into the document, wrapping the operation into an undo.
+    # Insert the polygon object into the document, wrapping the operation into an undo.
     if not doc.StartUndo():
         raise RuntimeError("Could not open undo stack.")
 

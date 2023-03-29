@@ -1,0 +1,13 @@
+CONTAINER fies_loader
+{
+	INCLUDE Fbase;
+	NAME fies_loader;
+	
+	GROUP IES_IMPORT_GROUP
+	{
+		DEFAULT 1;
+		
+		BOOL IES_IMPORT_PRINT_TO_CONSOLE {}
+
+	}
+}

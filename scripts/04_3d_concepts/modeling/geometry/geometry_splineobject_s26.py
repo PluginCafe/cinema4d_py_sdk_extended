@@ -1,7 +1,7 @@
 #coding: utf-8
 """Explains the user-editable spline object model of the classic API.
 
-The example constructs two simple spline objects, one without tangents and one with tangents.
+The example constructs two spline objects, one without tangents and one with tangents.
 
 Topics:
     * Constructing spline objects
@@ -12,9 +12,10 @@ Examples:
     * ConstructSplineObject(): Demonstrates constructing linear and Bezier spline objects.
 
 Overview:
-    User-editable spline object are represented by the type SplineObject which is derived form 
+    User-editable spline object are represented by the type SplineObject which is derived from 
     PointObject. Other than PolygonObject, a SplineObject instance is a generator object and has an 
-    underlying cache, a LineObject instance.
+    underlying cache, a LineObject instance. A LineObject represents a SplineObject and its 
+    interpolation settings as a series of line segments.
 
     SplineObject instances can be composed out of disjunct segments, which are not be confused with
     the segments of a LineObject. Imagine for example two circles that are part of the same spline, 
@@ -34,9 +35,6 @@ Overview:
                     interpolation between two vertices.
         Bezier:    A spline with user-definable vertex tangents that will interpolate with Bezier 
                     interpolation between two vertices.
-
-    It is these interpolation types and settings which determine in conjunction with the point and
-    tangent data of a SplineObject the LineObject cache of a spline.
 """
 __author__ = "Ferdinand Hoppe"
 __copyright__ = "Copyright (C) 2022 MAXON Computer GmbH"
@@ -51,7 +49,7 @@ doc: c4d.documents.BaseDocument  # The currently active document.
 op: typing.Optional[c4d.BaseObject]  # The selected object within that active document. Can be None.
 
 
-def ConstructSplineObject(doc: c4d.documents.BaseDocument) -> tuple[c4d.SplineObject]:
+def ConstructSplineObject() -> tuple[c4d.SplineObject]:
     """Demonstrates constructing linear and Bezier spline objects.
 
     Args:
@@ -168,7 +166,7 @@ def ConstructSplineObject(doc: c4d.documents.BaseDocument) -> tuple[c4d.SplineOb
     bezSpline[c4d.SPLINEOBJECT_CLOSED] = True
 
     # The following code will construct a spline containing two closed diamond shapes just as the
-    # liner spline example (the point data will be reused in fact).
+    # linear spline example (the point data will be reused in fact).
     #
     #      1               5
     #     / \             / \
@@ -247,7 +245,7 @@ def ConstructSplineObject(doc: c4d.documents.BaseDocument) -> tuple[c4d.SplineOb
     for i, pair in enumerate(tangents):
         bezSpline.SetTangent(id=i, vl=pair[0], vr=pair[1])
 
-    # After updating the vertices of a PointObject, the message MSG_UPDATE should be sent to it.
+    # After updating the points of a PointObject, the message MSG_UPDATE must be sent to it.
     bezSpline.Message(c4d.MSG_UPDATE)
 
     # Set the name and position of the spline.

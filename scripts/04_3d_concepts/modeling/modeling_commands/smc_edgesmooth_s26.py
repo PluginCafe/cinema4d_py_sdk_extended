@@ -2,11 +2,14 @@
 """Demonstrates how to execute the 'Edge Smooth' tool.
 
 Invokes 'Edge Smooth' tool on the currently selected object for its currently selected edges in 
-the active document via SendModellingCommand.
+the active document via `SendModelingCommand`.
 
 Topics:
     * The 'Edge Smooth' tool
-    * c4d.utils.SendModellingCommand()
+    * c4d.utils.SendModelingCommand()
+
+Note:
+    See `smc_extrude_s26.py` for a more in depth overview of the topic of `SendModelingCommand`.
 """
 __author__ = "Ferdinand Hoppe"
 __copyright__ = "Copyright (C) 2022 MAXON Computer GmbH"
@@ -50,6 +53,5 @@ def main(doc: c4d.documents.BaseDocument, op: typing.Optional[c4d.BaseObject]) -
 
 
 if __name__ == '__main__':
-    c4d.CallCommand(13957)  # Clear the console.
     # #doc and #op are predefined module attributes as defined at the top of the file.
     main(doc, op)
