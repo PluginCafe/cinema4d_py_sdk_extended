@@ -1,5 +1,5 @@
 #coding: utf-8
-"""Demonstrates setting up a node material composed out of multiple nodes.
+"""Demonstrates setting up a Standard renderer node material composed out of multiple nodes.
 
 Creates a new node material with a graph in the standard material space, containing two texture 
 nodes and a blend node, in addition to the default BSDF and material node of the material.
@@ -9,43 +9,21 @@ Topics:
     * Adding nodes to a graph
     * Setting the value of ports without wires
     * Connecting ports with a wires
-    * (Asset API): Using texture assets in a node graph
 
+Change Notes:
+    01/09/2023: Updated script to align better with new create_redshift_material_2024.py for 2924.0
 """
 __author__ = "Ferdinand Hoppe"
 __copyright__ = "Copyright (C) 2023 MAXON Computer GmbH"
 __date__ = "09/01/2023"
 __license__ = "Apache-2.0 License"
-__version__ = "2023.0.0"
+__version__ = "2023.1.0"
 
 
 import c4d
 import maxon
 
 doc: c4d.documents.BaseDocument # The active document.
-
-def GetFileAssetUrl(aid: maxon.Id) -> maxon.Url:
-    """Returns the asset URL for the given file asset ID.
-    """
-    # Bail when the asset ID is invalid.
-    if not isinstance(aid, maxon.Id) or aid.IsEmpty():
-        raise RuntimeError(f"{aid = } is not a a valid asset ID.")
-
-    # Get the user repository, a repository which contains almost all assets, and try to find the
-    # asset description, a bundle of asset metadata, for the given asset ID in it.
-    repo: maxon.AssetRepositoryRef = maxon.AssetInterface.GetUserPrefsRepository()
-    if repo.IsNullValue():
-        raise RuntimeError("Could not access the user repository.")
-    
-    asset: maxon.AssetDescription = repo.FindLatestAsset(
-        maxon.AssetTypes.File(), aid, maxon.Id(), maxon.ASSET_FIND_MODE.LATEST)
-    if asset.IsNullValue():
-        raise RuntimeError(f"Could not find file asset for {aid}.")
-
-    # When an asset description has been found, return the URL of that asset in the "asset:///"
-    # scheme for the latest version of that asset.
-    return maxon.AssetInterface.GetAssetUrl(asset, True)
-
 
 def main() -> None:
     """Runs the example.
@@ -54,8 +32,8 @@ def main() -> None:
     # "tex/Surfaces/Dirt Scratches & Smudges/". These could also be replaced with local texture URLs,
     # e.g., "file:///c:/textures/stone.jpg". These IDs can be discovered with the #-button in the info
     # area of the Asset Browser.
-    urlTexRust: maxon.Url = GetFileAssetUrl(maxon.Id("file_edb3eb584c0d905c"))
-    urlTexSketch: maxon.Url = GetFileAssetUrl(maxon.Id("file_3b194acc5a745a2c"))
+    urlTexRust: maxon.Url = maxon.Url(r"asset:///file_edb3eb584c0d905c")
+    urlTexSketch: maxon.Url = maxon.Url(r"asset:///file_3b194acc5a745a2c")
 
     # The node asset IDs for the two node types to be added in the example; the image node and the
     # blend node. These and all other node IDs can be discovered in the node info overlay in the 
@@ -70,7 +48,7 @@ def main() -> None:
         raise MemoryError(f"{material = }")
 
     nodeMaterial: c4d.NodeMaterial = material.GetNodeMaterialReference()
-    graph: maxon.GraphModelRef = nodeMaterial.AddGraph(maxon.Id("net.maxon.nodespace.standard"))
+    graph: maxon.GraphModelRef = nodeMaterial.CreateDefaultGraph(maxon.Id("net.maxon.nodespace.standard"))
     if graph.IsNullValue():
         raise RuntimeError("Could not add standard graph to material.")
 

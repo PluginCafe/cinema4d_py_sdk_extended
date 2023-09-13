@@ -22,8 +22,9 @@ import c4d
 # SceneLoader are registered earlier than Cinema 4D Resource parser.
 # To have all the constant defined in fies_loader.h, you need to manually parse them
 import os
-import symbol_parser
-symbol_parser.parse_and_export_in_caller(os.path.join(os.path.dirname(__file__), "res"))
+import mxutils
+
+mxutils.ImportSymbols(os.path.join(os.path.dirname(__file__), "res"))
 
 PLUGIN_ID = 1059408
 

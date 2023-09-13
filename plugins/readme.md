@@ -141,14 +141,7 @@ A data class for creating scene saver plugins (custom scene file format exporter
 
     Exporter, exporting all IES Meta information from the current document to a txt files.
     Iterates all objects present in the cache of each objects in the scene to retrieve IES light.
-	
-## SceneLoaderData
-A data class for creating custom scene file format importer.
-
-### py-ies_meta_loader
-
-	Importer, creating IES light from a file exported with the ies_meta_exporter.
-
+    
 ## BitmapLoaderData
 A data class for creating bitmap loader plugins (custom bitmap file format importer).
 
