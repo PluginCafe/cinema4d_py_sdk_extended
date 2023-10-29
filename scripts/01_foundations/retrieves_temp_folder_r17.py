@@ -61,7 +61,7 @@ def CRC(rawString):
         k >>= 8
         crc = crc32tab_o32[(crc & 0xff) ^ (k & 0xff)] ^ (crc >> 8)
 
-    return format(crc ^ 0xffffffff, 'x').upper()
+    return format(crc ^ 0xffffffff, '08x').upper()
 
 
 def GetTempFolder(instalDir):
