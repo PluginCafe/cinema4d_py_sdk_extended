@@ -1,4 +1,4 @@
-# The official Cinema 4D Python examples.
+# The official Cinema 4D Python examples
 
 ## Introduction
 
