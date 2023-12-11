@@ -77,17 +77,23 @@ class IESMetaLoader(c4d.plugins.SceneLoaderData):
     """IESMeta Loader"""
     dialog = None
 
-    def Init(self, node):
+    def Init(self, node, isCloneInit=False):
         """
         Called when a new instance of this object is created. In this context, this allow to define
         the option by default for the SceneLoaderPlugin that will be displayed to the user.
-        
+
+        Args:
+            node (c4d.GeListNode): The instance of the SceneLoaderData.
+            isCloneInit (bool): True if the scene loader data is a copy of another one.
+
         Returns:
             bool: False if there was an error, otherwise True.
         """
         # Define the default value for the parameters.
         self.InitAttr(node, bool, IES_IMPORT_PRINT_TO_CONSOLE)
-        node[IES_IMPORT_PRINT_TO_CONSOLE] = True
+
+        if not isCloneInit:
+            node[IES_IMPORT_PRINT_TO_CONSOLE] = True
         return True
 
     def Identify(self, node, name, probe, size):

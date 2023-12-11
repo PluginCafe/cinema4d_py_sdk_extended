@@ -147,11 +147,12 @@ class DoubleCircleHelper(object):
 class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
     """CircleObject Generator"""
 
-    def Init(self, node):
+    def Init(self, node, isCloneInit=False):
         """Called when Cinema 4D initializes the ObjectData.
 
         Args:
             node (c4d.GeListNode): The instance of the ObjectData.
+            isCloneInit (bool): True if the object data is a copy of another one.
 
         Returns:
             bool: True on success, otherwise False.
@@ -161,14 +162,15 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
         if data is None:
             return False
 
-        # Defines default values in the BaseContainer
-        data.SetFloat(c4d.PYCIRCLEOBJECT_RAD, 200.0)
-        data.SetInt32(c4d.PRIM_PLANE, c4d.PRIM_PLANE_XY)
-        data.SetBool(c4d.PRIM_REVERSE, False)
-        data.SetInt32(c4d.SPLINEOBJECT_INTERPOLATION, c4d.SPLINEOBJECT_INTERPOLATION_ADAPTIVE)
-        data.SetInt32(c4d.SPLINEOBJECT_SUB, 8)
-        data.SetFloat(c4d.SPLINEOBJECT_ANGLE, c4d.utils.Rad(5.0))
-        data.SetFloat(c4d.SPLINEOBJECT_MAXIMUMLENGTH, 5.0)
+        if not isCloneInit:
+            # Defines default values in the BaseContainer
+            data.SetFloat(c4d.PYCIRCLEOBJECT_RAD, 200.0)
+            data.SetInt32(c4d.PRIM_PLANE, c4d.PRIM_PLANE_XY)
+            data.SetBool(c4d.PRIM_REVERSE, False)
+            data.SetInt32(c4d.SPLINEOBJECT_INTERPOLATION, c4d.SPLINEOBJECT_INTERPOLATION_ADAPTIVE)
+            data.SetInt32(c4d.SPLINEOBJECT_SUB, 8)
+            data.SetFloat(c4d.SPLINEOBJECT_ANGLE, c4d.utils.Rad(5.0))
+            data.SetFloat(c4d.SPLINEOBJECT_MAXIMUMLENGTH, 5.0)
         return True
 
     def GetContour(self, node, doc, lod, bt):

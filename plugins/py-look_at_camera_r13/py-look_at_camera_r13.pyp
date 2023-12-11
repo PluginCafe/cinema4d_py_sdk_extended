@@ -20,11 +20,12 @@ PLUGIN_ID = 1028284
 class LookAtCamera(c4d.plugins.TagData):
     """Look at Camera"""
     
-    def Init(self, node):
+    def Init(self, node, isCloneInit=False):
         """Called when Cinema 4D Initialize the TagData (used to define, default values).
 
         Args:
             node (c4d.GeListNode): The instance of the TagData.
+            isCloneInit (bool): True if the tag data is a copy of another one.
 
         Returns:
             True on success, otherwise False.

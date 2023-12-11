@@ -37,7 +37,7 @@ def main():
         raise RuntimeError("Failed to retrieve BaseContainer private data.")
 
     # Defines the settings
-    objImport[c4d.OBJIMPORTOPTIONS_PHONG_ANGLE_DEFAULT] = 22.5
+    objImport[c4d.OBJIMPORTOPTIONS_PHONG_ANGLE_DEFAULT] = c4d.utils.DegToRad(22.5)
     if c4d.GetC4DVersion() > 22600:
         objImport[c4d.OBJIMPORTOPTIONS_IMPORT_UVS] = c4d.OBJIMPORTOPTIONS_UV_ORIGINAL
     else:

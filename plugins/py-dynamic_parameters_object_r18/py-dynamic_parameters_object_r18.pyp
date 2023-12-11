@@ -42,18 +42,20 @@ class DynamicParametersObjectData(c4d.plugins.ObjectData):
         self.parameters = []    # Dynamic parameters value
         self.randomID = 0       # Random dynamic parameter ID to disable (see GetDEnabling() below)
 
-    def Init(self, node):
+    def Init(self, node, isCloneInit=False):
         """Called by Cinema 4D on the initialization of the ObjectData, usually the place to define parameters value.
 
         Args:
             node (c4d.GeListNode): The instance of the ObjectData.
+            isCloneInit (bool): True if the object data is a copy of another one.
 
         Returns:
             bool: True if the initialization was successful, otherwise False, preventing Cinema 4D from creating the object.
         """
 
-        # Defines how many parameters the object will have
-        node[c4d.OPYDYNAMICPARAMETERSOBJECT_PARAMETERSNUMBER] = 10
+        if not isCloneInit:
+            # Defines how many parameters the object will have
+            node[c4d.OPYDYNAMICPARAMETERSOBJECT_PARAMETERSNUMBER] = 10
 
         return True
 

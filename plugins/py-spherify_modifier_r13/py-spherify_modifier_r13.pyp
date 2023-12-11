@@ -38,11 +38,12 @@ class SpherifyModifier(c4d.plugins.ObjectData):
         self.falloff = None
         self.falloffDirty = True
 
-    def Init(self, op):
+    def Init(self, op, isCloneInit=False):
         """Called when Cinema 4D Initialize the ObjectData (used to define, default values).
 
         Args:
             op: (c4d.GeListNode): The instance of the ObjectData.
+            isCloneInit (bool): True if the object data is a copy of another one.
 
         Returns:
             True on success, otherwise False.
@@ -50,8 +51,9 @@ class SpherifyModifier(c4d.plugins.ObjectData):
         self.InitAttr(op, float, c4d.PYSPHERIFYMODIFIER_RADIUS)
         self.InitAttr(op, float, c4d.PYSPHERIFYMODIFIER_STRENGTH)
 
-        op[c4d.PYSPHERIFYMODIFIER_RADIUS] = 200.0
-        op[c4d.PYSPHERIFYMODIFIER_STRENGTH] = 0.5
+        if not isCloneInit:
+            op[c4d.PYSPHERIFYMODIFIER_RADIUS] = 200.0
+            op[c4d.PYSPHERIFYMODIFIER_STRENGTH] = 0.5
 
         # Assigns falloff
         if self.falloff is None and c4d.API_VERSION > 19000:

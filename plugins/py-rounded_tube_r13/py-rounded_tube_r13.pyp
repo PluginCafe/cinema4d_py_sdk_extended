@@ -150,11 +150,12 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
         super(RoundedTube, self).__init__(*args)
         self.SetOptimizeCache(True)
 
-    def Init(self, op):
+    def Init(self, op, isCloneInit=False):
         """Called when Cinema 4D Initialize the ObjectData (used to define, default values).
 
         Args:
             op: (c4d.GeListNode): The instance of the ObjectData.
+            isCloneInit (bool): True if the object data is a copy of another one.
 
         Returns:
             bool: True on success, otherwise False.
@@ -168,14 +169,15 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
         self.InitAttr(op, int, c4d.PY_TUBEOBJECT_SEG)
         self.InitAttr(op, int, c4d.PRIM_AXIS)
 
-        op[c4d.PY_TUBEOBJECT_RAD] = 200.0
-        op[c4d.PY_TUBEOBJECT_IRADX] = 50.0
-        op[c4d.PY_TUBEOBJECT_IRADY] = 50.0
-        op[c4d.PY_TUBEOBJECT_SUB] = 1
-        op[c4d.PY_TUBEOBJECT_ROUNDSUB] = 8
-        op[c4d.PY_TUBEOBJECT_ROUNDRAD] = 10.0
-        op[c4d.PY_TUBEOBJECT_SEG] = 36
-        op[c4d.PRIM_AXIS] = c4d.PRIM_AXIS_YP
+        if not isCloneInit:
+            op[c4d.PY_TUBEOBJECT_RAD] = 200.0
+            op[c4d.PY_TUBEOBJECT_IRADX] = 50.0
+            op[c4d.PY_TUBEOBJECT_IRADY] = 50.0
+            op[c4d.PY_TUBEOBJECT_SUB] = 1
+            op[c4d.PY_TUBEOBJECT_ROUNDSUB] = 8
+            op[c4d.PY_TUBEOBJECT_ROUNDRAD] = 10.0
+            op[c4d.PY_TUBEOBJECT_SEG] = 36
+            op[c4d.PRIM_AXIS] = c4d.PRIM_AXIS_YP
         return True
 
     def GetDimension(self, op, mp, rad):

@@ -6,6 +6,7 @@ Provides examples for creating and modifying node graphs with the Nodes API.
 
 | File | Description |
 | :- | :- |
+| access_graph_entities_xxxx.py | Demonstrates the inner structure of node graphs and how to find entities in them. |
 | access_nodematerial_xxxx.py | Demonstrates accessing node materials in their graph contents in a scene. |
 | create_nodematerial_xxxx.py | Demonstrates creating new node materials and adding graphs to them. |
 | create_redshift_nodematerial_xxxx.py | Demonstrates setting up a Redshift node material composed out of multiple nodes. |

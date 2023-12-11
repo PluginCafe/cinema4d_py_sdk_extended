@@ -22,11 +22,12 @@ PLUGIN_ID = 1053134
 
 class CustomIconObjectData(c4d.plugins.ObjectData):
 
-    def Init(self, node):
+    def Init(self, node, isCloneInit=False):
         """Called by Cinema 4D to initialize the instance.
 
         Args:
             node (c4d.GeListNode): The instance of the ObjectData.
+            isCloneInit (bool): True if the object data is a copy of another one.
 
         Returns:
             bool: True on success, otherwise False.
@@ -42,10 +43,6 @@ class CustomIconObjectData(c4d.plugins.ObjectData):
 
         # Defines the custom color mode used with the previously created BaseContainer already filled
         iconSettings.SetContainer(0, iconSpecialModes)
-
-        # Since we are going to use our custom MSG_GETCUSTOMICONS code,
-        # set this to True so parent object (e.g. BaseObject) will ignore MSG_GETCUSTOMICONS messages.
-        iconSettings.SetBool(c4d.ID_ICONCHOOSER_SETTINGS_PARENT_IGNORE, True)
 
         #  Sets icon settings container into the current Object instance data container
         node.GetDataInstance().SetContainer(c4d.ID_ICONCHOOSER_SETTINGS, iconSettings)
@@ -93,7 +90,7 @@ class CustomIconObjectData(c4d.plugins.ObjectData):
             settings._specialColors = arr
 
             # Fills the CustomIconSettings with the passed BaseContainer object
-            c4d.CustomIconSettings.FillCustomIconSettingsFromBaseList2D(settings, node.GetData(), node.GetType(), True)
+            c4d.CustomIconSettings.FillCustomIconSettingsFromBaseList2D(settings, node.GetDataInstance(), node.GetType(), True)
 
             # Finally fills the icon Data settings with the CustomIconSettings
             c4d.CustomIconSettings.GetCustomIcon(data, settings, True)
@@ -115,9 +112,11 @@ if __name__ == "__main__":
         raise MemoryError("Failed to initialize the BaseBitmap.")
 
     # Registers the object plugin
+    # Since we are going to use our custom MSG_GETCUSTOMICONS code,
+    # set TAG_ICONCHOOSER_PARENT_IGNORE o parent object (e.g. BaseObject) will ignore MSG_GETCUSTOMICONS messages.
     c4d.plugins.RegisterObjectPlugin(id=PLUGIN_ID,
                                      str="py-Custom Icon Object Data",
                                      g=CustomIconObjectData,
                                      description="py_custom_icon",
                                      icon=bmp,
-                                     info=c4d.OBJECT_GENERATOR)
+                                     info=c4d.OBJECT_GENERATOR | c4d.TAG_ICONCHOOSER_PARENT_IGNORE)

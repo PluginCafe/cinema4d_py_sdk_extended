@@ -172,12 +172,22 @@ class OffsetYSpline(c4d.plugins.ObjectData):
     _childContourDirty = 0  # type: int
     _childGVODirty = -1  # type: int
 
-    def Init(self, op):
+    def Init(self, op, isCloneInit=False):
+        """Called when Cinema 4D Initialize the ObjectData (used to define, default values).
+
+        Args:
+            op: (c4d.GeListNode): The instance of the ObjectData.
+            isCloneInit (bool): True if the object data is a copy of another one.
+
+        Returns:
+            bool: True on success, otherwise False.
+        """
         if op is None:
             raise RuntimeError("Failed to retrieve op.")
 
         self.InitAttr(op, float, [c4d.PY_OFFSETYSPLINE_OFFSET])
-        op[c4d.PY_OFFSETYSPLINE_OFFSET] = 100.0
+        if not isCloneInit:
+            op[c4d.PY_OFFSETYSPLINE_OFFSET] = 100.0
 
         # Defines members variable to store the dirty state of Children Spline
         self._childContourDirty = 0

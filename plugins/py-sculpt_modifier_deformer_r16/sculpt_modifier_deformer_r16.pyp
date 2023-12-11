@@ -31,11 +31,12 @@ class SculptModifierDeformer(c4d.plugins.ObjectData):
     def __init__(self):
         self.brushInterface = None
 
-    def Init(self, node):
+    def Init(self, node, isCloneInit=False):
         """Called when Cinema 4D Initialize the ObjectData (used to define, default values).
 
         Args:
             node (c4d.GeListNode): The instance of the ObjectData.
+            isCloneInit (bool): True if the object data is a copy of another one.
 
         Returns:
             True on success, otherwise False.
@@ -48,13 +49,14 @@ class SculptModifierDeformer(c4d.plugins.ObjectData):
         self.InitAttr(node, int, c4d.PYSCULPTMODIFIERDEFORMER_SEED)
         self.InitAttr(node, float, c4d.PYSCULPTMODIFIERDEFORMER_STAMP_ROTATION)
 
-        node[c4d.PYSCULPTMODIFIERDEFORMER_RADIUS] = 20
-        node[c4d.PYSCULPTMODIFIERDEFORMER_PRESSURE] = 0.2
-        node[c4d.PYSCULPTMODIFIERDEFORMER_STAMP_ACTIVE] = False
-        node[c4d.PYSCULPTMODIFIERDEFORMER_NUMSTAMPS] = 10
-        node[c4d.PYSCULPTMODIFIERDEFORMER_STAMP_USEFALLOFF] = True
-        node[c4d.PYSCULPTMODIFIERDEFORMER_SEED] = 0
-        node[c4d.PYSCULPTMODIFIERDEFORMER_STAMP_ROTATION] = 0
+        if not isCloneInit:
+            node[c4d.PYSCULPTMODIFIERDEFORMER_RADIUS] = 20
+            node[c4d.PYSCULPTMODIFIERDEFORMER_PRESSURE] = 0.2
+            node[c4d.PYSCULPTMODIFIERDEFORMER_STAMP_ACTIVE] = False
+            node[c4d.PYSCULPTMODIFIERDEFORMER_NUMSTAMPS] = 10
+            node[c4d.PYSCULPTMODIFIERDEFORMER_STAMP_USEFALLOFF] = True
+            node[c4d.PYSCULPTMODIFIERDEFORMER_SEED] = 0
+            node[c4d.PYSCULPTMODIFIERDEFORMER_STAMP_ROTATION] = 0
 
         self.brushInterface = c4d.modules.sculpting.SculptModifierInterface()
 

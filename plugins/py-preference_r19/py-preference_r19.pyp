@@ -101,11 +101,12 @@ class PreferenceHelper(object):
 
 class Preference(c4d.plugins.PreferenceData, PreferenceHelper):
 
-    def Init(self, node):
+    def Init(self, node, isCloneInit=False):
         """Called by Cinema 4D on the initialization of the PreferenceData, the place to define the type of object.
 
         Args:
             node (c4d.GeListNode): The instance of the PreferenceData.
+            isCloneInit (bool): True if the preference data is a copy of another one.
 
         Returns:
             True if the initialization success, otherwise False will not create the object.
