@@ -21,4 +21,6 @@ The Cinema 4D API provides classes to describe complex 3D scenes and tools to ed
   * **scene_management**: *Scene management such as layers, markers, undo, etc...*
   
   * **take_system**: *The Take System makes it possible to handle variations of a scene in one BaseDocument.*
+
+* **simulation**: *Contains code examples for the simulation tools of Cinema 4D, such as its particle system.*
   
