@@ -74,7 +74,8 @@ class TextureBakerThread(c4d.threading.C4DThread):
         self.bakeData = bakeData
 
         # Initializes bake process
-        bakeInfo = c4d.utils.InitBakeTexture(self.doc, self.textags, self.texuvws, self.destuvws, self.bakeData, self.Get())
+        bakeInfo = c4d.utils.InitBakeTexture(self.doc, self.textags, self.texuvws, self.destuvws, 
+                                             self.bakeData, self.Get())
         self.bakeDoc = bakeInfo[0]
         self.bakeError = bakeInfo[1]
 
@@ -82,7 +83,7 @@ class TextureBakerThread(c4d.threading.C4DThread):
             return False
 
         # Starts bake thread
-        self.Start(c4d.THREADMODE_ASYNC, c4d.THREADPRIORITEXY_BELOW)
+        self.Start(c4d.THREADMODE_ASYNC, c4d.THREADPRIORITYEX_BELOW)
 
         return True
 
@@ -93,7 +94,8 @@ class TextureBakerThread(c4d.threading.C4DThread):
 
     def Main(self):
         # Bake Texture Thread Main routine
-        self.bakeError = c4d.utils.BakeTexture(self.bakeDoc, self.bakeData, self.bakeBmp, self.Get(), self.BakeTextureHook)
+        self.bakeError = c4d.utils.BakeTexture(self.bakeDoc, self.bakeData, self.bakeBmp, self.Get(), 
+                                               self.BakeTextureHook)
 
         # Sends core message once baking has finished
         c4d.SpecialEventAdd(PLUGIN_ID)

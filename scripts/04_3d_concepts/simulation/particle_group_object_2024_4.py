@@ -10,15 +10,6 @@ To run this script, create a new particle emitter object in the scene, select th
 particle group object, press play to simulate the particles, and then run the script. The script 
 will print selected particle data and create null objects representing these particles in the scene.
 
-Note:
-    - The method ParticleGroupObject.GetAttributeChannelData() is currently bugged for the color and 
-      alignment channels. We must use here the specialized functions GetParticleColorsR and
-      GetParticleAlignmentsR. This will be fixed in a future version of Cinema 4D.
-    - The setter c4d.Quaternion.v is currently bugged. This will be fixed in a future version of
-      Cinema 4D. But this makes it currently impossible to construct a c4d.Quaternion from the
-      maxon::Quaternion32 data exposed by the particle system. As a workaround, we can construct
-      a particle alignment from the particle velocity.
-
 See Also:
     - Python Software Foundation (2024). struct module: Formatting Characters. 
       url: https://docs.python.org/3/library/struct.html#format-characters
@@ -30,12 +21,13 @@ __license__ = "Apache-2.0 License"
 __version__ = "2024.4"
 
 import c4d
+import maxon
 import pprint
 import struct
 import mxutils
 
 doc: c4d.documents.BaseDocument  # The currently active document.
-op: c4d.BaseObject | None # The primary selected object in `doc`. Can be `None`.
+op: c4d.BaseObject | None  # The primary selected object in `doc`. Can be `None`.
 
 
 def GetParticleInfo(op: c4d.ParticleGroupObject, channel: str) -> dict:
@@ -160,52 +152,38 @@ def GetParticleColors(op: c4d.ParticleGroupObject) -> list[c4d.Vector4d]:
 
     More of the same, but here we have a four component vector.
     """
-    # GetAttributeChannelData is currently bugged for the color channel, we must use the specialized
-    # function here for now.
-
-    # colBuffer: memoryview = op.GetAttributeChannelData("net.maxon.particles.attribute.color")
-    colBuffer: memoryview = op.GetParticleColorsR()
+    colBuffer: memoryview = op.GetAttributeChannelData("net.maxon.particles.attribute.color")
     if colBuffer is None:
         return []
 
     info: dict = GetParticleInfo(op, "net.maxon.particles.attribute.color")
     stride: int = info["Data Stride in bytes"]
 
-    return [c4d.Vector4d(*struct.unpack_from("ffff", colBuffer, i))
+    return [maxon.ColorA(*struct.unpack_from("ffff", colBuffer, i))
             for i in range(0, len(colBuffer), stride)]
 
 
 def GetParticleAlignments(op: c4d.ParticleGroupObject) -> list[tuple]:
-    """Unpacks the particle alignments. 
+    """Unpacks the particle alignments.
 
     The alignments are expressed as maxon.Quaternion32. Note that this type is NOT identical to
     c4d.Quaternion.
     """
-    # GetAttributeChannelData is currently bugged for the alignment channel, we must use the
-    # specialized function here for now.
-
-    # alignBuffer: memoryview = op.GetAttributeChannelData("net.maxon.particles.attribute.alignments")
-    alignBuffer: memoryview = op.GetParticleAlignmentsR()
+    alignBuffer: memoryview = op.GetAttributeChannelData("net.maxon.particles.attribute.alignments")
     if alignBuffer is None:
         return []
 
     info: dict = GetParticleInfo(op, "net.maxon.particles.attribute.alignments")
     stride: int = info["Data Stride in bytes"]
 
-    # Unpack the quaternion data from the buffer into a list of quadruples. It is currently not
-    # possible to construct a c4d.Quaternion from the data, as Quaternion.v is currently bugged.
-    # This will be fixed in a future version of Cinema 4D.
+    # Unpack the quaternion data from the buffer into a list of quadruples.
     quaternions: list[tuple] = []
     for i in range(0, len(alignBuffer), stride):
         x, y, z, w = struct.unpack_from("ffff", alignBuffer, i)
-        quaternions.append((x, y, z, w))
-
-        # In a future version of Cinema 4D, the following code will work. SetAxis cannot be used to
-        # set Quaternion.v, and .w directly.
-        # quat: c4d.Quaternion = c4d.Quaternion()
-        # quat.v = c4d.Vector(x, y, z)
-        # quat.w = w
-        # quaternions.append(quat)
+        quat: c4d.Quaternion = c4d.Quaternion()
+        quat.v = c4d.Vector(x, y, z)
+        quat.w = w
+        quaternions.append(quat)
 
     return quaternions
 
@@ -242,11 +220,6 @@ def main() -> None:
 
     # Construct global transforms for the first five particles and insert null objects for them. See
     # Python API Matrix manual for details of how to construct a matrix from a position and a vector.
-    # It is currently not possible to construct frames for the "true" alignments of particles, as
-    # the Quaternion.v property is bugged. This will be fixed in a future version of Cinema 4D. This
-    # approach is flawed as constructing a frame from one vector lacks information for one of the
-    # three degrees of freedom. The chosen up vector will impact the banking of particles.
-
     transforms: list[tuple[c4d.Vector, c4d.Vector]] = list(zip(positions, velocities))
     length: int = 5 if len(transforms) >= 5 else len(transforms)
     eps: float = 1E-5

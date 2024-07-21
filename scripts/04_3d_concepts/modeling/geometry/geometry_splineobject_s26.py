@@ -262,7 +262,7 @@ def main(doc: c4d.documents.BaseDocument) -> None:
         doc: The active document.
     """
     # Run the example constructing the two spline objects.
-    linSpline, bezSpline = ConstructSplineObject(doc)
+    linSpline, bezSpline = ConstructSplineObject()
 
     # Insert both spline objects into the document wrapped into an undo.
     if not doc.StartUndo():
