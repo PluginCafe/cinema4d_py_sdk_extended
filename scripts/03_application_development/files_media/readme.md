@@ -1,6 +1,6 @@
 # Files Medias
 
-The classic API and MAXON API provide tools and classes to handle file and media data. If possible, the classes of the MAXON API should be preferred.
+The Cinema API and MAXON API provide tools and classes to handle file and media data. If possible, the classes of the MAXON API should be preferred.
 
 Classic API:
 - **c4d.bitmaps.BaseBitmap**: *The bitmap class can be used to load, read, draw and save bitmap pictures of various formats.*

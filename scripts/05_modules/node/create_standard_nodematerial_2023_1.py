@@ -72,13 +72,13 @@ def main() -> None:
         # wire is connected to it. This is equivalent to the user setting the value to "Darken" in 
         # the Attribute Manager.
         blendPort: maxon.GraphNode = blendNode.GetInputs().FindChild("blendmode")
-        blendPort.SetDefaultValue(maxon.Id("net.maxon.render.blendmode.darken"))
+        blendPort.SetPortValue(maxon.Id("net.maxon.render.blendmode.darken"))
 
         # Set the 'File' ports of the two image nodes to the texture URLs established above.
         urlRustTexPort: maxon.GraphNode = rustImgNode.GetInputs().FindChild("url")
         urlSketchTexPort: maxon.GraphNode = sketchImgNode.GetInputs().FindChild("url")
-        urlRustTexPort.SetDefaultValue(urlTexRust)
-        urlSketchTexPort.SetDefaultValue(urlTexSketch)
+        urlRustTexPort.SetPortValue(urlTexRust)
+        urlSketchTexPort.SetPortValue(urlTexSketch)
 
         # Get the color output ports of the two texture nodes and the color blend node.
         rustTexColorOutPort: maxon.GraphNode = rustImgNode.GetOutputs().FindChild("result")

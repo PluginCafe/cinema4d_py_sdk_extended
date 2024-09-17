@@ -9,7 +9,7 @@ Class/method highlighted:
     - GetSelectedPorts
     - GetParent
     - GetAncestor
-    - GetDefaultValue
+    - GetPortValue
 """
 import c4d
 import maxon
@@ -100,9 +100,9 @@ def main():
 
         trueNodeName = GetName(trueNode)
 
-        # To retrieve and set the value of a port, Set/GetDefaultValue must 
+        # To retrieve and set the value of a port, Set/GetPortValue must 
         # be used.
-        portValue = port.GetDefaultValue()
+        portValue = port.GetPortValue()
 
         # Print the information we gathered.
         msg = (f"The port {portName} have the value {portValue}, the direct "

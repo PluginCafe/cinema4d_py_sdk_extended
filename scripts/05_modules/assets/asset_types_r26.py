@@ -203,7 +203,7 @@ def CreateMediaAsset():
     if path is None:
         return None
 
-    # Wrap the path as a maxon.Url as the maxon API only deals with file paths in this form.
+    # Wrap the path as a maxon.Url as the Maxon API only deals with file paths in this form.
     url = maxon.Url(path)
 
     # Get the user preferences repository as the repository to store the new asset in.
@@ -252,7 +252,7 @@ def CreateArbitraryFileAsset():
     if path is None:
         return None
 
-    # Wrap the path as a maxon.Url as the maxon API only deals with file paths in this form.
+    # Wrap the path as a maxon.Url as the Maxon API only deals with file paths in this form.
     url = maxon.Url(path)
 
     # Get the user preferences repository as the repository to store the new asset in.
@@ -302,7 +302,7 @@ def CreateCategoryAsset():
     categoryAsset = maxon.CategoryAsset().Create()
     assetId = maxon.AssetInterface.MakeUuid("category", False)
 
-    # Store the asset. This raises an error when the operations fails. Against our classic API
+    # Store the asset. This raises an error when the operations fails. Against our Cinema API
     # Python instincts, we do not have to check here if the operation was successful in the maxon
     # API. When some special error handling is required, a try/except/else/finally block must be
     # used. See EraseAsset() for an example.
@@ -341,7 +341,7 @@ def CreateKeywordAsset():
     keywordAsset = maxon.KeywordAssetInterface().Create()
     assetId = maxon.AssetInterface.MakeUuid("keyword", False)
 
-    # Store the asset. This raises an error when the operations fails. Against our classic API
+    # Store the asset. This raises an error when the operations fails. Against our Cinema API
     # Python instincts, we do not have to check here if the operation was successful in the maxon
     # API. When some special error handling is required, a try/except/else/finally block must be
     # used. See EraseAsset() for an example.
@@ -479,7 +479,7 @@ def LoadAssets(doc: c4d.documents.BaseDocument):
 
         # Get the scene nodes graph from the hook.
         sceneNodesHook.Message(maxon.neutron.MSG_CREATE_IF_REQUIRED)
-        sceneNodes = sceneNodesHook.GetNimbusRef(maxon.neutron.NODESPACE)
+        sceneNodes = sceneNodesHook.GetNimbusRef("net.maxon.neutron.nodespace")
         if not sceneNodes:
             raise RuntimeError("Could not retrieve Scene Nodes graph model.")
 
@@ -526,13 +526,13 @@ def LoadAssets(doc: c4d.documents.BaseDocument):
     
 
 if __name__ == "__main__":
-    # CreateObjectAsset(doc)
-    # CreateMaterialAsset(doc)
-    # CreateSceneAsset(doc)
-    # CreateMediaAsset()
-    # CreateArbitraryFileAsset()
-    # CreateCategoryAsset()
-    # CreateKeywordAsset()
-    # LinkMediaAssets(doc)
-    # LoadAssets(doc)
+    CreateObjectAsset(doc)
+    CreateMaterialAsset(doc)
+    CreateSceneAsset(doc)
+    CreateMediaAsset()
+    CreateArbitraryFileAsset()
+    CreateCategoryAsset()
+    CreateKeywordAsset()
+    LinkMediaAssets(doc)
+    LoadAssets(doc)
     c4d.EventAdd()

@@ -1,6 +1,6 @@
 # Data & Algorithms
 
-Both the classic API and the MAXON API provide simple and complex data types, data structures and basic algorithms.
+Both the Cinema API and the MAXON API provide simple and complex data types, data structures and basic algorithms.
 
 It is advised to always use these data types instead of basic data types or standard library structures. Using the provided data types ensures compatibility with all supported platforms.
 

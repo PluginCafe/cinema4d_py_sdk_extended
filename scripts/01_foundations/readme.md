@@ -1,11 +1,11 @@
 # Foundations
 
-The classic API and MAXON API provides various fundamental concepts and classes.
+The Cinema API and MAXON API provides various fundamental concepts and classes.
 
 Classic API:
-- **c4d.C4DAtom**: *Base class for many entities in the classic Cinema 4D API.*
+- **c4d.C4DAtom**: *Base class for many entities in the Cinema API.*
 - **c4d.GeListNode**: *Based on C4DAtom, provides the functionality to organize elements in linked lists and trees.*
-- **c4d.BaseList2D**: *Based on C4DAtom and GeListNode. It is a base class for many entities of the classic Cinema 4D API.*
+- **c4d.BaseList2D**: *Based on C4DAtom and GeListNode. It is a base class for many entities of the Cinema API.*
 - **c4d.GeListHead**: *A GeListHead object is the root of a list or tree of GeListNode elements.*
 - **c4d.DescID**: *Parameters of C4DAtom based elements are identified using a DescID object.*
 

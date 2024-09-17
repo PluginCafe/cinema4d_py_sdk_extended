@@ -1,5 +1,5 @@
 #coding: utf-8
-"""Explains the user-editable polygon object model of the classic API.
+"""Explains the user-editable polygon object model of the Cinema API.
 
 The example constructs a simple polygonal cube object.
 

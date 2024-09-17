@@ -7,7 +7,7 @@ Description:
     
 Class/method highlighted:
     - MoveToGroup
-    - IsSelected
+    - IsNodeSelected
 """
 import c4d
 import maxon
@@ -38,7 +38,7 @@ def main():
         raise ValueError("Cannot retrieve the graph of this nimbus ref")
 
     # Get the root of the GraphNode
-    root = graph.GetRoot()
+    root = graph.GetViewRoot()
 
     # Retrieve all nodes, child of the root node
     nodes = []
@@ -48,7 +48,7 @@ def main():
     selectedNodes = []
 
     for node in nodes:
-        if node.IsSelected():
+        if maxon.GraphModelHelper.IsNodeSelected(node):
             selectedNodes.append(node)
 
     # Group all the selected nodes in an empty node.

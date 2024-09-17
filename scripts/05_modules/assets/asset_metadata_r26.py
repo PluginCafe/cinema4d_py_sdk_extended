@@ -222,7 +222,7 @@ def AddAssetVersion(doc: c4d.documents.BaseDocument):
     # version but an object in its second version), but it is not advisable to do that to avoid
     # confusing users.
     assetVersionDescription = maxon.AssetCreationInterface.CreateObjectAsset(
-        sphere, tempDoc, storeAssetStruct, assetId, assetName, assetVersion, assetMetadata, True)
+        sphere, tempDoc, storeAssetStruct, assetId, assetName, str(assetVersion), assetMetadata, True)
 
     # See the "Versions" in the "Details" of the Asset Browser
     ShowAssetInBrowser(assetVersionDescription)
@@ -438,10 +438,10 @@ def WriteAssetMetadata():
 
 
 if __name__ == "__main__":
-    # AccessAssetDescriptionData()
-    # AddAssetVersion(doc)
-    # GenerateAssetIdentifiers()
-    # IterateAssetMetadata()
-    # ReadAssetMetadata()
-    # WriteAssetMetadata()
+    AccessAssetDescriptionData()
+    AddAssetVersion(doc)
+    GenerateAssetIdentifiers()
+    IterateAssetMetadata()
+    ReadAssetMetadata()
+    WriteAssetMetadata()
     c4d.EventAdd()

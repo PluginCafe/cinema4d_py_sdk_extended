@@ -7,7 +7,7 @@ Description:
     BDSF color port.
     
 Class/method highlighted:
-    - SetDefaultValue
+    - SetPortValue
     - GetDirectPredecessors
     - FindChild
 """
@@ -72,7 +72,7 @@ def main():
 
     with graph.BeginTransaction() as transaction:
         # Define the value of the Color's port.
-        colordePort.SetDefaultValue(maxon.ColorA(1, 0, 0, 1))
+        colordePort.SetPortValue(maxon.ColorA(1, 0, 0, 1))
         transaction.Commit()
 
     # Insert the material to the document.

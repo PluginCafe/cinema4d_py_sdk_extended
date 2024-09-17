@@ -21,7 +21,7 @@ doc: c4d.documents.BaseDocument # The active document.
 def main():
     """
     """
-    # Node materials are instances of the classic API material type #BaseMaterial. The node data
+    # Node materials are instances of the Cinema API material type #BaseMaterial. The node data
     # is attached to them as a #NodeMaterial. We can retrieve a #NodeMaterial instance for each 
     # #BaseMaterial instance, whether or not this material actually is a node material or not.
     # Because of that, we must iterate over all material in a document to find node materials and 
@@ -46,7 +46,7 @@ def main():
             
             # Now we iterate over all items in the graph.
             print (f"\nThe material '{material.GetName()}' has a graph in the node space '{nid}'.")
-            root: maxon.GraphNode = graph.GetRoot()
+            root: maxon.GraphNode = graph.GetViewRoot()
 
             # Iterate over the direct children of the graph root.
             node: maxon.GraphNode

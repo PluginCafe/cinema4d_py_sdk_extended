@@ -346,7 +346,7 @@ class SpherifyModifier(c4d.plugins.ObjectData):
                     return c4d.DRAWRESULT_FAILURE
 
             # Retrieves the object color
-            bd.SetPen(bd.GetObjectColor(bh, op))
+            bd.SetPen(bd.GetObjectColor(bh, op), c4d.SET_PEN_USE_PROFILE_COLOR)
             bd.SetMatrix_Matrix(None, c4d.Matrix())
 
             # Defines the scale/rotation where drawing will operate by the radius of the generator
@@ -389,7 +389,7 @@ class SpherifyModifier(c4d.plugins.ObjectData):
             for i in range(SpherifyModifier.HANDLECOUNT):
                 # Defines the color of the handle according of the hovered state of the object.
                 hoverColor = c4d.VIEWCOLOR_ACTIVEPOINT if hitId != i else c4d.VIEWCOLOR_SELECTION_PREVIEW
-                bd.SetPen(c4d.GetViewColor(hoverColor))
+                bd.SetPen(c4d.GetViewColor(hoverColor), 0)
 
                 # Retrieves the information of the current handle.
                 info = c4d.HandleInfo()
@@ -399,7 +399,7 @@ class SpherifyModifier(c4d.plugins.ObjectData):
                 bd.DrawHandle(info.position, c4d.DRAWHANDLE_BIG, 0)
 
             # Draw the line to the second Handle
-            bd.SetPen(c4d.GetViewColor(c4d.VIEWCOLOR_ACTIVEPOINT))
+            bd.SetPen(c4d.GetViewColor(c4d.VIEWCOLOR_ACTIVEPOINT), 0)
             bd.DrawLine(info.position, c4d.Vector(0), 0)
 
         # If the current draw pass is not the object or handle, skip this Draw Call.

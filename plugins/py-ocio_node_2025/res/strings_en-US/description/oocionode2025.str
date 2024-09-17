@@ -1,0 +1,5 @@
+STRINGTABLE Oocionode2025
+{
+  Oocionode2025              "Ocio Node 2025";
+  OCIO_NODE_2025_COLOR       "Color";
+}

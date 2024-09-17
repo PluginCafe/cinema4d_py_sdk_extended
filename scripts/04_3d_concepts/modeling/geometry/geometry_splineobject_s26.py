@@ -1,5 +1,5 @@
 #coding: utf-8
-"""Explains the user-editable spline object model of the classic API.
+"""Explains the user-editable spline object model of the Cinema API.
 
 The example constructs two spline objects, one without tangents and one with tangents.
 

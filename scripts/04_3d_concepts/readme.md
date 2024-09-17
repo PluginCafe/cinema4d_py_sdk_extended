@@ -6,9 +6,9 @@ The Cinema 4D API provides classes to describe complex 3D scenes and tools to ed
 
 ## Content
 
-* **modeling**: *The classic API provides the base classes for modeling in Cinema 4D. The MAXON API provides further, advanced modeling tools.*
+* **modeling**: *The Cinema API provides the base classes for modeling in Cinema 4D. The MAXON API provides further, advanced modeling tools.*
 
-* **rendering**: *The classic API provides tools to render a given BaseDocument*
+* **rendering**: *The Cinema API provides tools to render a given BaseDocument*
 
 * **scene_elements**: *Information about scene settings, take system, objects, tags, materials, shaders and animation.*
 

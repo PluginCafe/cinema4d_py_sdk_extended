@@ -2,11 +2,11 @@
 
 ## Introduction
 
-The classic API as well as the MAXON API provide generic application development components to handle threads, files, GUI elements etc.
+The Cinema API as well as the MAXON API provide generic application development components to handle threads, files, GUI elements etc.
 
 ## Content
 
-* **files_media**: *The classic API and MAXON API provide tools and classes to handle file and media data. If possible, the classes of the MAXON API should be preferred.*
+* **files_media**: *The Cinema API and MAXON API provide tools and classes to handle file and media data. If possible, the classes of the MAXON API should be preferred.*
 
 * **gui**: *The Cinema 4D GUI is based on "dialog" windows based on the GeDialog class. A plugin can create custom dialog windows for user interaction or creates new managers.*
   

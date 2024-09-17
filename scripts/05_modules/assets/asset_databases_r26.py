@@ -193,7 +193,7 @@ def GetImportantRepositories(doc: c4d.documents.BaseDocument):
 
         repoId = repository.GetId()
         isWriteable = repository.IsWritable()
-        name = repository.GetRepositoryName(defaultLanguage)
+        name = repository.GetRepositoryName(defaultLanguage, True)
 
         print(f"{repository} ({name}): id - {repoId}, writeable: {isWriteable}")
 
@@ -262,7 +262,7 @@ def StoreAsset():
     categoryAsset = maxon.CategoryAsset().Create()
     categoryId = maxon.AssetInterface.MakeUuid("category", False)
 
-    # Store the asset. This raises an error when the operations fails. Against our classic API
+    # Store the asset. This raises an error when the operations fails. Against our Cinema API
     # Python instincts, we do not have to check here if the operation was successful in the maxon
     # API. When some special error handling is required, a try/except/else/finally block must be
     # used. See EraseAsset() for an example.
@@ -278,8 +278,10 @@ def StoreAsset():
     # Reveal the newly created asset in the Asset Browser.
     ShowAssetInBrowser(assetDescription)
 
+    return assetDescription.GetId()
 
-def CopyAsset():
+
+def CopyAsset() -> maxon.Id :
     """Copies an asset in a repository to another asset.
 
     Running this example requires an internet connection to access the asset library shipped with
@@ -306,8 +308,8 @@ def CopyAsset():
     copyId = maxon.AssetInterface.MakeUuid("file", False)
 
     # Make a copy of the source asset with the new asset id #copyId. This raises an error when the
-    # operations fails. Against our classic API Python instincts, we do not have to check here if
-    # the operation was successful in the maxon API. When some special error handling is required,
+    # operations fails. Against our Cinema API Python instincts, we do not have to check here if
+    # the operation was successful in the Maxon API. When some special error handling is required,
     # a try/except/else/finally block must be used. See EraseAsset() for an example.
     copyDescription = repository.CopyAsset(copyId, sourceDescription)
 
@@ -328,7 +330,7 @@ def CopyAsset():
     ShowAssetInBrowser(copyDescription)
 
 
-def EraseAsset():
+def EraseAsset(eraseId: maxon.Id):
     """Removes an asset from an asset repository permanently.
     """
     # The id of the asset to erase. This must be the id of a user created asset, as assets shipped
@@ -336,7 +338,8 @@ def EraseAsset():
     # exist in your Cinema 4D instance, and you must replace it with the id of an asset which
     # you did create manually, e.g., with the CopyAsset() example above. The id of an asset can
     # be accessed with the #-button in the "Info-Area" of the Asset Browser.
-    eraseId = maxon.Id("file@141571f1463f4129b3c20014468d1f90")
+    if not isinstance(eraseId, maxon.Id):
+        raise RuntimeError(f"eraseId is not an maxon.Id received a type{eraseId}.")
 
     # Get the asset description for that asset.
     repository = maxon.AssetInterface.GetUserPrefsRepository()
@@ -344,9 +347,9 @@ def EraseAsset():
         raise RuntimeError("Could not access the user preferences repository.")
 
     assetDescription = repository.FindLatestAsset(
-        maxon.AssetTypes.File(), eraseId, maxon.Id(), maxon.ASSET_FIND_MODE.LATEST)
-    if not assetDescription:
-        raise RuntimeError("Could not find an asset with the id {eraseId}")
+        maxon.AssetTypes.Category(), eraseId, maxon.Id(), maxon.ASSET_FIND_MODE.LATEST)
+    if assetDescription.IsNullValue():
+        raise RuntimeError(f"Could not find an asset with the id {eraseId}")
 
     # Erase the asset. This raises an error when the asset is not contained in #repository.
     try:
@@ -551,15 +554,15 @@ def SortAssets():
 
 
 if __name__ == "__main__":
-    # MountAssetDatabase()
-    # UnmountAssetDatabase()
-    # AccessUserDatabases()
-    # GetImportantRepositories(doc)
-    # CreateRepositories()
-    # StoreAsset()
-    # CopyAsset()
-    # EraseAsset()
-    # SimpleAssetSearch()
-    # AdvancedAssetSearch()
-    # SortAssets()
+    MountAssetDatabase()
+    UnmountAssetDatabase()
+    AccessUserDatabases()
+    GetImportantRepositories(doc)
+    CreateRepositories()
+    assetId = StoreAsset()
+    CopyAsset()
+    EraseAsset(assetId)
+    SimpleAssetSearch()
+    AdvancedAssetSearch()
+    SortAssets()
     c4d.EventAdd()

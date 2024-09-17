@@ -1,5 +1,5 @@
 # Modelling
-Both the classic API and the maxon API provide types of geometry representations and modelling tools for them. The maxon API represents geometry with Scene Nodes, which are currently not yet documented in Python. Documented are here the classic API geometry representations and the modelling tools which exist for them, both in the classic and maxon API.
+Both the Cinema API and the Maxon API provide types of geometry representations and modelling tools for them. The Maxon API represents geometry with Scene Nodes, which are currently not yet documented in Python. Documented are here the Cinema API geometry representations and the modelling tools which exist for them, both in the Cinema and Maxon API.
 
 ## geometry
 Provides examples for the fundamental geometry types `PointObject`, `SplineObject`, `PolygonObject`, `LineObject`, and `Cpolygon`, how to construct and manipulate them, as well as for the concept of caches used by them. The manipulation and construction examples provided here are of more fundamental nature. For using existing modelling tools, see the section *modelling_commands*.

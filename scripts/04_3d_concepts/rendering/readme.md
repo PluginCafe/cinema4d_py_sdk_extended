@@ -1,6 +1,6 @@
 # Rendering
 
-The classic API provides tools to render a given BaseDocument.
+The Cinema API provides tools to render a given BaseDocument.
 
 Classic API:
 - **c4d.documents.RenderData**: *Represents a set of render settings of a BaseDocument.*

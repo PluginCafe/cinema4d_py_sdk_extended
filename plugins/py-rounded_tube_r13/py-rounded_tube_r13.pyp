@@ -388,7 +388,7 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
             # Defines the color of the handle according of the hovered state of the object.
             handleColorFlag = c4d.VIEWCOLOR_HANDLES if c4d.GetC4DVersion() >= 21000 else c4d.VIEWCOLOR_ACTIVEPOINT
             hoverColor = c4d.VIEWCOLOR_SELECTION_PREVIEW if hitId == i else handleColorFlag
-            bd.SetPen(c4d.GetViewColor(hoverColor))
+            bd.SetPen(c4d.GetViewColor(hoverColor), 0)
 
             # Retrieves the information of the current handle.
             info = c4d.HandleInfo()
@@ -398,7 +398,7 @@ class RoundedTube(c4d.plugins.ObjectData, RoundedTubeHelper):
             bd.DrawHandle(info.position, c4d.DRAWHANDLE_BIG, 0)
 
             # Sets the color back to normal before drawing lines
-            bd.SetPen(c4d.GetViewColor(handleColorFlag))
+            bd.SetPen(c4d.GetViewColor(handleColorFlag), 0)
             
             # Draws the lines 0, 1, 2 are draw in the same drawcall
             if i == 0:

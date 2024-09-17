@@ -332,7 +332,7 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
 
         # Defines the color of the handle according of the hovered state of the object.
         hoverColor = c4d.VIEWCOLOR_ACTIVEPOINT if hitId != 0 else c4d.VIEWCOLOR_SELECTION_PREVIEW
-        bd.SetPen(c4d.GetViewColor(hoverColor))
+        bd.SetPen(c4d.GetViewColor(hoverColor), 0)
 
         # Retrieves the information of the current handle.
         info = c4d.HandleInfo()
@@ -340,7 +340,7 @@ class DoubleCircleData(c4d.plugins.ObjectData, DoubleCircleHelper):
 
         # Draw the handle to the correct position
         bd.DrawHandle(info.position, c4d.DRAWHANDLE_BIG, 0)
-        bd.SetPen(c4d.GetViewColor(c4d.VIEWCOLOR_ACTIVEPOINT))
+        bd.SetPen(c4d.GetViewColor(c4d.VIEWCOLOR_ACTIVEPOINT), 0)
         bd.DrawLine(info.position, c4d.Vector(0), 0)
 
         return c4d.DRAWRESULT_OK

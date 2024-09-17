@@ -70,7 +70,7 @@ class NoiseFalloffHelper(object):
         """
 
         # Defines the Draw Color
-        bd.SetPen(c4d.GetViewColor(c4d.VIEWCOLOR_ACTIVEPOINT))
+        bd.SetPen(c4d.GetViewColor(c4d.VIEWCOLOR_ACTIVEPOINT), 0)
 
         # According the handle id, defines start/end of the line handle
         p1, p2, p3, p4 = c4d.Vector(), c4d.Vector(), c4d.Vector(), c4d.Vector()

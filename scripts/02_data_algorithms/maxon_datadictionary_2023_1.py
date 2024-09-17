@@ -28,7 +28,7 @@ def main():
         dataDict[key] = value
 
     # However, only the most atomic Python types as string, int, float, and bool are being
-    # automatically converted to their maxon API equivalent. For storing a list of integer values 
+    # automatically converted to their Maxon API equivalent. For storing a list of integer values 
     # under a key for example, one must convert that list explicitly to a BaseArray.
     dataDict["prime_numbers"] = maxon.BaseArray(maxon.Int32, [2, 3, 5, 7, 11, 13])
     

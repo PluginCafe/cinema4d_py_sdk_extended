@@ -1,5 +1,5 @@
 #coding: utf-8
-"""Explains the geometry model of the classic API in Cinema 4D.
+"""Explains the geometry model of the Cinema API in Cinema 4D.
 
 The script either evaluates the caches of the currently selected object or when there is no
 object selection, or inserts the following object hierarchy into the active document and evaluates 
@@ -10,7 +10,7 @@ the cache of "Array Object".
         +- Bend Object
 
 Topics:
-    * The geometry model of the classic API
+    * The geometry model of the Cinema API
     * The purpose and structure of generator and deform caches
     * c4d.BaseObject
     * c4d.PointObject
@@ -23,10 +23,10 @@ Examples:
     * PrintCacheTree(): Prints out the cache-tree of the passed object.
 
 Overview:
-    All geometry in the Cinema 4D classic API is represented as `BaseObject` instances. `BaseObject` 
+    All geometry in the Cinema 4D Cinema API is represented as `BaseObject` instances. `BaseObject` 
     instances can also express non-geometry entities as light objects or cameras, but they are being 
     ignored in this context. There are two fundamental types of geometry representations in the 
-    classic API:
+    Cinema API:
 
         * Generator objects
         * Non-generator objects
@@ -39,7 +39,7 @@ Overview:
     objects do not allow users to modify their underlying cache manually which also applies to 
     programmatic access.
 
-    There are two types of geometry caches in the classic API. Caches for internal representations 
+    There are two types of geometry caches in the Cinema API. Caches for internal representations 
     of generator objects, they are plainly referred to as *caches*, and *deform caches*; which can
     only be found on non-generator objects. The latter represents the state of a generator, as 
     expressed by its parameters, as a (more) discrete form. In most simple cases this means

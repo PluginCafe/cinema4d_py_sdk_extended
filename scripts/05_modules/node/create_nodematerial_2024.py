@@ -22,11 +22,11 @@ doc: c4d.documents.BaseDocument # The active document.
 def main():
     """
     """
-    # Node materials are instances of the classic API material type #BaseMaterial. The node data
+    # Node materials are instances of the Cinema API material type #BaseMaterial. The node data
     # is attached to them as a #NodeMaterial. We can retrieve a #NodeMaterial instance for each 
     # #BaseMaterial instance, whether or not this material actually is a node material or not.
 
-    # Instantiate a classic API material.
+    # Instantiate a Cinema API material.
     material: c4d.BaseMaterial = c4d.BaseMaterial(c4d.Mmaterial)
     if not material:
         raise MemoryError(f"{material = }")
@@ -42,7 +42,7 @@ def main():
     # the respective node space considers to be its default setup. For Redshift this is for example
     # an RS Standard Material node connected to an Output end node.
     print ("Nodes in CreateDefaultGraph setup:")
-    for node in graph.GetRoot().GetInnerNodes(mask=maxon.NODE_KIND.NODE, includeThis=False):
+    for node in graph.GetViewRoot().GetInnerNodes(mask=maxon.NODE_KIND.NODE, includeThis=False):
         print (f"{node}")
 
     # Remove the graph we just created.
@@ -54,7 +54,7 @@ def main():
         raise RuntimeError("Could not add graph to material.")
 
     print ("Nodes in CreateEmptyGraph setup:")
-    for node in graph.GetRoot().GetInnerNodes(mask=maxon.NODE_KIND.NODE, includeThis=False):
+    for node in graph.GetViewRoot().GetInnerNodes(mask=maxon.NODE_KIND.NODE, includeThis=False):
         print (f"{node}")
 
     # Remove the graph again.

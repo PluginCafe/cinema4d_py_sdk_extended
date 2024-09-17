@@ -57,7 +57,7 @@ def PrintGraphTree(graph: maxon.GraphModelRef) -> None:
             for item in iterTree(child, depth + 1):
                 yield item
     
-    root: maxon.GraphNode = graph.GetRoot()
+    root: maxon.GraphNode = graph.GetViewRoot()
     for node, depth in iterTree(root):
         print (f"{'  ' * depth} + '{node.GetId()}' [{kindMap.get(node.GetKind(), 'UNKNOWN KIND')}]"+
                ("" if not node.GetId().IsEmpty() else f"(Root Node)"))
@@ -83,7 +83,7 @@ def main():
         # Get the root of the graph, the node which contains all other nodes. Since we only want 
         # to read information here, we do not need a graph transaction. But for all write operations
         # we would have to start a transaction on #graph.
-        root: maxon.GraphNode = graph.GetRoot()
+        root: maxon.GraphNode = graph.GetViewRoot()
 
         # Iterate over all nodes in the graph, i.e., unpack things like nodes nested in groups. 
         # With the mask argument we could also include ports in this iteration.
@@ -160,7 +160,7 @@ def main():
             # |---+ ...                                     // Another node in the graph.
 
             # On this entity we can now read and write values. In 2023 and earlier we would have
-            # used GetDefaultValue for this, in 2024 and onward these methods have been 
+            # used GetPortValue for this, in 2024 and onward these methods have been 
             # deprecated and we use GetValue now instead.
             url: str | None = pathPort.GetValue("effectivevalue")
 
