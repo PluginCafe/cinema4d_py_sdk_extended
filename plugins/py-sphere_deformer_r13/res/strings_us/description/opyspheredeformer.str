@@ -1,0 +1,6 @@
+STRINGTABLE Opyspheredeformer
+{
+	Opyspheredeformer 				"Py-Sphere Deformer";
+	PY_SPHERE_DEFORMER_RADIUS		"Radius";
+	PY_SPHERE_DEFORMER_STRENGTH		"Strength";
+}
