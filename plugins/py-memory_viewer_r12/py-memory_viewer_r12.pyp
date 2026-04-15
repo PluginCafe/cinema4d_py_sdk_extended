@@ -30,7 +30,7 @@ import c4d
 import collections
 import os
 
-# Be sure to use a unique ID obtained from www.plugincafe.com
+# Be sure to use a unique ID obtained from developers.maxon.net
 PLUGIN_ID = 1025249
 
 

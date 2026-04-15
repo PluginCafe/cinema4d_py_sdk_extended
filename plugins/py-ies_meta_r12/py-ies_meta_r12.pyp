@@ -26,7 +26,7 @@ IDS_FOUND_LIGHTS = 1007
 IDS_IES_META_CREATED = 1008
 IDS_IES_HEADER = 1009
 
-# Be sure to use a unique ID obtained from www.plugincafe.com
+# Be sure to use a unique ID obtained from developers.maxon.net
 PLUGIN_ID = 1025281
 
 

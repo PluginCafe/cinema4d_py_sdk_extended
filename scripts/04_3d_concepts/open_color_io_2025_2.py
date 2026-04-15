@@ -378,66 +378,8 @@ def GetSetBitmapOcioProfiles(doc: c4d.documents.BaseDocument) -> None:
     # Display the bitmaps in the Picture Viewer.
     c4d.bitmaps.ShowBitmap(bitmap, "OCIO")
     c4d.bitmaps.ShowBitmap(clone, "RAW")
-
-@mxutils.SET_STATUS("Rendering...", doSpin=True)
-@mxutils.REPORT()
-def RenderOcioDocumentToPictureViewer(doc: c4d.documents.BaseDocument) -> None:
-    """Demonstrates how to render an OCIO document to the Picture Viewer or to a bitmap.
-
-    This is mostly a workaround at the moment, we will streamline this in the future. Internally,
-    things are not baked but this is only way in the SDK at the moment. As a side effect, you will
-    not see the OCIO color profiles on your bitmap in the picture viewer.
-    """
-    EnsureIsOcioDocument(doc)
-    if not doc.GetDocumentPath():
-        raise RuntimeError("This example requires a saved document to run.")
-
-    # Setup the render data and a render bitmap matching that render data.
-    renderData: c4d.documents.RenderData = doc.GetActiveRenderData()
-    data: c4d.BaseContainer = renderData.GetDataInstance()
-
-    requiresBaking: bool = data[c4d.RDATA_FORMATDEPTH] is c4d.RDATA_FORMATDEPTH_8
-    xRes: int = int(data[c4d.RDATA_XRES_VIRTUAL] or data[c4d.RDATA_XRES])
-    yRes: int = int(data[c4d.RDATA_YRES_VIRTUAL] or data[c4d.RDATA_YRES])
-    if requiresBaking:
-        data[c4d.RDATA_BAKE_OCIO_VIEW_TRANSFORM_RENDER] = False
-        
-    # We always setup our bitmap as a 32bit float bitmap, no matter what the render data is set to.
-    bmp: c4d.bitmaps.BaseBitmap = mxutils.CheckType(
-        c4d.bitmaps.MultipassBitmap(xRes, yRes, c4d.COLORMODE_RGBf))
-    bmp.AddChannel(True, True)
-
-    # Carry out the rendering and then bake the result when necessary. We also must null the
-    # profiles, as they are otherwise applied twice.
-    if c4d.documents.RenderDocument(doc, data, bmp, c4d.RENDERFLAGS_EXTERNAL) != c4d.RENDERRESULT_OK:
-        raise RuntimeError("Failed to render the temporary document.")
-    
-    if requiresBaking:
-        bmp = c4d.documents.BakeOcioViewToBitmap(bmp, data, c4d.SAVEBIT_NONE) or bmp
-        bmp.SetColorProfile(c4d.bitmaps.ColorProfile(), c4d.COLORPROFILE_INDEX_DISPLAYSPACE)
-        bmp.SetColorProfile(c4d.bitmaps.ColorProfile(), c4d.COLORPROFILE_INDEX_VIEW_TRANSFORM)
-
-    # Display the bitmap in the Picture Viewer, it will look the same as a native rendering, but
-    # will not show any OCIO color profiles in the info panel of the Picture Viewer.
-    c4d.bitmaps.ShowBitmap(bmp, "my_render")
-
-    # Save such bitmap to disk. This could be of course customized to save to other formats. Note 
-    # that the valid saving formats for a bitmap depend on the value #RDATA_FORMATDEAPTH in the 
-    # render data, as that is what #BakeOcioViewToBitmap will read out.
-    filePath: str = os.path.join(doc.GetDocumentPath(), "render_ocio.psd")
-    flags: int = c4d.SAVEBIT_MULTILAYER
-    if data[c4d.RDATA_FORMATDEPTH] is c4d.RDATA_FORMATDEPTH_16:
-        flags: int = c4d.SAVEBIT_16BITCHANNELS
-    elif data[c4d.RDATA_FORMATDEPTH] is c4d.RDATA_FORMATDEPTH_32:
-        flags: int = c4d.SAVEBIT_32BITCHANNELS
-
-    bmp.Save(filePath, c4d.FILTER_PSD, c4d.BaseContainer(), flags)
-
-    # Open the file in its native OS app.
-    os.startfile(filePath) if platform.system() == "Windows" else os.system(f"open '{filePath}'")
     
 if __name__ == "__main__":
-    RenderOcioDocumentToPictureViewer(doc)
     CopyColorManagementSettings(doc)
     GetSetColorManagementSettings(doc)
     ConvertOcioColors(doc)

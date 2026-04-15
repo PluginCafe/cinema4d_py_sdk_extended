@@ -21,10 +21,10 @@ Class/method highlighted:
 """
 import c4d
 
-# Unique plugin ID obtained from www.plugincafe.com
+# Unique plugin ID obtained from developers.maxon.net
 PLUGIN_ID = 1039699
 
-# Unique plugin ID for world preference container obtained from www.plugincafe.com
+# Unique plugin ID for world preference container obtained from developers.maxon.net
 WPREF_PYPREFERENCE = 1039700
 
 # ID for the World Preference Container parameter

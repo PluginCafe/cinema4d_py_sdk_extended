@@ -15,7 +15,7 @@ Class/method highlighted:
 """
 import c4d
 
-# Be sure to use a unique ID obtained from www.plugincafe.com
+# Be sure to use a unique ID obtained from developers.maxon.net
 PLUGIN_ID = 1031350
 
 # Values must match with the header file
@@ -29,7 +29,7 @@ class SculptBrushTwistTool(c4d.plugins.SculptBrushToolData):
         """Called by Cinema 4D, to know the plugin ID of this tool.
 
         Returns:
-            int: The unique id for the tool plugin as obtained from www.plugincafe.com
+            int: The unique id for the tool plugin as obtained from developers.maxon.net
         """
         return PLUGIN_ID
 

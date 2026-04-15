@@ -17,7 +17,7 @@ Class/method highlighted:
 import c4d
 import os
 
-# Be sure to use a unique ID obtained from www.plugincafe.com
+# Be sure to use a unique ID obtained from developers.maxon.net
 PLUGIN_ID = 1025247
 
 # Values must match with the header file, usd by c4d.plugins.GeLoadString

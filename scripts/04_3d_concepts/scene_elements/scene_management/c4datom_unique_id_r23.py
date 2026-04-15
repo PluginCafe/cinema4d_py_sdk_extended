@@ -18,7 +18,7 @@ import c4d
 
 
 def main():
-    # Obtained from www.plugincafe.com
+    # Obtained from developers.maxon.net
     uniqueID = 100000
 
     # Checks if selected object is valid

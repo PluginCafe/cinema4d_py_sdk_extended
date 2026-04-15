@@ -21,7 +21,7 @@ Class/method highlighted:
 """
 import c4d
 
-# Be sure to use a unique ID obtained from www.plugincafe.com
+# Be sure to use a unique ID obtained from developers.maxon.net
 PLUGIN_ID = 1028347
 
 

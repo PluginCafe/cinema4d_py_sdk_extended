@@ -20,7 +20,7 @@ def main():
     # The maximum allowed size is 3500 bytes
     dataBytes = b"Permanent Data"
 
-    # Obtained from www.plugincafe.com
+    # Obtained from developers.maxon.net
     uniquePluginID = 1000000
 
     # Write the data, use this within a license server environment

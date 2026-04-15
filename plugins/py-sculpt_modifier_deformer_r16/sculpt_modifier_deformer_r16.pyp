@@ -21,7 +21,7 @@ Class/method highlighted:
 import c4d
 import random
 
-# be sure to use a unique ID obtained from www.plugincafe.com
+# be sure to use a unique ID obtained from developers.maxon.net
 PLUGIN_ID = 1031586 
 ID_SCULPT_BRUSH_PULL_MODIFIER = 1030505
 
