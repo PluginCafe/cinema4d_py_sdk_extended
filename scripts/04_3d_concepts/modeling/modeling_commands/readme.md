@@ -10,3 +10,5 @@ Provides examples for executing builtin modeling tools as the *Extrude* or *Curr
 | smc_edgesmooth_xxx.py | Demonstrates how to execute the *Edge Smooth* tool. |
 | smc_flatten_xxx.py | Demonstrates how to execute the *Flatten* tool. |
 | smc_join_xxx.py | Demonstrates how to execute the *Join* tool. |
+| smc_bridge_xxx.py | Demonstrates how to execute the *Bridge* tool. ![](smc_bridge_2026_2.png) *Fig.I: The output of the example, at the bottom the output of bridging two polygon islands, at the top the result of bridging distinct elements (two polygon in this case).* |
+
