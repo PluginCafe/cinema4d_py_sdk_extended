@@ -278,9 +278,26 @@ class OcioNode2025(c4d.plugins.ObjectData):
                 isProfile = ((flags & c4d.DRAW_TEXTUREFLAGS_USE_PROFILE_COLOR) == 
                              c4d.DRAW_TEXTUREFLAGS_USE_PROFILE_COLOR)
 
-                # Draw the texture and a label for the flag below it.
+                # Draw the texture itself, ...
                 bd.DrawTexture(self._bitmap, points, texColors, texNormals, texUVs, 4, 
                                c4d.DRAW_ALPHA_NORMAL, flags)
+                
+                # ... an icon, to demonstrate drawing with alphas, ...
+                icon: c4d.bitmaps.BaseBitmap | None = c4d.bitmaps.InitResourceBitmap(c4d.Ocube)
+                if icon:
+                    size: int = 32
+                    offset: int = 4
+                    points: list[c4d.Vector] = [
+                        c4d.Vector(xb + offset, ya, 0),
+                        c4d.Vector(xb + size + offset, ya, 0),
+                        c4d.Vector(xb + size + offset, ya + size, 0),
+                        c4d.Vector(xb + offset, ya + size, 0)
+                    ]
+
+                    bd.DrawTexture(icon, points, texColors, texNormals, texUVs, 4, 
+                                   c4d.DRAW_ALPHA_NORMAL, flags)
+                    
+                # ... and finally the label below the texture. 
                 bd.DrawHUDText(xa, yb, "USE_PROFILE_COLOR" if isProfile else "NONE")
 
             # Set the drawing matrix to screen space and draw the texture once in profile color mode 
